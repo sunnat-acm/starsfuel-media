@@ -1,0 +1,14 @@
+{
+ "send_at": "2026-10-26T20:00:00+05:00",
+ "type": "rich",
+ "media": [
+  "split1/sp_top.jpg",
+  "split1/sp_mid1.jpg",
+  "split1/sp_mid2.jpg",
+  "split1/sp_mid3.jpg",
+  "split1/sp_mid4.jpg",
+  "split1/sp_mid5.jpg",
+  "split1/sp_bot.jpg"
+ ],
+ "html": "<img src=\"tg://photo?id=s1\"/><tg-slideshow><img src=\"tg://photo?id=s2\"/><img src=\"tg://photo?id=s3\"/><img src=\"tg://photo?id=s4\"/><img src=\"tg://photo?id=s5\"/><img src=\"tg://photo?id=s6\"/></tg-slideshow><img src=\"tg://photo?id=s7\"/><tg-button-row align=\"center\"><tg-button type=\"url\" style=\"success\" url=\"https://t.me/StarsFuelBot\">⭐ Botga kirish</tg-button></tg-button-row>"
+}
