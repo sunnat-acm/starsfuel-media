@@ -1,0 +1,17 @@
+{
+ "send_at": "2026-10-26T15:00:00+05:00",
+ "type": "text",
+ "text": "<b>⚡️ StarsFuel — test post</b>\n\n<blockquote>Bu kanalga avtomatik post yuborish tizimi sinovi.\nHammasi ishlayapti ✅</blockquote>\n\n<blockquote expandable>⭐ Stars · 💎 Premium · 🎁 Gift · 🖼 NFT\n🎮 PUBG UC · 🔥 Free Fire · 📱 Telegram akkaunt</blockquote>",
+ "buttons": [
+  [
+   {
+    "text": "⭐ Botga kirish",
+    "url": "https://t.me/StarsFuelBot"
+   },
+   {
+    "text": "📸 Instagram",
+    "url": "https://www.instagram.com/starsfuelapp/"
+   }
+  ]
+ ]
+}
