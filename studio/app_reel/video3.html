@@ -1,0 +1,114 @@
+<!doctype html><html><head><meta charset="utf-8"><script src="paths.js"></script>
+<style>
+@font-face{font-family:'Poppins';font-weight:500;src:url('Poppins-Medium.ttf')}
+@font-face{font-family:'Poppins';font-weight:700;src:url('Poppins-Bold.ttf')}
+html,body{margin:0;background:#000}*{box-sizing:border-box}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:#000;font-family:'Poppins',sans-serif;color:#fff}
+#logo{position:absolute;left:0;top:250px;width:1080px;display:flex;justify-content:center;align-items:center;gap:14px}
+#logo span{font-size:30px;font-weight:500;letter-spacing:.5px;opacity:.92}
+.hl{position:absolute;left:0;width:1080px;text-align:center;overflow:hidden;height:86px}
+.hl i{display:block;font-style:normal;font-weight:700;font-size:62px;line-height:86px;letter-spacing:-.5px}
+#win{position:absolute;left:40px;top:590px;width:1000px;height:720px;border-radius:30px;overflow:hidden;background:radial-gradient(ellipse at 50% 40%,#1a1c22,#0d0e11 70%);box-shadow:0 0 0 2px #24272d inset}
+#winEdge{position:absolute;left:40px;top:590px;width:1000px;height:720px;border-radius:30px;box-shadow:0 0 0 2px #2a2d34 inset,0 30px 80px rgba(0,0,0,.6);pointer-events:none}
+#dot{position:absolute;left:24px;top:22px;width:12px;height:12px;border-radius:50%;background:#E5533D;opacity:.85}
+#cam{position:absolute;left:0;top:0;width:430px;height:860px;transform-origin:0 0}
+#bez{position:absolute;left:-14px;top:-14px;width:458px;height:888px;border-radius:58px;background:#050506;box-shadow:0 0 0 2px #2e3138}
+#scr{position:absolute;left:0;top:0;width:430px;height:860px;border-radius:46px;overflow:hidden;background:#FBF4EE}
+#fr{position:absolute;left:0;top:0;width:430px;height:860px;border:0}
+#sk{position:absolute;left:-30px;top:-30px;overflow:visible}
+#scan{position:absolute;left:0;top:0;width:430px;height:6px;background:linear-gradient(90deg,transparent,#fff,transparent);box-shadow:0 0 30px 10px rgba(242,181,68,.6)}
+#pop{position:absolute;left:0;top:0;width:430px;height:860px;display:none}
+#popDim{position:absolute;inset:0;background:rgba(10,6,4,.5)}
+#popCard{position:absolute;left:48px;top:340px;width:334px;border-radius:22px;background:#fff;padding:26px 28px 18px;color:#1d1d1f;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+#popCard .tx{font-size:20px;line-height:28px;font-weight:500}
+#popCard .ok{margin-top:18px;text-align:right;font-size:20px;font-weight:700;color:#B06750}
+#cur{position:absolute;left:0;top:0;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(0,0,0,.35),0 4px 14px rgba(0,0,0,.5)}
+#ring{position:absolute;left:0;top:0;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;border:3px solid #F2B544}
+#end{position:absolute;left:40px;top:590px;width:1000px;height:720px;border-radius:30px;overflow:hidden;display:none}
+#grad{position:absolute;inset:0;background:radial-gradient(ellipse 90% 70% at 50% 115%,#F2B544 0%,#C46B4C 30%,#4A2418 58%,#0d0e11 85%)}
+#endT{position:absolute;left:0;top:320px;width:1000px;text-align:center;font-size:44px;font-weight:500}
+#wm{position:absolute;left:390px;top:330px;width:220px;height:81px;background:#fff;-webkit-mask:url(wordmark.png) center/100% 100% no-repeat;mask:url(wordmark.png) center/100% 100% no-repeat}
+#flash{position:absolute;left:40px;top:590px;width:1000px;height:720px;border-radius:30px;background:#fff;opacity:0;pointer-events:none}
+</style></head><body><div id="stage">
+ <div id="logo"><svg width="46" height="46" viewBox="4.4 4.1 2288 2285"><path id="badge" fill="#B06750" fill-rule="evenodd"/><path id="pst" fill="#FBF4EE"/></svg><span>starsfuel</span></div>
+ <div class="hl" style="top:330px"><i id="h1">Bir necha bosish —</i></div>
+ <div class="hl" style="top:412px"><i id="h2">100 Stars tayyor.</i></div>
+ <div id="win"><div id="dot"></div>
+  <div id="cam"><div id="bez"></div><div id="scr"><iframe id="fr" src="index.html"></iframe><div id="scan"></div>
+    <div id="pop"><div id="popDim"></div><div id="popCard"><div class="tx">Stars buyurtmasi muvaffaqiyatli bajarildi!</div><div class="ok">OK</div></div></div></div>
+   <svg id="sk" width="490" height="920" viewBox="-30 -30 490 920"></svg>
+   <div id="ring" style="display:none"></div><div id="cur" style="display:none"></div></div>
+ </div>
+ <div id="winEdge"></div>
+ <div id="end"><div id="grad"></div><div id="endT">Telegram'da: <b>@StarsFuelBot</b></div><div id="wm" style="opacity:0"></div></div>
+ <div id="flash"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),lerp=(a,b,p)=>a+(b-a)*p;const E0=Math.pow(2,-10);
+const eo=p=>{p=clamp(p);return (1-Math.pow(2,-10*p))/(1-E0)},ei=p=>{p=clamp(p);return (Math.pow(2,10*(p-1))-E0)/(1-E0)};
+const eio=p=>{p=clamp(p);return p<.5?ei(p*2)/2:.5+eo(p*2-1)/2};
+$('badge').setAttribute('d',BADGE_D);$('pst').setAttribute('d',STAR_D);
+const BEATS=[0.12,0.6,1.09,1.6,2.14,2.67,3.13,3.6,4.06,4.53,4.99,5.46,5.92,6.36,6.83,7.29,7.76,8.22,8.68,9.15,9.61,10.05,10.52,10.98,11.45,11.91,12.38,12.84,13.31,13.75,14.21,14.68,15.14,15.63,16.09,16.53,17.0,17.46,17.93,18.39];
+// ---------- hand-drawn sketch
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+let seed=1;const J=(a)=>(rnd(seed++)-.5)*a;
+function wob(pts,amp=3){let d='';pts.forEach((p,i)=>{d+=(i?'L':'M')+(p[0]+J(amp)).toFixed(1)+' '+(p[1]+J(amp)).toFixed(1)});return d}
+function line(x1,y1,x2,y2,amp=2.5){const n=Math.max(2,Math.round(Math.hypot(x2-x1,y2-y1)/40));const p=[];for(let i=0;i<=n;i++)p.push([lerp(x1,x2,i/n),lerp(y1,y2,i/n)]);return wob(p,amp)}
+function rect(x,y,w,h,r=8){const o=4;return line(x+r,y,x+w+o,y-1)+line(x+w,y-o,x+w+1,y+h)+line(x+w+2,y+h,x-o,y+h+1)+line(x,y+h+o,x-1,y+r-2)}
+function circ(cx,cy,r){const p=[];for(let i=0;i<=26;i++){const a=i/24*6.283-.4;p.push([cx+Math.cos(a)*r,cy+Math.sin(a)*r])}return wob(p,1.5)}
+const G=[
+ [0.6,[rect(-6,-6,442,872,40)]],
+ [1.09,[circ(47,47,21),rect(306,31,91,32,14),line(84,40,170,40),line(84,56,140,56)]],
+ [1.6,[rect(16,100,78,31),rect(104,100,96,31),rect(210,100,64,31),rect(284,100,64,31),line(16,159,165,158),rect(331,149,85,20)]],
+ [2.14,[line(31,209,170,209),rect(31,225,368,41),rect(14,185,402,296,16)]],
+ [2.67,[line(31,285,140,285),rect(31,301,368,41),circ(377,321,11)]],
+ [3.13,[rect(31,377,180,34),rect(219,377,180,34)]],
+ [3.6,[rect(31,423,368,41),line(150,444,280,443),line(0,768,430,768),...[62,147,215,283,368].map(x=>circ(x,806,14))]],
+ [4.06,[wob([[50,250],[62,238],[70,258],[86,236],[96,256]],2),wob([[52,328],[70,316],[90,330],[112,314],[130,328]],2),line(180,560,250,560),line(180,590,330,590),line(180,620,290,620)]],
+];
+const SK=[];const NS='http://www.w3.org/2000/svg';
+G.forEach(g=>g[1].forEach((d,i)=>{const p=document.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('fill','none');p.setAttribute('stroke','#EDEFF3');p.setAttribute('stroke-width','2.6');p.setAttribute('stroke-linecap','round');p.setAttribute('stroke-linejoin','round');$('sk').appendChild(p);const L=p.getTotalLength();p.style.strokeDasharray=L;SK.push({p,L,t:g[0]+i*.05})}));
+// ---------- camera keys: [t, px, py, zoom]  (phone coords)
+const S=.68;const CX=500,CY=360;// center inside window
+const CK=[[0,215,430,1.0],[4.4,215,430,1.0],[4.9,215,430,1.0],[5.05,215,250,2.25],[6.2,215,250,2.25],[6.4,215,322,2.45],[7.6,215,322,2.45],[7.8,300,394,2.7],[8.5,300,394,2.7],[8.72,215,443,2.3],[9.45,215,443,2.3],[9.7,215,420,1.75],[10.85,215,420,1.75],[11.5,330,48,3.1],[12.2,330,48,3.1],[12.75,215,430,1.0],[16.1,215,430,.92]];
+function camAt(t){for(let i=0;i<CK.length-1;i++){const a=CK[i],b=CK[i+1];if(t<=b[0]){const d=b[0]-a[0];const p=d<.4?eo((t-a[0])/d):eio((t-a[0])/d);return[lerp(a[1],b[1],p),lerp(a[2],b[2],p),lerp(a[3],b[3],p)]}}return CK[CK.length-1].slice(1)}
+window.KEYS=[];window.ALERT_T=null;window.OK_T=11.0;
+function curPos(t){let prev=null,next=null;for(const k of KEYS){if(k.t<=t)prev=k;else{next=k;break}}if(!prev&&!next)return null;if(!prev)prev={x:next.x+90,y:next.y+160,t:-9};let x=prev.x,y=prev.y;if(next&&t>next.t-.38){const p=eio((t-(next.t-.38))/.38);x=lerp(prev.x,next.x,p);y=lerp(prev.y,next.y,p)}return[x,y]}
+function seek(t){
+ // headline in
+ for(const [id,a] of [['h1',.12],['h2',.28]]){const e=$(id);const y=t<a?110:(1-eo((t-a)/.5))*110;e.style.transform=`translateY(${y}%)`}
+ $('logo').style.opacity=eo(t/.4);
+ // window intro: slight 3D settle
+ const wi=eo((t-0)/0.7);$('win').style.transform=$('winEdge').style.transform=`perspective(1600px) rotateX(${(1-wi)*14}deg) scale(${.94+.06*wi})`;
+ // beat punch
+ let bp=0;for(const b of BEATS){const d=t-b;if(d>=0&&d<.4)bp=Math.max(bp,Math.exp(-d*9))}
+ const zp=(t>4.5&&t<13.3)?1+.035*bp:1+.012*bp;
+ const[px,py,z0]=camAt(t);const z=z0*S*zp;
+ $('cam').style.transform=`translate(${CX-z*px}px,${CY-z*py}px) scale(${z})`;
+ // sketch draw
+ SK.forEach(s=>{const p=clamp((t-s.t)/.42);s.p.style.strokeDashoffset=s.L*(1-eo(p));});
+ const rv=(t-4.53)/.45;$('sk').style.opacity=t<4.53?1:1-eo(rv);
+ $('scr').style.background=t<4.53?'#0f1013':'#FBF4EE';
+ $('fr').style.clipPath=t<4.53?'inset(0 0 100% 0)':`inset(0 0 ${100-eo(rv)*100}% 0)`;
+ const sc=$('scan');sc.style.display=(t>4.5&&t<5.05)?'block':'none';sc.style.transform=`translateY(${eo(rv)*860}px)`;
+ $('bez').style.background=t<4.53?'transparent':'#050506';$('bez').style.boxShadow=t<4.53?'none':'0 0 0 2px #2e3138';
+ // cursor
+ const c=curPos(t),ce=$('cur'),re=$('ring');
+ if(c&&t>4.8&&t<12.6){ce.style.display='block';ce.style.left=c[0]+'px';ce.style.top=c[1]+'px';let sc_=1,on=false;
+  for(const k of KEYS){const d=t-k.t;if(d>=0&&d<.45){sc_=d<.08?1-.35*d/.08:.65+.35*eo((d-.08)/.2);on=true;re.style.left=k.x+'px';re.style.top=k.y+'px';const p=eo(d/.45);re.style.transform=`scale(${1+2.6*p})`;re.style.opacity=1-p;re.style.display='block'}}
+  if(!on)re.style.display='none';ce.style.transform=`scale(${sc_})`;ce.style.opacity=Math.min(eo((t-4.8)/.3),1-eo((t-12.3)/.3))}
+ else{ce.style.display='none';re.style.display='none'}
+ // popup
+ const ta=window.ALERT_T,pop=$('pop');
+ if(ta!=null&&t>=ta&&t<OK_T+.25){pop.style.display='block';const k=t>OK_T?1-eo((t-OK_T)/.2):1;$('popDim').style.opacity=eo((t-ta)/.2)*k;const p=eo((t-ta)/.3);$('popCard').style.transform=`scale(${.82+.18*p})`;$('popCard').style.opacity=Math.min(1,(t-ta)/.12)*k}else pop.style.display='none';
+ // end card (drop at 16.09)
+ const en=$('end');en.style.display=t>=16.09?'block':'none';
+ if(t>=16.09){const p=eo((t-16.09)/.5);$('grad').style.transform=`translateY(${(1-p)*40}%) scale(${1+.06*bp})`;$('grad').style.opacity=t<17.46?1:1-eo((t-17.46)/.4);
+  $('endT').style.opacity=t<17.46?eo((t-16.3)/.4):1-eo((t-17.46)/.25);$('endT').style.transform=`translateY(${(1-eo((t-16.3)/.5))*30}px)`;
+  $('end').style.background='#0d0e11';const w=$('wm');w.style.opacity=eo((t-17.6)/.35);w.style.transform=`scale(${.9+.1*eo((t-17.6)/.5)})`}
+ // flash on key hits
+ let fl=0;for(const c0 of [4.53,16.09]){const d=t-c0;if(d>=0&&d<.3)fl=Math.max(fl,.28*(1-d/.3))}$('flash').style.opacity=fl;
+}
+window.seek=seek;
+</script></body></html>

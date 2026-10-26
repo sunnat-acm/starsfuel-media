@@ -1,0 +1,183 @@
+<!doctype html><html><head><meta charset="utf-8"><script src="paths.js"></script>
+<link rel="stylesheet" href="fa/css/all.min.css">
+<style>
+@font-face{font-family:'I';font-weight:500;src:url('inter-latin-500-normal.woff2')}
+@font-face{font-family:'I';font-weight:600;src:url('inter-latin-600-normal.woff2')}
+@font-face{font-family:'I';font-weight:700;src:url('inter-latin-700-normal.woff2')}
+@font-face{font-family:'I';font-weight:800;src:url('inter-latin-800-normal.woff2')}
+@font-face{font-family:'I';font-weight:900;src:url('inter-latin-900-normal.woff2')}
+@font-face{font-family:'M';font-weight:500;src:url('jetbrains-mono-latin-500-normal.woff2')}
+@font-face{font-family:'M';font-weight:700;src:url('jetbrains-mono-latin-700-normal.woff2')}
+html,body{margin:0;background:#000}*{box-sizing:border-box}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:#000;font-family:'I',sans-serif;color:#fff}
+.L{position:absolute;left:0;top:0;width:1920px;height:1080px}
+.big{position:absolute;font-weight:900;letter-spacing:-.04em;line-height:1;white-space:nowrap}
+.tx{position:absolute;white-space:nowrap}
+#ph{position:absolute;left:0;top:0;width:430px;height:860px;margin:-430px 0 0 -215px;transform-origin:50% 50%}
+#ph .bz{position:absolute;inset:-12px;border-radius:60px;background:linear-gradient(145deg,#3a3d44,#0b0b0d 45%,#2a2c31);box-shadow:0 40px 90px rgba(0,0,0,.6)}
+#ph .sc{position:absolute;inset:0;border-radius:50px;overflow:hidden}
+.scr{position:absolute;inset:0;display:none}
+/* PAY-AUTO */
+#pay{background:#0c0d0b;font-family:'M';color:#cfd3c8}
+.pcard{position:absolute;left:18px;width:394px;border-radius:18px;background:#16180f;border:1px solid #23261b}
+.lbl{font-size:10px;letter-spacing:2px;color:#6f7466}
+.blur{display:inline-block;height:12px;border-radius:6px;background:#8a8f80;filter:blur(3px);opacity:.75;margin-right:10px}
+.cpy{position:absolute;width:30px;height:30px;border-radius:9px;border:1px solid #3a3e30;display:flex;align-items:center;justify-content:center;color:#9aa08d;font-size:13px}
+/* bank */
+#bank{background:#F3F5F8;color:#111;font-family:'I'}
+.inp{position:absolute;left:24px;width:382px;height:58px;border-radius:14px;background:#fff;border:2px solid #E1E5EB;font-size:20px;font-weight:600;padding:16px 18px;color:#222}
+.btn{position:absolute;left:24px;width:382px;height:56px;border-radius:16px;font-size:19px;font-weight:700;display:flex;align-items:center;justify-content:center;color:#fff}
+#cur{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(0,0,0,.35),0 6px 16px rgba(0,0,0,.5);display:none;z-index:9}
+#ring{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;border:4px solid #F2B544;display:none;z-index:9}
+.sum{position:absolute;width:760px;height:150px;border-radius:30px;background:#fff;color:#111;border:4px solid #2BB463;display:flex;flex-direction:column;justify-content:center;padding:0 40px}
+.sum small{font-size:26px;font-weight:600;color:#777}.sum b{font-size:70px;font-weight:900;letter-spacing:-2px}
+.mk{position:absolute;right:34px;top:42px;width:66px;height:66px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;color:#fff}
+#flash{background:#fff;opacity:0;pointer-events:none}
+#wm{position:absolute;width:520px;height:192px;background:#fff;-webkit-mask:url(wordmark.png) center/100% 100% no-repeat;mask:url(wordmark.png) center/100% 100% no-repeat}
+</style></head><body><div id="stage">
+ <div class="L" id="bg"></div>
+ <div class="L" id="back"></div>
+ <div class="L" id="mid"><div id="ph"><div class="bz"></div><div class="sc">
+  <div class="scr" id="pay">
+   <div style="position:absolute;left:22px;top:30px;display:flex;align-items:center;gap:12px"><div style="width:38px;height:38px;border-radius:10px;background:#B6F23A;color:#111;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="fas fa-bolt"></i></div><b style="font-family:'I';font-weight:900;font-size:20px;letter-spacing:4px;color:#fff">PAY·AUTO</b></div>
+   <div style="position:absolute;right:24px;top:42px;font-size:11px;color:#8fa36a;letter-spacing:2px">● LIVE</div>
+   <div class="pcard" style="top:88px;height:56px"><div class="lbl" style="position:absolute;left:18px;top:21px">TO'LOV HOLATI</div><div id="stat" style="position:absolute;right:12px;top:12px;padding:6px 12px;border-radius:14px;background:#2b2a12;color:#F2C94C;font-size:11px;letter-spacing:1.5px;font-weight:700">● KUTILMOQDA</div></div>
+   <div class="pcard" style="top:158px;height:206px" id="cardBox">
+    <div style="position:absolute;left:20px;top:22px;width:42px;height:30px;border-radius:6px;background:linear-gradient(135deg,#E9C46A,#B8902E)"></div>
+    <div class="lbl" style="position:absolute;right:18px;top:26px">HUMO</div>
+    <div class="lbl" style="position:absolute;left:20px;top:72px">KARTA RAQAMI</div>
+    <div style="position:absolute;left:20px;top:94px"><span class="blur" style="width:62px"></span><span class="blur" style="width:62px"></span><span class="blur" style="width:62px"></span><span class="blur" style="width:62px"></span></div>
+    <div class="cpy" id="cpy1" style="right:16px;top:86px"><i class="far fa-copy"></i></div>
+    <div class="lbl" style="position:absolute;left:20px;top:140px">KARTA EGASI</div>
+    <div style="position:absolute;left:20px;top:160px"><span class="blur" style="width:90px"></span></div>
+    <div class="lbl" style="position:absolute;right:58px;top:140px">O'TKAZMA SUMMASI</div>
+    <div id="pSum" style="position:absolute;right:58px;top:158px;font-size:19px;font-weight:700;color:#B6F23A">11 001 <span style="font-size:11px;color:#8a8f80">UZS</span></div>
+    <div class="cpy" id="cpy2" style="right:16px;top:156px"><i class="far fa-copy"></i></div>
+   </div>
+   <div class="pcard" style="top:378px;height:60px"><i class="far fa-calendar" style="position:absolute;left:20px;top:22px;color:#6f7466"></i><div class="lbl" style="position:absolute;left:50px;top:13px">YARATILGAN</div><div style="position:absolute;left:50px;top:30px;font-size:13px">25.10.2026 22:51</div></div>
+   <div class="pcard" style="top:452px;height:120px"><div class="lbl" style="position:absolute;left:20px;top:26px"><i class="far fa-clock"></i> QOLGAN VAQT</div><div id="tmr" style="position:absolute;right:20px;top:12px;font-size:36px;font-weight:700;color:#F2B544">19:46</div>
+    <div style="position:absolute;left:20px;top:70px;width:354px;height:6px;border-radius:3px;background:#2a2c22"><div id="tbar" style="width:98%;height:6px;border-radius:3px;background:linear-gradient(90deg,#F2B544,#B6F23A)"></div></div>
+    <div style="position:absolute;left:0;width:394px;top:88px;text-align:center;font-size:10px;color:#6f7466">Vaqt tugasa invoice avtomatik bekor qilinadi</div></div>
+   <div class="pcard" style="top:586px;height:96px;background:#1b1a10;border-color:#3a3418"><i class="fas fa-triangle-exclamation" style="position:absolute;left:20px;top:22px;color:#F2B544"></i><div style="position:absolute;left:52px;top:18px;width:320px;font-size:12px;line-height:19px;color:#d9c98a">Aynan <b style="color:#fff">11 001 UZS</b> — tiyin-tiyinigacha o'tkazing. Summa noto'g'ri bo'lsa to'lov tasdiqlanmaydi.</div></div>
+   <div id="toast" style="position:absolute;left:115px;top:770px;width:200px;padding:12px;border-radius:14px;background:#B6F23A;color:#111;font-family:'I';font-weight:800;font-size:16px;text-align:center;opacity:0">✓ Nusxalandi</div>
+  </div>
+  <div class="scr" id="bank">
+   <div style="position:absolute;left:24px;top:22px;font-size:14px;font-weight:700">9:41</div>
+   <div id="bTitle" style="position:absolute;left:24px;top:62px;font-size:24px;font-weight:800"><i class="fas fa-chevron-left" style="font-size:18px;margin-right:12px"></i><span>Kartaga o'tkazma</span></div>
+   <div id="bForm">
+    <div style="position:absolute;left:26px;top:130px;font-size:14px;color:#777;font-weight:600">Karta raqami</div>
+    <div class="inp" id="iCard" style="top:154px"></div>
+    <div id="cardOk" style="position:absolute;left:26px;top:218px;font-size:13px;color:#2BB463;font-weight:700;opacity:0">✓ Karta topildi</div>
+    <div style="position:absolute;left:26px;top:252px;font-size:14px;color:#777;font-weight:600">Summa</div>
+    <div class="inp" id="iSum" style="top:276px"><span id="sumV"></span><span style="position:absolute;right:18px;top:18px;font-size:16px;color:#999">so'm</span></div>
+    <div id="sumOk" style="position:absolute;left:26px;top:340px;font-size:13px;color:#2BB463;font-weight:700;opacity:0">✓ Sahifadagi summa bilan bir xil</div>
+    <div class="btn" id="bSend" style="top:390px;background:#C9CED6">O'tkazish</div>
+   </div>
+   <div id="bConf" style="display:none">
+    <div style="position:absolute;left:24px;top:130px;width:382px;height:180px;border-radius:18px;background:#fff;border:2px solid #E1E5EB">
+     <div style="position:absolute;left:22px;top:20px;font-size:13px;color:#888;font-weight:600">Karta</div><div style="position:absolute;left:22px;top:42px;font-size:20px;font-weight:700;letter-spacing:2px">•••• •••• •••• ••••</div>
+     <div style="position:absolute;left:22px;top:92px;font-size:13px;color:#888;font-weight:600">Summa</div><div style="position:absolute;left:22px;top:114px;font-size:30px;font-weight:900">11 001 so'm</div></div>
+    <div class="btn" id="bOk" style="top:340px;background:#2BB463">Tasdiqlash</div>
+   </div>
+   <div id="bDone" style="display:none;position:absolute;inset:0">
+    <div id="spin" style="position:absolute;left:175px;top:330px;width:80px;height:80px;border-radius:50%;border:7px solid #dfe3ea;border-top-color:#2F80ED"></div>
+    <div id="okc" style="position:absolute;left:165px;top:320px;width:100px;height:100px;border-radius:50%;background:#2BB463;color:#fff;font-size:50px;display:flex;align-items:center;justify-content:center"><i class="fas fa-check"></i></div>
+    <div id="okt" style="position:absolute;left:0;width:430px;top:450px;text-align:center"><div style="font-size:26px;font-weight:800">To'lov yuborildi</div><div style="font-size:20px;color:#666;margin-top:8px">11 001 so'm</div></div>
+   </div>
+  </div>
+ </div><div id="ring"></div><div id="cur"></div></div></div>
+ <div class="L" id="front"></div>
+ <div class="L" id="flash"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),lerp=(a,b,p)=>a+(b-a)*p;const E0=Math.pow(2,-10);
+const eo=p=>{p=clamp(p);return (1-Math.pow(2,-10*p))/(1-E0)},ei=p=>{p=clamp(p);return (Math.pow(2,10*(p-1))-E0)/(1-E0)};
+const eio=p=>{p=clamp(p);return p<.5?ei(p*2)/2:.5+eo(p*2-1)/2};
+const spr=(x,z=.5,w=18)=>{if(x<=0)return 0;const wd=w*Math.sqrt(1-z*z);return 1-Math.exp(-z*w*x)*(Math.cos(wd*x)+z*w/wd*Math.sin(wd*x))};
+const pop=u=>spr(u,.45,20),ent=(u,d=.35)=>eo(u/d);
+const B=[0.09,0.56,1.02,1.49,1.95,2.41,2.88,3.34,3.81,4.27,4.74,5.2,5.67,6.13,6.59,7.13,7.66,8.13,8.59,9.06,9.52,9.98,10.45,10.91,11.38,11.8,12.21,12.63,13.07,13.54,14.0,14.47,14.93,15.39,15.86,16.32,16.74,17.16,17.58,18.02,18.48,18.95,19.41,19.88,20.34,20.81,21.27,21.73,22.13,22.52,22.96,23.43,23.92,24.36,24.82,25.29,25.75,26.22,26.82,27.31,27.77,28.24,28.7,29.16,29.7,30.23,30.72,31.16];
+const E={};const all=[];
+function mk(par,html,css,cls){const d=document.createElement('div');if(cls)d.className=cls;d.innerHTML=html;d.style.cssText+=css||'';$(par).appendChild(d);all.push(d);return d}
+const BADGE=(sz,cls)=>`<svg width="${sz}" height="${sz}" viewBox="4.4 4.1 2288 2285"><path d="${BADGE_D}" fill="#B06750" fill-rule="evenodd"/><path d="${STAR_D}" fill="#FBF4EE"/></svg>`;
+E.logo=mk('front',BADGE(220),'left:850px;top:430px;position:absolute');
+E.dq=mk('front','DIQQAT.','left:0;width:1920px;text-align:center;top:300px;font-size:300px;color:#FFD23F','big');
+E.dqs=mk('front',"1 so'm xato = to'lov aniqlanmaydi.",'left:0;width:1920px;text-align:center;top:690px;font-size:64px;font-weight:800','tx');
+E.q3=mk('front','3 QADAM.','left:0;width:1920px;text-align:center;top:250px;font-size:250px','big');
+E.qs=[["1","Nusxa oling"],["2","Bankdan o'tkazing"],["3","Bot aniqlaydi"]].map((q,i)=>mk('front',`<span style="display:inline-flex;width:64px;height:64px;border-radius:50%;background:#B06750;align-items:center;justify-content:center;margin-right:18px">${q[0]}</span>${q[1]}`,`left:${150+i*560}px;top:640px;font-size:44px;font-weight:800;display:flex;align-items:center`,'tx'));
+E.s1a=mk('front','1','left:150px;top:300px;font-size:200px;color:#B6F23A','big');
+E.s1b=mk('front',"Karta raqamini<br>nusxa oling",'left:150px;top:520px;font-size:96px;line-height:1.05;white-space:normal','big');
+E.s2a=mk('front','2','left:150px;top:300px;font-size:200px;color:#B6F23A','big');
+E.s2b=mk('front',"Summani<br>nusxa oling",'left:150px;top:520px;font-size:96px;line-height:1.05','big');
+E.fly=mk('front',"11 001",'left:0;top:0;font-size:220px;color:#B6F23A','big');
+E.own=mk('front',"Har kimga — o'z summasi.",'left:0;width:1920px;text-align:center;top:110px;font-size:110px;color:#111','big');
+E.sums=[["Sizga ko'rsatilgan","11 000 so'm"],["Boshqa mijozga","11 001 so'm"],["Yana birovga","11 002 so'm"]].map((s,i)=>{const d=mk('front',`<small>${s[0]}</small><b>${s[1]}</b><div class="mk" style="background:#2BB463"><i class="fas fa-check"></i></div>`,`left:580px;top:${330+i*190}px`,'sum');return d});
+E.yax=mk('front',"YAXLITLAMANG!",'left:0;width:1920px;text-align:center;top:120px;font-size:190px','big');
+E.bad=[["Yaxlitlangan","11 800 so'm"],["Boshqa summa","12 000 so'm"]].map((s,i)=>mk('front',`<small>${s[0]}</small><b>${s[1]}</b><div class="mk" style="background:#E5484D"><i class="fas fa-xmark"></i></div>`,`left:580px;top:${410+i*190}px;border-color:#E5484D`,'sum'));
+E.nod=mk('front',"Pul aniqlanmaydi.",'left:0;width:1920px;text-align:center;top:850px;font-size:70px;font-weight:900;color:#FFD23F','tx');
+E.st=[["Karta raqamini qo'ying",19.6],["Summani qo'ying",20.5],["Tekshiring: 11 001",21.5],["O'tkazing",22.4],["Tasdiqlang",23.3],["Tayyor ✓",24.3]].map((s,i)=>mk('front',`<span class="n" style="display:inline-flex;width:58px;height:58px;border-radius:50%;background:#2BB463;align-items:center;justify-content:center;margin-right:22px;font-size:30px">${i+1}</span>${s[0]}`,`left:1010px;top:${190+i*120}px;font-size:56px;font-weight:800;display:flex;align-items:center`,'tx'));
+E.auto=mk('front',"Bot avtomatik<br>aniqlaydi.",'left:140px;top:330px;font-size:130px;line-height:1.02;white-space:normal','big');
+E.ring=mk('front',`<svg width="440" height="440" viewBox="0 0 440 440"><circle cx="220" cy="220" r="190" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="22"/><circle id="rc" cx="220" cy="220" r="190" fill="none" stroke="#F2B544" stroke-width="22" stroke-linecap="round" transform="rotate(-90 220 220)" stroke-dasharray="1194" stroke-dashoffset="0"/></svg><div style="position:absolute;left:0;top:120px;width:440px;text-align:center;font-weight:900;font-size:150px;line-height:1">20</div><div style="position:absolute;left:0;top:285px;width:440px;text-align:center;font-weight:700;font-size:44px;color:#F2B544">daqiqa</div>`,'left:1260px;top:320px;width:440px;height:440px;position:absolute');
+E.slam=mk('front','','left:0;width:1920px;text-align:center;top:0;line-height:1080px;font-size:260px','big');
+E.end=mk('front',`<div style="position:absolute;left:560px;top:330px">${BADGE(230)}</div><div id="wm" style="left:830px;top:350px"></div><div id="ep" style="position:absolute;left:960px;top:640px;transform:translateX(-50%);white-space:nowrap;font-size:56px;font-weight:800;padding:16px 50px;border-radius:60px;background:#B06750"><i class="fas fa-magnifying-glass"></i>&nbsp; @StarsFuelBot</div>`,'left:0;top:0;width:1920px;height:1080px;position:absolute');
+function H(){all.forEach(e=>e.style.display='none');$('ph').style.display='none';$('cur').style.display='none';$('ring').style.display='none'}
+function S(e,x=0,y=0,s=1,o=1,r=0){e.style.display=e.classList.contains('sum')||e.style.cssText.includes('display:flex')?'flex':'block';e.style.transform=`translate(${x}px,${y}px) scale(${s}) rotate(${r}deg)`;e.style.opacity=o;if(e.classList.contains('tx')&&e.innerHTML.includes('inline-flex'))e.style.display='flex'}
+function phone(x,y,s,ry=0,rz=0){const p=$('ph');p.style.display='block';p.style.transform=`translate(${x}px,${y}px) perspective(1600px) rotateY(${ry}deg) rotateZ(${rz}deg) scale(${s})`}
+function scr(id){$('pay').style.display=id==='pay'?'block':'none';$('bank').style.display=id==='bank'?'block':'none'}
+function cursor(keys,t){// keys: [t,x,y] in phone coords
+ let prev=null,next=null;for(const k of keys){if(k[0]<=t)prev=k;else{next=k;break}}if(!prev&&!next)return;if(!prev)prev=[0,next[1]+60,next[2]+220];
+ let x=prev[1],y=prev[2];if(next&&t>next[0]-.35){const p=eio((t-(next[0]-.35))/.35);x=lerp(prev[1],next[1],p);y=lerp(prev[2],next[2],p)}
+ const c=$('cur');c.style.display='block';c.style.left=x+'px';c.style.top=y+'px';let sc=1;const r=$('ring');r.style.display='none';
+ for(const k of keys){const d=t-k[0];if(d>=0&&d<.45){sc=d<.08?1-.35*d/.08:.65+.35*eo((d-.08)/.2);r.style.display='block';r.style.left=k[1]+'px';r.style.top=k[2]+'px';const p=eo(d/.45);r.style.transform=`scale(${1+2.4*p})`;r.style.opacity=1-p}}
+ c.style.transform=`scale(${sc})`}
+function bg(c){$('bg').style.background=c}
+function type(el,str,t,t0,cps){const n=t<t0?0:Math.min(str.length,Math.floor((t-t0)*cps)+1);el.textContent=str.slice(0,n)}
+function seek(t){
+ H();let bp=0;for(const b of B){const d=t-b;if(d>=0&&d<.35)bp=Math.max(bp,Math.exp(-d*10))}
+ $('stage').style.transform='';let fl=0;const zb=1+.015*bp;
+ ['back','mid','front'].forEach(id=>$(id).style.transform=`scale(${zb})`);
+ // pay-auto live timer (counts down from 19:46 starting t=6.6)
+ const left=Math.max(0,(19*60+46)-(t-6.6));$('tmr').textContent=String(Math.floor(left/60)).padStart(2,'0')+':'+String(Math.floor(left%60)).padStart(2,'0');$('tbar').style.width=(left/1200*100)+'%';
+ if(t<1.95){bg('#000');const u=t-.09;S(E.logo,0,0,pop(u),1,(1-eo(u/.5))*-40);if(t>1.75)E.logo.style.opacity=1-eo((t-1.75)/.2)}
+ else if(t<4.27){const u=t-2.41;bg(t<2.41?'#000':`radial-gradient(ellipse at 50% 60%,#B4202A,#3A0508 75%)`);
+  if(t>=2.41){S(E.dq,0,0,1.5-.5*eo(u/.25),1,Math.sin(u*40)*Math.exp(-u*6)*2);fl=u<.1?.4:0}
+  else{S(E.dq,0,0,.6+.4*eo((t-1.95)/.46),.25)}
+  S(E.dqs,0,(1-ent(t-3.34))*60,1,ent(t-3.34))}
+ else if(t<6.59){const u=t-4.27;bg('linear-gradient(135deg,#B06750,#5A2A1C)');S(E.q3,0,0,1.3-.3*eo(u/.25),1);fl=u<.1?.3:0;
+  E.qs.forEach((q,i)=>{const a=[5.2,5.67,6.13][i];S(q,0,(1-pop(t-a))*120,1,t<a?0:1)})}
+ else if(t<10.45){const u=t-6.59;bg('radial-gradient(ellipse at 70% 50%,#1d2a0c,#050604 70%)');scr('pay');
+  const z=u<1.2?lerp(1,1.6,eio((u-.6)/.6)):1.6;const py=u<1.2?lerp(0,170,eio((u-.6)/.6)):170;
+  phone(1380+(1-pop(u))*700,540+py,1.05*z/1.05*(u<.6?1:1),-8,0);$('ph').style.transform+='';
+  cursor([[7.66,381,259]],t);$('toast').style.opacity=t>7.8&&t<9.4?1:0;$('cpy1').style.background=t>7.66&&t<8.5?'#B6F23A':'';$('cpy1').style.color=t>7.66&&t<8.5?'#111':'';
+  S(E.s1a,(1-ent(u))*-80,0,1,ent(u));S(E.s1b,(1-ent(u-.15))*-80,0,1,ent(u-.15))}
+ else if(t<13.54){const u=t-10.45;bg('radial-gradient(ellipse at 70% 50%,#1d2a0c,#050604 70%)');scr('pay');
+  phone(1380,540+20,1.75,-8,0);cursor([[11.38,381,329]],t);$('toast').style.opacity=t>11.5&&t<12.6?1:0;$('cpy2').style.background=t>11.38&&t<12.2?'#B6F23A':'';$('cpy2').style.color=t>11.38&&t<12.2?'#111':'';
+  $('pSum').style.transform=`scale(${1+.25*Math.exp(-Math.max(0,t-11.38)*4)*(t>11.38?1:0)})`;$('pSum').style.transformOrigin='100% 50%';
+  S(E.s2a,(1-ent(u))*-80,0,1,ent(u));S(E.s2b,(1-ent(u-.15))*-80,0,1,ent(u-.15));
+  if(t>12.21){const p=eo((t-12.21)/.5);S(E.fly,lerp(1350,150,p),lerp(560,760,p),lerp(.3,1,p),1)}}
+ else if(t<16.74){const u=t-13.54;bg('linear-gradient(180deg,#FFFFFF,#F1ECE6)');S(E.own,0,(1-ent(u))*60,1,ent(u));
+  E.sums.forEach((s,i)=>{const a=14.0+i*.47;S(s,(1-pop(t-a))*-1200,0,1,t<a?0:1);s.querySelector('.mk').style.transform=`scale(${pop(t-(15.39+i*.23))})`;s.style.borderColor=i===0?'#2BB463':'#2BB463'});
+  if(t>16.32){E.sums[0].style.boxShadow='0 0 0 10px rgba(242,181,68,.6)'}else E.sums[0].style.boxShadow=''}
+ else if(t<19.41){const u=t-16.74;bg('radial-gradient(ellipse at 50% 50%,#C3262E,#3A0508 80%)');S(E.yax,0,0,1.3-.3*eo(u/.25),1,Math.sin(u*40)*Math.exp(-u*6)*2);fl=u<.1?.35:0;
+  E.bad.forEach((s,i)=>{const a=17.16+i*.42;S(s,0,(1-pop(t-a))*600,1,t<a?0:1);s.querySelector('.mk').style.transform=`scale(${pop(t-(18.02+i*.2))})`});S(E.nod,0,(1-ent(t-18.48))*50,1,ent(t-18.48))}
+ else if(t<25.29){const u=t-19.41;bg('linear-gradient(135deg,#0E3B2A,#06140E)');scr('bank');
+  phone(560,540+(1-pop(u))*900,1.18,8,0);
+  type($('iCard'),'9860 **** **** ****',t,19.88,40);$('cardOk').style.opacity=t>20.2?1:0;$('iCard').style.borderColor=t>19.85&&t<20.5?'#2F80ED':'#E1E5EB';
+  $('sumV').textContent=t>20.81?'11 001':'';$('iSum').style.borderColor=t>20.78&&t<21.6?'#2F80ED':(t>21.73?'#2BB463':'#E1E5EB');$('sumOk').style.opacity=t>21.73?1:0;
+  $('bSend').style.background=t>21.73?'#2BB463':'#C9CED6';
+  const conf=t>22.75&&t<23.75,done=t>=23.75;$('bForm').style.display=(!conf&&!done)?'block':'none';$('bConf').style.display=conf?'block':'none';$('bDone').style.display=done?'block':'none';
+  $('bTitle').lastChild.textContent=conf?'Tasdiqlash':(done?"To'lov":"Kartaga o'tkazma");
+  $('spin').style.display=t<24.36?'block':'none';$('spin').style.transform=`rotate(${t*720}deg)`;$('okc').style.display=t>=24.36?'flex':'none';$('okc').style.transform=`scale(${pop(t-24.36)})`;$('okt').style.opacity=t>=24.36?1:0;
+  cursor([[19.88,215,183],[20.81,215,305],[22.52,215,418],[23.43,215,368]],t);if(t>23.7)$('cur').style.display='none';
+  E.st.forEach((s,i)=>{const a=[19.88,20.81,21.73,22.52,23.43,24.36][i];S(s,(1-ent(t-a+.2))*80,0,1,t<a-.2?0:(t>[20.81,21.73,22.52,23.43,24.36,99][i]?.45:1))})}
+ else if(t<27.31){const u=t-25.29;bg('radial-gradient(ellipse at 30% 50%,#5a2516,#000 75%)');S(E.auto,(1-ent(u))*-80,0,1,ent(u));S(E.ring,0,0,pop(u-.45),1);$('rc').style.strokeDashoffset=1194*clamp((u-.5)/1.5)*.05}
+ else if(t<29.16){const sl=[[27.31,'AYNAN.','#fff'],[27.77,'TIYINIGACHA.','#F2B544'],[28.24,'11 001.','#B6F23A'],[28.7,'XATOSIZ.','#fff']];let s=sl[0];for(const q of sl)if(t>=q[0])s=q;const u=t-s[0];
+  bg('#000');E.slam.textContent=s[1];E.slam.style.color=s[2];E.slam.style.fontSize=s[1].length>9?'220px':'280px';S(E.slam,0,0,1.25-.25*eo(u/.2),1);fl=u<.06?.2:0}
+ else{const u=t-29.16;bg('radial-gradient(ellipse 70% 80% at 50% 120%,#F2B544 0%,#C46B4C 30%,#3A1A10 58%,#000 85%)');S(E.end,0,0,1,1);
+  E.end.firstChild.style.transform=`scale(${pop(u)})`;$('wm').style.clipPath=`inset(0 ${100-eo((u-.2)/.45)*100}% 0 0)`;
+  $('ep').style.transform=`translateX(-50%) scale(${pop(u-.5)*(u>1.1?1+.04*Math.sin((u-1.1)*Math.PI*2/.93):1)})`;fl=u<.1?.3:0;
+  if(t>30.6){$('stage').style.opacity=1}}
+ $('flash').style.opacity=fl;
+}
+window.seek=seek;
+</script></body></html>

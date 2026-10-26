@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>StarsFuelBot</title>
+    <link rel="stylesheet" href="fa/css/all.min.css">
+    
+    <script>
+    (function(){
+        function syncTgTheme(){
+            var tg=window.Telegram&&window.Telegram.WebApp?window.Telegram.WebApp:null;
+            var tp=(tg&&tg.themeParams)?tg.themeParams:{};
+            var isDark=(tg&&tg.colorScheme==='dark')||(!tp.bg_color&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);
+            if(!tp.bg_color&&tg&&tg.colorScheme==='light')isDark=false;
+            var root=document.documentElement;
+            var bg=tp.bg_color||(isDark?'#111827':'#ffffff');
+            var secBg=tp.secondary_bg_color||(isDark?'#1c2535':'#f4f4f5');
+            var text=tp.text_color||(isDark?'#ffffff':'#000000');
+            var hint=tp.hint_color||(isDark?'#9ca3af':'#707579');
+            var btn=tp.button_color||(isDark?'#8AAC62':'#2481cc');
+            var btnText=tp.button_text_color||'#ffffff';
+            var dest=tp.destructive_text_color||'#ef4444';
+            var secBgCol=tp.section_bg_color||(isDark?'#1c2535':'#ffffff');
+            root.style.setProperty('--tg-bg', bg);
+            root.style.setProperty('--tg-theme-bg-color', bg);
+            root.style.setProperty('--tg-secondary-bg', secBg);
+            root.style.setProperty('--tg-theme-secondary-bg-color', secBg);
+            root.style.setProperty('--tg-text', text);
+            root.style.setProperty('--tg-theme-text-color', text);
+            root.style.setProperty('--tg-hint', hint);
+            root.style.setProperty('--tg-theme-hint-color', hint);
+            root.style.setProperty('--tg-btn', btn);
+            root.style.setProperty('--tg-theme-button-color', btn);
+            root.style.setProperty('--tg-btn-text', btnText);
+            root.style.setProperty('--tg-theme-button-text-color', btnText);
+            root.style.setProperty('--tg-destructive', dest);
+            root.style.setProperty('--tg-theme-destructive-text-color', dest);
+            root.style.setProperty('--tg-section-bg', secBgCol);
+            root.style.setProperty('--tg-theme-section-bg-color', secBgCol);
+        }
+        syncTgTheme();
+        if(window.Telegram&&window.Telegram.WebApp&&typeof window.Telegram.WebApp.onEvent==='function'){
+            window.Telegram.WebApp.onEvent('themeChanged',syncTgTheme);
+        }
+    })();
+    </script>
+    <link rel="stylesheet" href="style.css?v=1.4.1">
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-animation">
+            <lottie-player src="tgs/load.tgs" background="transparent" speed="1" style="width:200px;height:200px;" loop autoplay></lottie-player>
+        </div>
+    </div>
+
+    <div class="app-container" id="appContainer">
+        <div class="top-nav">
+            <div class="top-nav-card">
+                <div class="user-avatar" id="userAvatar"><span id="userInitial">U</span></div>
+                <div class="user-info">
+                    <div class="user-name-row">
+                        <div class="user-name" id="userName" data-i18n="loading">Yuklanmoqda...</div>
+                        <lottie-player class="verify-badge" src="tgs/verfiy.tgs" background="transparent" speed="1" style="width:20px;height:20px;" loop autoplay></lottie-player>
+                    </div>
+                    <div class="user-id-wrapper">
+                        <span class="user-id-text">ID: <span id="userId">...</span></span>
+                        <button class="copy-id-btn" onclick="copyUserId()"><i class="far fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="top-balance-card" onclick="openBalanceTab()">
+                    <span class="top-balance-value" id="topBalanceValue">0 so'm</span>
+                    <button class="top-balance-add-btn"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+
+            <div id="homeTab" class="tab-content active">
+                <div class="category-tabs">
+                    <div class="category-tab active" onclick="switchCategory('stars')"><i class="fas fa-star"></i> <span data-i18n="cat_stars">Stars</span></div>
+                    <div class="category-tab" onclick="switchCategory('premium')"><i class="fas fa-gem"></i> <span data-i18n="cat_premium">Premium</span></div>
+                    <div class="category-tab" onclick="switchCategory('gift')"><i class="fas fa-gift"></i> <span data-i18n="cat_gift">Gift</span></div>
+                    <div class="category-tab" onclick="switchCategory('nft')"><i class="fas fa-layer-group"></i> <span data-i18n="cat_nft">NFT</span></div>
+                </div>
+
+                <div class="content-area">
+
+                    <div id="starsContent">
+                        <div class="section-title section-title-row">
+                            <span id="starsTitleText"><i class="fas fa-star"></i> Telegram Stars</span>
+                            <button id="postgaBtn" class="section-pill-btn" onclick="setStarsMode('post')">Postga Stars</button>
+                            <button id="starsOlishBtn" class="section-pill-btn" style="display:none;" onclick="setStarsMode('buy')">Stars olish</button>
+                        </div>
+                        <div class="order-card">
+                            <div class="field-row">
+                                <div class="input-label" id="starsAmountLabel"><i class="fas fa-hashtag"></i> Stars miqdori (50-2500)</div>
+                                <div class="input-wrapper" style="position:relative;">
+                                    <input type="number" class="input-field" id="starsAmount" data-i18n-ph="stars_ph" placeholder="Miqdorni kiriting" min="50" max="2500">
+                                    <div id="starsCalculatedPriceBadge" class="price-badge">
+                                        <span id="starsCalculatedPriceVal">0</span> so'm
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field-row">
+                                <div class="input-label" id="starsUserLabel"><i class="fas fa-user"></i> Foydalanuvchi</div>
+                                <div class="input-wrapper">
+                                    <input type="text" class="input-field" id="starsUsername" placeholder="@username">
+                                    <button class="input-icon-button" id="starsUserIconBtn" onclick="useSelfUsername('stars')"><i class="fas fa-user-circle"></i></button>
+                                </div>
+                            </div>
+                            <div class="field-row">
+                                <div class="input-label"><i class="fas fa-wallet"></i> To'lov turi</div>
+                                <div class="payment-method-selector">
+                                    <div class="payment-method-option active" data-method="inco" onclick="selectPaymentMethod('stars', 'inco', this)">
+                                        <i class="fas fa-credit-card"></i> Karta orqali
+                                    </div>
+                                    <div class="payment-method-option" data-method="balance" onclick="selectPaymentMethod('stars', 'balance', this)">
+                                        <i class="fas fa-wallet"></i> Balans orqali to'lash
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="pill-button" onclick="createStarsOrder()"><i class="fas fa-shopping-cart"></i> <span data-i18n="order_btn">Buyurtma yaratish</span></button>
+                            <div id="starsWarningCard" class="warning-card" style="display:none;">
+                                ⚠️ Bu xizmat postga stars (reaksiya) qoldirish xizmati va kanal ommaviy bo'lishi kerak. Post havolasini xato yubormaslik kerak!
+                            </div>
+                            <div id="telegramPostPreviewContainer" class="post-preview-wrap" style="display:none;">
+                                <div id="telegramPostPreview"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="premiumContent" style="display:none;">
+                        <div class="section-title section-title-row">
+                            <span><i class="fas fa-gem"></i> <span id="premiumTitleText">Telegram Premium</span></span>
+                            <button id="chiptalarimBtn" class="section-pill-btn" onclick="setPremiumMode('tickets')">Chiptalarim</button>
+                            <button id="premiumSotibOlishBtn" class="section-pill-btn" style="display:none;" onclick="setPremiumMode('buy')">Sotib olish</button>
+                        </div>
+                        <div id="premiumBuyWrap">
+                            <div class="order-card">
+                                <div class="premium-options">
+                                    <div class="premium-card" onclick="selectPremium(1, this)">
+                                        <div class="plan-name"><lottie-player src="tgs/prem.tgs" background="transparent" speed="1" style="width:22px;height:22px;" loop></lottie-player> 1 <span data-i18n="month">oy</span></div>
+                                        <div class="plan-price" id="premiumPrice1">... <span data-i18n="currency">so'm</span></div>
+                                    </div>
+                                    <div class="premium-card" onclick="selectPremium(3, this)">
+                                        <div class="plan-name"><lottie-player src="tgs/prem.tgs" background="transparent" speed="1" style="width:22px;height:22px;" loop></lottie-player> 3 <span data-i18n="month">oy</span></div>
+                                        <div class="plan-price">190 000 <span data-i18n="currency">so'm</span></div>
+                                    </div>
+                                    <div class="premium-card" onclick="selectPremium(6, this)">
+                                        <div class="plan-name"><lottie-player src="tgs/prem.tgs" background="transparent" speed="1" style="width:22px;height:22px;" loop></lottie-player> 6 <span data-i18n="month">oy</span></div>
+                                        <div class="plan-price">250 000 <span data-i18n="currency">so'm</span></div>
+                                    </div>
+                                    <div class="premium-card" onclick="selectPremium(12, this)">
+                                        <div class="plan-name"><lottie-player src="tgs/prem.tgs" background="transparent" speed="1" style="width:22px;height:22px;" loop></lottie-player> 12 <span data-i18n="month">oy</span></div>
+                                        <div class="plan-price">400 000 <span data-i18n="currency">so'm</span></div>
+                                    </div>
+                                </div>
+                                <div id="premiumNormalFields" class="prem-fields">
+                                    <div class="field-row">
+                                        <div class="input-label"><i class="fas fa-user"></i> <span data-i18n="user_label">Foydalanuvchi</span></div>
+                                        <div class="input-wrapper">
+                                            <input type="text" class="input-field" id="premiumUsername" placeholder="@username">
+                                            <button class="input-icon-button" onclick="useSelfUsername('premium')"><i class="fas fa-user-circle"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="field-row">
+                                        <div class="input-label"><i class="fas fa-wallet"></i> To'lov turi</div>
+                                        <div class="payment-method-selector">
+                                            <div class="payment-method-option active" data-method="inco" onclick="selectPaymentMethod('premium', 'inco', this)">
+                                                <i class="fas fa-credit-card"></i> Karta orqali
+                                            </div>
+                                            <div class="payment-method-option" data-method="balance" onclick="selectPaymentMethod('premium', 'balance', this)">
+                                                <i class="fas fa-wallet"></i> Balans orqali to'lash
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="pill-button" onclick="createPremiumOrder()"><i class="fas fa-shopping-cart"></i> <span data-i18n="order_btn">Buyurtma yaratish</span></button>
+                                </div>
+                                <div id="premiumAdminField" style="display:none;" class="prem-fields">
+                                    <div class="warning-card">
+                                        ⚠️ 1 oylik premium obuna <strong id="premiumAdminPriceText">... so'm</strong> turadi. Buni admin orqali xarid qilishingiz mumkin.
+                                    </div>
+                                    <button class="pill-button" onclick="contactAdminForPremium()"><i class="fas fa-paper-plane"></i> Buyurtma berish</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="premiumTicketsWrap" style="display:none;">
+                            <div class="order-card" style="margin-bottom:12px;background:var(--tg-secondary-bg, rgba(255,255,255,0.05));border:1px solid color-mix(in srgb, var(--tg-text, #fff) 12%, transparent);border-radius:16px;">
+                                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                                    <div style="font-weight:700;font-size:15px;color:var(--tg-text, #fff);display:flex;align-items:center;gap:6px;">
+                                        <i class="fas fa-star" style="color:#ffb800;"></i> <span>Premium Ball Tizimi</span>
+                                    </div>
+                                    <div style="font-size:13px;font-weight:800;color:var(--tg-btn, #2481cc);background:color-mix(in srgb, var(--tg-btn, #2481cc) 18%, transparent);padding:4px 10px;border-radius:12px;border:1px solid color-mix(in srgb, var(--tg-btn, #2481cc) 35%, transparent);">
+                                        <span id="userBallCount">0 / 10 ball</span>
+                                    </div>
+                                </div>
+                                <div style="font-size:12px;color:var(--tg-hint, #8e8e93);margin-bottom:10px;line-height:1.45;">
+                                    Har bir 1 oylik Telegram Premium xaridida ball to'plang. 10 ball yig'ib, 1 oylik Premium obunaga bepul ega bo'ling!
+                                </div>
+                                <div style="width:100%;height:8px;background:color-mix(in srgb, var(--tg-text, #fff) 10%, transparent);border-radius:6px;overflow:hidden;margin-bottom:12px;">
+                                    <div id="userBallProgressFill" style="width:0%;height:100%;background:linear-gradient(90deg, #ffb800, #ff8c00);border-radius:6px;transition:width 0.4s ease;"></div>
+                                </div>
+                                <button id="exchangeBallBtn" class="pill-button" onclick="exchangeBallsForPremium()" disabled style="opacity:0.5;cursor:not-allowed;background:var(--tg-btn, #2481cc);color:var(--tg-btn-text, #fff);font-weight:700;">
+                                    <i class="fas fa-gift"></i> 10 ballni 1 oylik Premiumga almashtirish
+                                </button>
+                            </div>
+                            <div class="top-tabs" style="margin-bottom:10px;">
+                                <div class="top-tab active" id="ticketTabActive" onclick="switchTicketFilter('active')" style="flex:1;text-align:center;"><i class="fas fa-check-circle"></i> Faol</div>
+                                <div class="top-tab" id="ticketTabArchive" onclick="switchTicketFilter('archive')" style="flex:1;text-align:center;"><i class="fas fa-archive"></i> Arxiv</div>
+                            </div>
+                            <div id="ticketsGrid" style="display:flex;flex-direction:column;gap:10px;">
+                                <div class="loading"><div class="spinner"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="giftContent" style="display:none;">
+                        <div class="section-title section-title-row">
+                            <span><i class="fas fa-gift"></i> <span data-i18n="gift_title">Telegram Gift</span></span>
+                            <button id="giftKeysBtn" class="section-pill-btn" onclick="setGiftMode('keys')">Keys ochish</button>
+                            <button id="giftListBtn" class="section-pill-btn" style="display:none;" onclick="setGiftMode('list')">Giftlar ro'yxati</button>
+                        </div>
+                        <div id="giftNormalWrap">
+                            <div id="giftBuyWrap" style="display:none;margin-bottom:12px;">
+                                <div class="order-card">
+                                    <div class="field-row">
+                                        <div class="input-label"><i class="fas fa-user"></i> <span data-i18n="user_label">Foydalanuvchi</span></div>
+                                        <div class="input-wrapper">
+                                            <input type="text" class="input-field" id="giftUsername" placeholder="@username">
+                                            <button class="input-icon-button" onclick="useSelfUsername('gift')"><i class="fas fa-user-circle"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="field-row">
+                                        <div class="input-label input-label-row">
+                                            <span><i class="fas fa-comment-dots"></i> Xabar kiritish</span>
+                                            <span id="giftMessageCharCount" class="char-count">0 / 100</span>
+                                        </div>
+                                        <div class="input-wrapper">
+                                            <input type="text" class="input-field" id="giftMessage" placeholder="Xabar matni (ixtiyoriy)" maxlength="100" oninput="onGiftMessageInput()">
+                                        </div>
+                                        <div id="giftPriceHint" class="hint-text" style="display:none;">
+                                            <i class="fas fa-info-circle"></i> Xabar yozilganda, gift narxiga <strong>+500 so'm</strong> qo'shiladi.
+                                        </div>
+                                    </div>
+                                    <div class="anon-row field-row">
+                                        <div class="anon-left">
+                                            <i class="fas fa-user-secret"></i>
+                                            <span>Anonim yuborish</span>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" id="giftAnonymous">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="field-row">
+                                        <div class="input-label"><i class="fas fa-wallet"></i> To'lov turi</div>
+                                        <div class="payment-method-selector">
+                                            <div class="payment-method-option active" data-method="inco" onclick="selectPaymentMethod('gift', 'inco', this)">
+                                                <i class="fas fa-credit-card"></i> Karta orqali
+                                            </div>
+                                            <div class="payment-method-option" data-method="balance" onclick="selectPaymentMethod('gift', 'balance', this)">
+                                                <i class="fas fa-wallet"></i> Balans orqali to'lash
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="pill-button" onclick="createGiftOrder()"><i class="fas fa-shopping-cart"></i> <span data-i18n="buy_btn">Sotib olish</span></button>
+                                </div>
+                            </div>
+                            <div class="gift-card-wrap">
+                                <div id="giftGrid">
+                                    <div class="loading"><div class="spinner"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="giftKeysWrap" style="display:none;">
+                            <div class="order-card" style="text-align:center;overflow:hidden;position:relative;">
+                                <div class="keys-title">Omadli Keys</div>
+                                <div class="case-roulette-container">
+                                    <div class="case-roulette-divider"></div>
+                                    <div class="case-roulette-track" id="caseRouletteTrack"></div>
+                                </div>
+                                <button class="pill-button" id="openCaseBtn" onclick="openCase()" style="margin-top:14px;"><i class="fas fa-box-open"></i> Keysni ochish</button>
+                                <div id="caseOpeningPriceLabel" class="keys-price-label">Bir marta keys ochish: ... so'm</div>
+                                <div class="warning-card" style="text-align:left;margin-top:12px;">
+                                    ⚠️ Agar sizda Telegram username o'rnatilmagan bo'lsa yoki boshqa texnik sabab bilan gift yuborilmasa, yutib olingan gift qiymati (Stars narxida) balansingizga pul shaklida to'liq qaytariladi!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="nftContent" style="display:none;">
+                        <div class="section-title"><i class="fas fa-layer-group"></i> <span data-i18n="nft_title">Telegram NFT</span></div>
+                        <div class="nft-card-wrap">
+                            <div id="nftGrid">
+                                <div class="loading"><div class="spinner"></div></div>
+                            </div>
+                        </div>
+                        <div id="nftModal" class="nft-detail-modal" style="display:none;">
+                            <div class="nft-detail-card">
+                                <button class="nft-close-btn" onclick="closeNftModal()"><i class="fas fa-times"></i></button>
+                                <img id="nftDetailImg" src="" alt="" class="nft-detail-img">
+                                <div class="nft-detail-name" id="nftDetailName"></div>
+                                <div class="nft-detail-price" id="nftDetailPrice"></div>
+                                <div class="field-row" id="nftUserInputRow">
+                                    <div class="input-label" id="nftInputLabel"><i class="fas fa-user"></i> <span data-i18n="user_label">Foydalanuvchi</span></div>
+                                    <div class="input-wrapper">
+                                        <input type="text" class="input-field" id="nftUsername" placeholder="@username">
+                                        <button class="input-icon-button" id="nftSelfUserBtn" onclick="useSelfUsername('nft')"><i class="fas fa-user-circle"></i></button>
+                                    </div>
+                                    <div id="nftWalletWarning" style="display:none; font-size:11px; color:#e5a93c; margin-top:5px; line-height:1.35;">
+                                        <i class="fas fa-exclamation-triangle"></i> <span data-i18n="nft_wallet_warning">Hamyon manzili to'g'riligiga e'tibor bering! (Manzil UQ bilan boshlanadi)</span>
+                                    </div>
+                                </div>
+                                <div class="field-row">
+                                    <div class="input-label"><i class="fas fa-wallet"></i> To'lov turi</div>
+                                    <div class="payment-method-selector">
+                                        <div class="payment-method-option active" data-method="inco" onclick="selectPaymentMethod('nft', 'inco', this)">
+                                            <i class="fas fa-credit-card"></i> Karta orqali
+                                        </div>
+                                        <div class="payment-method-option" data-method="balance" onclick="selectPaymentMethod('nft', 'balance', this)">
+                                            <i class="fas fa-wallet"></i> Balans
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="nft-detail-actions">
+                                    <a id="nftDetailLink" href="#" class="pill-button nft-view-btn" style="text-decoration:none;">
+                                        <i class="fas fa-external-link-alt"></i> <span data-i18n="nft_view">Ko'rish</span>
+                                    </a>
+                                    <button class="pill-button nft-buy-btn" onclick="createNftOrder()"><i class="fas fa-shopping-cart"></i> <span data-i18n="buy_btn">Sotib olish</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="topTab" class="tab-content">
+                <div class="content-area">
+                    <div class="section-title"><i class="fas fa-trophy"></i> <span data-i18n="top_title">Top foydalanuvchilar</span></div>
+                    <div class="top-tabs">
+                        <div class="top-tab active" onclick="switchTopPeriod('daily', this)"><i class="fas fa-calendar-day"></i> <span data-i18n="top_daily">Bugun</span></div>
+                        <div class="top-tab" onclick="switchTopPeriod('weekly', this)"><i class="fas fa-calendar-week"></i> <span data-i18n="top_weekly">Haftalik</span></div>
+                        <div class="top-tab" onclick="switchTopPeriod('monthly', this)"><i class="fas fa-calendar-alt"></i> <span data-i18n="top_monthly">Oylik</span></div>
+                    </div>
+                    <div class="top-card">
+                        <div class="top-list" id="topList"></div>
+                    </div>
+                    <div class="top-ticker-card">
+                        <div class="top-ticker-title"><i class="fas fa-users"></i> So'nggi faol xaridorlar</div>
+                        <div class="top-ticker-wrapper">
+                            <div class="top-ticker-track" id="topTickerTrack">
+                                <div class="top-ticker-inner" id="topTickerInner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="gameTab" class="tab-content">
+                <div class="content-area">
+                    <div id="servicesMainView">
+                        <div class="section-title"><i class="fas fa-cubes"></i> <span>Xizmatlar</span></div>
+                        <div class="fuelpuck-promo-banner" onclick="openFuelPuckGame()">
+                            <img src="tgs/fuelpuck_banner.jpg" class="fuelpuck-banner-bg" alt="FuelPuck Arena">
+                            <div class="fuelpuck-banner-overlay"></div>
+                            <div class="fuelpuck-banner-content">
+                                <span class="fuelpuck-banner-badge">🔥 YANGI PVP ARENA</span>
+                                <div class="fuelpuck-banner-title" data-i18n="fuelpuck_title">FuelPuck: Shayba Maydoni</div>
+                                <div class="fuelpuck-banner-sub" data-i18n="fuelpuck_sub">Joy egallang va sovg'a jamg'armasini yutib oling!</div>
+                            </div>
+                            <div class="fuelpuck-banner-action">
+                                <button class="fuelpuck-play-pill">O'ynash <i class="fas fa-play"></i></button>
+                            </div>
+                        </div>
+                        <div class="services-cards-grid">
+                            <div class="service-card pvp-service-card" onclick="openPvpGamesView()">
+                                <div class="service-card-icon pvp-card-icon">
+                                    <i class="fa-solid fa-gamepad"></i>
+                                </div>
+                                <div class="service-card-info">
+                                    <div class="service-card-title-row" style="display:flex;align-items:center;">
+                                        <div class="service-card-title">PVP GAME</div>
+                                        <span class="badge-new-pvp">PVP</span>
+                                    </div>
+                                    <div class="service-card-sub">Jonli multiplayer &amp; Xokkey arenasi</div>
+                                </div>
+                                <i class="fas fa-chevron-right service-card-arrow"></i>
+                            </div>
+                            <div class="service-card" onclick="openGiveawaysView()">
+                                <div class="service-card-icon giveaway-card-icon">
+                                    <i class="fas fa-gift"></i>
+                                </div>
+                                <div class="service-card-info">
+                                    <div class="service-card-title" data-i18n="giveaway_title">Giveaway</div>
+                                    <div class="service-card-sub" data-i18n="giveaway_sub">Sovg'ali tanlovlar &amp; Yutuqlar</div>
+                                </div>
+                                <i class="fas fa-chevron-right service-card-arrow"></i>
+                            </div>
+                            <div class="service-card" onclick="openGamesView()">
+                                <div class="service-card-icon games-card-icon">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <div class="service-card-info">
+                                    <div class="service-card-title">O'yinlar</div>
+                                    <div class="service-card-sub">PUBG Mobile UC &amp; FreeFire</div>
+                                </div>
+                                <i class="fas fa-chevron-right service-card-arrow"></i>
+                            </div>
+                            <div class="service-card" onclick="openTgAccountsView()">
+                                <div class="service-card-icon tgacc-card-icon">
+                                    <i class="fab fa-telegram"></i>
+                                </div>
+                                <div class="service-card-info">
+                                    <div class="service-card-title" data-i18n="tgacc_title">Telegram Akkaunt</div>
+                                    <div class="service-card-sub" data-i18n="tgacc_sub">Turli davlatlar akkauntlari</div>
+                                </div>
+                                <i class="fas fa-chevron-right service-card-arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="pvpGamesView" style="display:none;">
+                        <button class="back-to-services-btn" onclick="showServicesMainView()">
+                            <i class="fas fa-arrow-left"></i> <span>Xizmatlarga qaytish</span>
+                        </button>
+                        <div class="section-title"><i class="fas fa-gamepad"></i> <span>PVP GAME</span></div>
+                        <div class="nft-card-wrap pvp-games-wrap">
+                            <div class="nft-grid pvp-games-grid" id="pvpGamesGrid" style="grid-template-columns: repeat(2, 1fr); max-height: none;">
+                                <div class="nft-card pvp-game-card" onclick="openFuelPuckGame()" style="padding:10px;">
+                                    <div class="nft-badge-wallet pvp-game-badge" style="background:rgba(16,185,129,0.18);color:#10b981;border:1px solid rgba(16,185,129,0.35);box-shadow:none;">
+                                        <i class="fas fa-circle" style="color:#10b981;font-size:7px;vertical-align:middle;"></i> JONLI PVP
+                                    </div>
+                                    <img src="tgs/fuelpuck_banner.jpg" class="nft-img pvp-game-img" alt="FuelPuck" style="width:100%;height:100px;object-fit:cover;border-radius:10px;" onerror="this.src='tgs/fuelpuck_icon.jpg'">
+                                    <div class="nft-card-name pvp-game-card-name" style="font-weight:750;font-size:13.5px;margin-top:4px;">FuelPuck</div>
+                                    <div class="nft-card-price pvp-game-card-sub" style="font-size:11px;color:var(--tg-hint);">Xokkey Arenasi</div>
+                                    <button class="pill-button pvp-game-play-btn" style="margin-top:6px;padding:6px 10px;font-size:12px;width:100%;"><i class="fas fa-play"></i> O'ynash</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="giveawaysServiceView" style="display:none;">
+                        <button class="back-to-services-btn" onclick="showServicesMainView()">
+                            <i class="fas fa-arrow-left"></i> <span data-i18n="back_to_services">Xizmatlarga qaytish</span>
+                        </button>
+                        <div class="section-title"><i class="fas fa-gift"></i> <span data-i18n="giveaway_title">Giveaway</span></div>
+                        <div class="top-tabs">
+                            <div class="top-tab active" id="gwTabActive" onclick="switchGiveawayFilter('active', this)"><i class="fas fa-bolt"></i> <span data-i18n="gw_active">Faol</span></div>
+                            <div class="top-tab" id="gwTabArchive" onclick="switchGiveawayFilter('archive', this)"><i class="fas fa-archive"></i> <span data-i18n="gw_archive">Arxiv</span></div>
+                        </div>
+                        <div id="giveawaysListContainer">
+                            <div class="loading"><div class="spinner"></div></div>
+                        </div>
+                    </div>
+
+                    <div id="giveawayDetailSubView" style="display:none;">
+                        <button class="back-to-services-btn" onclick="showGiveawaysListView()">
+                            <i class="fas fa-arrow-left"></i> <span>Ro'yxatga qaytish</span>
+                        </button>
+                        <div id="gwDetailSubViewBody">
+                            <div class="loading"><div class="spinner"></div></div>
+                        </div>
+                    </div>
+
+                    <div id="gamesServiceView" style="display:none;">
+                        <button class="back-to-services-btn" onclick="showServicesMainView()">
+                            <i class="fas fa-arrow-left"></i> <span>Xizmatlarga qaytish</span>
+                        </button>
+                        <div class="section-title"><i class="fas fa-gamepad"></i> <span data-i18n="game_title">O'yinlar top-up</span></div>
+                        <div class="top-tabs">
+                            <div class="top-tab active" onclick="switchGameFilter('pubg-mobile', this)"><i class="fas fa-gamepad"></i> <span>PUBG</span></div>
+                            <div class="top-tab" onclick="switchGameFilter('freefire', this)"><i class="fas fa-fire"></i> <span>FreeFire</span></div>
+                        </div>
+                        <div id="gameBuyWrap" style="display:none;margin-bottom:12px;">
+                            <div class="order-card">
+                                <div class="field-row">
+                                    <div class="input-label"><i class="fas fa-user-shield"></i> <span data-i18n="player_id_label">Player ID (UID)</span></div>
+                                    <div class="input-wrapper">
+                                        <input type="text" class="input-field" id="gamePlayerId" placeholder="Player ID kiriting">
+                                    </div>
+                                </div>
+                                <div class="field-row">
+                                    <div class="input-label"><i class="fas fa-wallet"></i> To'lov turi</div>
+                                    <div class="payment-method-selector">
+                                        <div class="payment-method-option active" data-method="inco" onclick="selectPaymentMethod('game', 'inco', this)">
+                                            <i class="fas fa-credit-card"></i> Karta orqali
+                                        </div>
+                                        <div class="payment-method-option" data-method="balance" onclick="selectPaymentMethod('game', 'balance', this)">
+                                            <i class="fas fa-wallet"></i> Balans orqali to'lash
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="pill-button" onclick="createGameOrder()"><i class="fas fa-shopping-cart"></i> <span data-i18n="buy_btn">Sotib olish</span></button>
+                            </div>
+                        </div>
+                        <div class="gift-card-wrap" id="gameGridWrap">
+                            <div id="gameGrid">
+                                <div class="loading"><div class="spinner"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tgAccountsServiceView" style="display:none;">
+                        <button class="back-to-services-btn" onclick="showServicesMainView()">
+                            <i class="fas fa-arrow-left"></i> <span data-i18n="back_to_services">Xizmatlarga qaytish</span>
+                        </button>
+                        <div class="section-title"><i class="fab fa-telegram"></i> <span data-i18n="tgacc_title">Telegram Akkaunt</span></div>
+                        <div class="tgacc-alert-card">
+                            <div class="tgacc-alert-title"><i class="fas fa-exclamation-triangle"></i> <span data-i18n="tgacc_warn_title">MUHIM OGOHLANTIRISH</span></div>
+                            <div class="tgacc-alert-desc" data-i18n="tgacc_warn_desc">Sotib olingan raqamlar qaytarib olinmaydi va almashtirilmaydi (Refund mavjud emas). SMS kod faqat 1 marotaba beriladi, akkauntga to'liq kirmaguningizcha WebApp sahifasidan chiqib ketmang!</div>
+                        </div>
+                        <div class="top-tabs" style="margin-bottom:12px;">
+                            <div class="top-tab active" id="tgAccTabBuy" onclick="switchTgAccTab('buy', this)"><i class="fas fa-shopping-cart"></i> <span data-i18n="tgacc_tab_buy">Sotib olish</span></div>
+                            <div class="top-tab" id="tgAccTabMy" onclick="switchTgAccTab('my', this)"><i class="fas fa-mobile-alt"></i> <span data-i18n="tgacc_tab_my">Mening raqamlarim</span></div>
+                        </div>
+                        <div id="tgAccBuyWrap">
+                            <div class="tgacc-wrap">
+                                <div id="tgAccountsListContainer">
+                                    <div class="loading"><div class="spinner"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tgAccMyWrap" style="display:none;">
+                            <div class="tgacc-wrap">
+                                <div id="tgAccMyListContainer">
+                                    <div class="loading"><div class="spinner"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="accountTab" class="tab-content">
+                <div class="content-area">
+                    <div class="section-title"><i class="fas fa-user-circle"></i> <span data-i18n="my_account">Mening akkauntim</span></div>
+                    <div class="acc-stats-grid">
+                        <div class="acc-stat-card acc-stat-balance">
+                            <div class="acc-stat-icon-wrap acc-icon-wallet"><i class="fas fa-wallet"></i></div>
+                            <div class="acc-stat-label" data-i18n="account_balance">Joriy balans</div>
+                            <div class="acc-stat-value" id="accountBalance">0 so'm</div>
+                        </div>
+                        <div class="acc-stat-card acc-stat-stars">
+                            <div class="acc-stat-icon-wrap acc-icon-star"><i class="fas fa-star"></i></div>
+                            <div class="acc-stat-label" data-i18n="total_stars">Jami Stars</div>
+                            <div class="acc-stat-value" id="totalStars">0</div>
+                        </div>
+                        <div class="acc-stat-card acc-stat-spent">
+                            <div class="acc-stat-icon-wrap acc-icon-money"><i class="fas fa-money-bill-wave"></i></div>
+                            <div class="acc-stat-label" data-i18n="total_spent">Jami xarajat</div>
+                            <div class="acc-stat-value" id="totalMoney">0 so'm</div>
+                        </div>
+                        <div class="acc-stat-card acc-stat-orders">
+                            <div class="acc-stat-icon-wrap acc-icon-bag"><i class="fas fa-shopping-bag"></i></div>
+                            <div class="acc-stat-label" data-i18n="total_orders">Xaridlar soni</div>
+                            <div class="acc-stat-value" id="totalOrders">0</div>
+                        </div>
+                    </div>
+                    <button class="pill-button acc-topup-btn" onclick="openBalanceTab()"><i class="fas fa-plus"></i> <span data-i18n="top_up_btn">Hisobni to'ldirish</span></button>
+                    <div class="acc-goal-card">
+                        <div class="acc-goal-left">
+                            <img src="https://nft.fragment.com/gift/ViceCream-165039.medium.jpg" alt="NFT" class="acc-goal-img">
+                        </div>
+                        <div class="acc-goal-right">
+                            <div class="acc-goal-title"><i class="fas fa-gift"></i> <span data-i18n="goal_title">Maqsadingiz</span></div>
+                            <div class="acc-goal-progress-wrap">
+                                <div class="acc-goal-progress-bar">
+                                    <div class="wg-progress-fill" id="wgProgressFill"></div>
+                                </div>
+                            </div>
+                            <div class="acc-goal-sub" id="wgSubText" data-i18n="loading">Yuklanmoqda...</div>
+                        </div>
+                    </div>
+                    <div class="acc-boost-card">
+                        <div class="acc-boost-top">
+                            <div class="acc-boost-icon"><i class="fas fa-bolt"></i></div>
+                            <div class="acc-boost-info">
+                                <div class="acc-boost-title">Kanalimiz uchun ovoz bering</div>
+                                <div class="acc-boost-desc">Bu kanal qo'shimcha funksiyalarini ochishga yordam berish uchun unga ovoz bering</div>
+                            </div>
+                        </div>
+                        <a href="https://t.me/boost/StarsFuel" onclick="if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.openTelegramLink('https://t.me/boost/StarsFuel');}return false;" class="acc-boost-btn" onmousedown="this.style.opacity='.8'" onmouseup="this.style.opacity='1'" ontouchstart="this.style.opacity='.8'" ontouchend="this.style.opacity='1'">
+                            <i class="fas fa-bolt"></i> Boost — Ovoz berish
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="historyTab" class="tab-content">
+                <div class="content-area">
+                    <div class="history-sticky-header">
+                        <div class="section-title" style="margin-bottom:10px;"><i class="fas fa-history"></i> <span data-i18n="hist_title">Tranzaksiyalar tarixi</span></div>
+                        <div class="history-filter-tabs">
+                            <div class="history-filter-tab active" onclick="filterHistory('paid', this)"><i class="fas fa-check-circle"></i> <span data-i18n="hist_paid">Bajarilgan</span></div>
+                            <div class="history-filter-tab" onclick="filterHistory('pending', this)"><i class="fas fa-clock"></i> <span data-i18n="hist_pending">Kutilmoqda</span><span class="pending-dot" id="pendingDot" style="display:none;"></span></div>
+                            <div class="history-filter-tab" onclick="filterHistory('canceled', this)"><i class="fas fa-times-circle"></i> <span data-i18n="hist_canceled">Bekor</span></div>
+                        </div>
+                    </div>
+                    <div id="historyList" style="margin-top:10px;"></div>
+                </div>
+            </div>
+
+            <div id="balanceTab" class="tab-content">
+                <div class="content-area">
+                    <div class="section-title balance-tab-title">
+                        <span><i class="fas fa-wallet"></i> <span data-i18n="balance_title">Balans va to'lovlar</span></span>
+                        <button class="transfer-toggle-btn" id="transferToggleBtn" onclick="toggleTransferCard()">Transfer</button>
+                    </div>
+                    <div class="balance-card">
+                        <div class="balance-card-title">Joriy hisobingiz</div>
+                        <div class="balance-card-value" id="balanceTabValue">0 so'm</div>
+                        <div class="balance-encrypt-container">
+                            <canvas id="balanceEncryptCanvas"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="order-card transfer-card" id="transferCard">
+                        <div class="transfer-card-header">
+                            <span><i class="fas fa-user-friends"></i> Do'stga pul yuborish</span>
+                            <span class="transfer-commission-badge">Komissiya: 3%</span>
+                        </div>
+                        <div class="field-row">
+                            <div class="input-label"><i class="fas fa-id-card"></i> Do'stingizning Telegram ID raqami</div>
+                            <div class="input-wrapper input-with-qr">
+                                <input type="number" class="input-field" id="transferUserId" placeholder="Masalan, 123456789" oninput="onTransferUserIdChange()">
+                                <button type="button" class="qr-scan-input-btn" onclick="openQrScannerModal()" title="QR kodni skanerlash">
+                                    <i class="fas fa-qrcode"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="my-qr-btn-row">
+                            <button type="button" class="my-qr-trigger-btn" onclick="openMyQrModal()">
+                                <i class="fas fa-qrcode"></i> Mening QR kodim
+                            </button>
+                        </div>
+                        <div id="transferReceiverPanel" class="transfer-receiver-panel">
+                            <div id="transferReceiverName" class="transfer-receiver-name">...</div>
+                        </div>
+                        <div class="field-row transfer-amount-row">
+                            <div class="input-label"><i class="fas fa-money-bill-wave"></i> O'tkazma summasi</div>
+                            <input type="number" class="input-field" id="transferAmount" placeholder="Summani kiriting (so'mda)" oninput="onTransferAmountChange()">
+                        </div>
+                        <div id="transferCalcDetails" class="transfer-calc-details">
+                            <div>Yuborilmoqda: <span id="transferDeductVal" class="transfer-deduct-val">0</span> so'm</div>
+                            <div>Do'stingiz oladi: <span id="transferReceiveVal" class="transfer-receive-val">0</span> so'm</div>
+                            <div>Komissiya (3%): <span id="transferCommVal" class="transfer-comm-val">0</span> so'm</div>
+                        </div>
+                        <div class="swipe-to-confirm-container">
+                            <div class="swipe-progress" id="transferSwipeProgress"></div>
+                            <div class="swipe-text" id="transferSwipeText">Suring tasdiqlash uchun &rarr;</div>
+                            <div class="swipe-handle" id="transferSwipeHandle">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                        <div class="transfer-card-footer">
+                            Do'stingizga pul yuborishda do'stingizdan ID raqamini so'rang
+                        </div>
+                    </div>
+
+                    <div class="order-card" id="topUpCard" style="margin-top:14px;">
+                        <div class="field-row">
+                            <div class="input-label"><i class="fas fa-plus-circle"></i> Balansni to'ldirish (Min: 5 000 so'm, Max: 1 000 000 so'm)</div>
+                            <input type="number" class="input-field" id="topUpAmount" placeholder="Summani kiriting (masalan, 10000)" min="5000" max="1000000">
+                        </div>
+                        <button class="pill-button" onclick="createTopUpOrder()"><i class="fas fa-credit-card"></i> <span>Hisobni to'ldirish</span></button>
+                    </div>
+
+                    <div class="section-title" style="margin-top:20px;"><i class="fas fa-list-ul"></i> <span>Balans to'ldirish tarixi</span></div>
+                    <div id="balanceHistoryList" style="margin-top:10px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="bottom-nav-card">
+                <div class="nav-container">
+                    <div class="nav-background" id="navBackground"></div>
+                    <div class="nav-item active" onclick="switchTab(0, this)">
+                        <i class="fas fa-home nav-icon"></i>
+                        <span class="nav-label" data-i18n="home">Asosiy</span>
+                    </div>
+                    <div class="nav-item" onclick="switchTab(1, this)">
+                        <i class="fas fa-trophy nav-icon"></i>
+                        <span class="nav-label" data-i18n="top">Top</span>
+                    </div>
+                    <div class="nav-item" id="gameNavItem" onclick="switchTab(2, this)">
+                        <i class="fas fa-cubes nav-icon"></i>
+                        <span class="nav-label" data-i18n="services">Xizmatlar</span>
+                    </div>
+                    <div class="nav-item" onclick="switchTab(3, this)">
+                        <i class="fas fa-user nav-icon"></i>
+                        <span class="nav-label" data-i18n="account">Akkount</span>
+                    </div>
+                    <div class="nav-item" onclick="switchTab(4, this)">
+                        <div class="nav-icon-wrap">
+                            <i class="fas fa-history nav-icon"></i>
+                            <span class="pending-badge" id="pendingBadge" style="display:none;"></span>
+                        </div>
+                        <span class="nav-label" data-i18n="history">Tarix</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="loadingModal">
+        <div class="modal-content">
+            <div class="modal-icon"><i class="fas fa-spinner fa-spin"></i></div>
+            <div class="modal-title" id="loadingText" data-i18n="order_creating">Buyurtma yaratilmoqda...</div>
+        </div>
+    </div>
+
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-icon"><i class="fas fa-check-circle" style="color:var(--tg-btn)"></i></div>
+            <div class="modal-title" data-i18n="order_created">Buyurtma yaratildi!</div>
+            <div class="modal-text" id="paymentText" data-i18n="pay_redirect">To'lov sahifasiga yo'naltirilmoqda...</div>
+    </div>
+
+    <canvas id="birthdayCanvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;display:none;opacity:0.6;"></canvas>
+    </div>
+
+    <div class="modal" id="qrScannerModal" style="display:none;">
+        <div class="modal-content qr-modal-content">
+            <div class="qr-modal-header">
+                <span><i class="fas fa-qrcode"></i> QR Kod Skaner</span>
+                <button class="modal-close-btn" onclick="closeQrScannerModal()">&times;</button>
+            </div>
+            <div class="qr-scanner-body">
+                <p class="qr-scan-hint">Telegram ID ni o'z ichiga olgan QR kodni skanerlang yoki galereyadan rasm tanlang</p>
+                <div class="qr-action-buttons">
+                    <button type="button" class="qr-modal-btn camera-btn" onclick="startNativeOrWebQrScan()">
+                        <i class="fas fa-camera"></i> Kamera bilan skanerlash
+                    </button>
+                    <button type="button" class="qr-modal-btn gallery-btn" onclick="document.getElementById('qrFileInput').click()">
+                        <i class="fas fa-image"></i> Galereyadan rasm tanlash
+                    </button>
+                    <input type="file" id="qrFileInput" accept="image/*" style="display:none;" onchange="handleQrFileSelect(this)">
+                </div>
+                <div id="webQrReaderArea" style="display:none; margin-top:15px; text-align:center;">
+                    <video id="webQrVideo" playsinline style="width:100%; max-width:260px; border-radius:14px; border:2px solid var(--tg-btn);"></video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="myQrModal" style="display:none;">
+        <div class="modal-content qr-modal-content">
+            <div class="qr-modal-header">
+                <span><i class="fas fa-user-circle"></i> Mening Telegram QR Kodim</span>
+                <button class="modal-close-btn" onclick="closeMyQrModal()">&times;</button>
+            </div>
+            <div class="my-qr-body">
+                <div class="my-qr-box">
+                    <div id="myQrCodeContainer"></div>
+                </div>
+                <div class="my-qr-id-display">
+                    <span>Telegram ID: </span><strong id="myQrUserIdVal">...</strong>
+                    <button type="button" class="qr-modal-btn copy-id-btn" onclick="copyMyTelegramId()">
+                        <i class="fas fa-copy"></i> ID raqamni nusxalash
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="giveawayDetailModal" style="display:none;">
+        <div class="modal-content giveaway-modal-content">
+            <div class="qr-modal-header">
+                <span><i class="fas fa-gift"></i> <span data-i18n="giveaway_title">Giveaway</span></span>
+                <button class="modal-close-btn" onclick="closeGiveawayModal()">&times;</button>
+            </div>
+            <div class="gw-modal-body" id="gwModalBody">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="userBlockedOverlay" class="blocked-app-overlay">
+        <div class="blocked-app-card">
+            <div class="blocked-app-icon">
+                <i class="fas fa-ban"></i>
+            </div>
+            <div class="blocked-app-title">Siz bloklangansiz!</div>
+            <div class="blocked-app-desc">
+                Siz platforma qoidalarini buzganingiz sababli tizimdan butunlay bloklangansiz va bu blok qayta yechilmaydi.<br><br>
+                Iltimos, har doim belgilangan qoidalarga qat'iy amal qiling.
+            </div>
+            <button onclick="closeBlockedApp()" class="blocked-app-btn">
+                Tushundim
+            </button>
+        </div>
+    </div>
+
+    
+    
+    
+    
+    <script src="lang.js"></script>
+    <script src="app.js?v=1.5.3"></script>
+
+    <script>
+    (function(){
+        function applyVerifyColor(){
+            var badge=document.querySelector('.verify-badge');
+            if(!badge)return;
+            var c=getComputedStyle(document.documentElement).getPropertyValue('--tg-btn').trim();
+            if(!c)return;
+            var d=document.createElement('div');
+            d.style.color=c;
+            d.style.position='fixed';
+            d.style.opacity='0';
+            document.body.appendChild(d);
+            var m=getComputedStyle(d).color.match(/\d+/g);
+            document.body.removeChild(d);
+            if(!m)return;
+            var r=m[0]/255,g=m[1]/255,b=m[2]/255;
+            var mx=Math.max(r,g,b),mn=Math.min(r,g,b),h;
+            if(mx===mn){h=0;}
+            else if(mx===r){h=((g-b)/(mx-mn)*60+360)%360;}
+            else if(mx===g){h=(b-r)/(mx-mn)*60+120;}
+            else{h=(r-g)/(mx-mn)*60+240;}
+            badge.style.filter='hue-rotate('+(h-208)+'deg) saturate(1.3)';
+        }
+        document.addEventListener('DOMContentLoaded',applyVerifyColor);
+        if(window.Telegram&&Telegram.WebApp)Telegram.WebApp.onEvent('themeChanged',applyVerifyColor);
+    })();
+    </script>
+</body>
+</html>
