@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/shutil.py", line 886, in move
+    os.rename(src, real_dst)
+FileNotFoundError: [Errno 2] No such file or directory: 'telegram/queue/2026-10-26_1535_test.json' -> 'telegram/sent/2026-10-26_1535_test.json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/starsfuel-media/starsfuel-media/telegram/post.py", line 71, in <module>
+    shutil.move(path, path.replace("/queue/", "/sent/"))
+  File "/usr/lib/python3.12/shutil.py", line 906, in move
+    copy_function(src, real_dst)
+  File "/usr/lib/python3.12/shutil.py", line 475, in copy2
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+  File "/usr/lib/python3.12/shutil.py", line 262, in copyfile
+    with open(dst, 'wb') as fdst:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'telegram/sent/2026-10-26_1535_test.json'
+EXIT 1
+token_len=46
