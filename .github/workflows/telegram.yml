@@ -17,8 +17,14 @@ jobs:
         env:
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_CHAT: "@starsFuel"
-        run: python telegram/post.py
+        run: |
+          python3 --version
+          python3 telegram/post.py > telegram/run.log 2>&1 || echo "EXIT $?" >> telegram/run.log
+          if [ -n "$TG_BOT_TOKEN" ]; then sed -i "s|$TG_BOT_TOKEN|***|g" telegram/run.log; fi
+          echo "token_len=${#TG_BOT_TOKEN}" >> telegram/run.log
+          cat telegram/run.log
       - name: Yuborilganlarni belgilash
+        if: always()
         run: |
           git config user.name "starsfuel-bot"
           git config user.email "actions@users.noreply.github.com"
