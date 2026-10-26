@@ -68,6 +68,7 @@ for path in sorted(glob.glob("telegram/queue/*.json")):
         send(p)
     except Exception as e:
         errs.append(f"{path}: {str(e).replace(TOKEN, '***')}"); continue
+    os.makedirs("telegram/sent", exist_ok=True)
     shutil.move(path, path.replace("/queue/", "/sent/"))
     print("yuborildi:", path); done += 1
 print("jami yuborildi:", done)
