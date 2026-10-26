@@ -2,7 +2,7 @@
 telegram/queue/*.json -> vaqti kelganlarini yuboradi -> telegram/sent/ ga ko'chiradi."""
 import json, os, sys, glob, shutil, datetime, urllib.request, uuid, mimetypes
 
-TOKEN = os.environ["TG_BOT_TOKEN"]
+TOKEN = os.environ.get("TG_BOT_TOKEN", "").strip()
 CHAT = os.environ.get("TG_CHAT", "@starsFuel")
 API = f"https://api.telegram.org/bot{TOKEN}/"
 
@@ -57,12 +57,18 @@ def send(p):
 
 now = datetime.datetime.now(datetime.timezone.utc)
 done = 0
+errs = []
+if not TOKEN: print('TG_BOT_TOKEN topilmadi')
 for path in sorted(glob.glob("telegram/queue/*.json")):
     p = json.load(open(path, encoding="utf-8"))
     when = datetime.datetime.fromisoformat(p.get("send_at", "2000-01-01T00:00:00+00:00"))
     if when > now:
         print("kutilmoqda:", path, when.isoformat()); continue
-    send(p)
+    try:
+        send(p)
+    except Exception as e:
+        errs.append(f"{path}: {str(e).replace(TOKEN, '***')}"); continue
     shutil.move(path, path.replace("/queue/", "/sent/"))
     print("yuborildi:", path); done += 1
 print("jami yuborildi:", done)
+open("telegram/status.txt", "w", encoding="utf-8").write(f"{now.isoformat()}\nyuborildi: {done}\n" + ("XATO:\n" + "\n".join(errs) if errs else "xato yo'q") + "\n")
