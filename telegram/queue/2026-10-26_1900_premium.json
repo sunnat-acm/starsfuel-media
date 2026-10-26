@@ -1,6 +1,6 @@
 {
  "send_at": "2026-10-26T19:00:00+05:00",
- "type": "album",
+ "type": "rich",
  "media": [
   "carousel2/p1.jpg",
   "carousel2/p2.jpg",
@@ -8,23 +8,34 @@
   "carousel2/p4.jpg",
   "carousel2/p5.jpg"
  ],
- "text": "<b>👑 Telegram Premium nima beradi?</b>\n\nKo'pchilik bilmaydigan 8 ta imkoniyat:\n<blockquote>📁 4 GB gacha fayl\n⚡️ Tezroq yuklab olish\n🎙 Ovozli xabar → matn\n🚫 Kanallarda reklama yo'q\n📈 Limitlar x2: 1000 kanal, 20 papka\n😎 Premium stiker, animatsiyali avatar, emoji status</blockquote>\n\n<b>💎 StarsFuel'da narxlar:</b>\n<blockquote expandable>3 oy — 190 000 so'm\n6 oy — 250 000 so'm\n12 oy — 400 000 so'm ⭐ eng foydali</blockquote>\n\nO'zingizga yoki do'stingizga — username yozasiz, xolos 👇",
- "buttons": [
-  [
-   {
-    "text": "💎 Premium olish",
-    "url": "https://t.me/StarsFuelBot"
-   }
+ "html": "<h2>👑 Telegram Premium nima beradi?</h2><tg-slideshow><img src=\"tg://photo?id=s1\"/><img src=\"tg://photo?id=s2\"/><img src=\"tg://photo?id=s3\"/><img src=\"tg://photo?id=s4\"/><img src=\"tg://photo?id=s5\"/><figcaption>Suring → 5 ta slayd</figcaption></tg-slideshow><p>Ko'pchilik bilmaydigan <b>8 ta imkoniyat</b>:</p><blockquote>📁 4 GB gacha fayl<br>⚡️ Tezroq yuklab olish<br>🎙 Ovozli xabar → matn<br>🚫 Kanallarda reklama yo'q<br>📈 Limitlar x2: 1000 kanal, 20 papka<br>😎 Premium stiker, animatsiyali avatar, emoji status</blockquote><h3>💎 StarsFuel'da narxlar</h3><table bordered striped><tr><th>Muddat</th><th>Narx</th></tr><tr><td>3 oy</td><td>190 000 so'm</td></tr><tr><td>6 oy</td><td>250 000 so'm</td></tr><tr><td>12 oy ⭐ eng foydali</td><td>400 000 so'm</td></tr></table><blockquote expandable>O'zingizga yoki do'stingizga — faqat username yozasiz.<br>To'lovda sahifadagi summani aynan o'zini o'tkazing.</blockquote><tg-button-row align=\"center\"><tg-button type=\"url\" style=\"success\" url=\"https://t.me/StarsFuelBot\">💎 Premium olish</tg-button></tg-button-row><tg-button-row><tg-button type=\"url\" url=\"https://t.me/StarsFuelBot\">⭐ Stars olish</tg-button><tg-button type=\"url\" url=\"https://www.instagram.com/starsfuelapp/\">📸 Instagram</tg-button></tg-button-row>",
+ "fallback": {
+  "type": "album",
+  "media": [
+   "carousel2/p1.jpg",
+   "carousel2/p2.jpg",
+   "carousel2/p3.jpg",
+   "carousel2/p4.jpg",
+   "carousel2/p5.jpg"
   ],
-  [
-   {
-    "text": "⭐ Stars olish",
-    "url": "https://t.me/StarsFuelBot"
-   },
-   {
-    "text": "📸 Instagram",
-    "url": "https://www.instagram.com/starsfuelapp/"
-   }
+  "text": "<b>👑 Telegram Premium nima beradi?</b>\n\nKo'pchilik bilmaydigan 8 ta imkoniyat:\n<blockquote>📁 4 GB gacha fayl\n⚡️ Tezroq yuklab olish\n🎙 Ovozli xabar → matn\n🚫 Kanallarda reklama yo'q\n📈 Limitlar x2: 1000 kanal, 20 papka\n😎 Premium stiker, animatsiyali avatar, emoji status</blockquote>\n\n<b>💎 StarsFuel'da narxlar:</b>\n<blockquote expandable>3 oy — 190 000 so'm\n6 oy — 250 000 so'm\n12 oy — 400 000 so'm ⭐ eng foydali</blockquote>\n\nO'zingizga yoki do'stingizga — username yozasiz, xolos 👇",
+  "buttons": [
+   [
+    {
+     "text": "💎 Premium olish",
+     "url": "https://t.me/StarsFuelBot"
+    }
+   ],
+   [
+    {
+     "text": "⭐ Stars olish",
+     "url": "https://t.me/StarsFuelBot"
+    },
+    {
+     "text": "📸 Instagram",
+     "url": "https://www.instagram.com/starsfuelapp/"
+    }
+   ]
   ]
- ]
+ }
 }

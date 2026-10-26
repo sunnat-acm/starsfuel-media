@@ -32,9 +32,29 @@ def call(method, fields, files=None):
 def kb(buttons):
     return {"inline_keyboard": [[{"text": b["text"], "url": b["url"]} for b in row] for row in buttons]} if buttons else None
 
+def send_rich(p):
+    media = p.get("media", [])
+    files, items = {}, []
+    for i, m in enumerate(media):
+        key = f"f{i}"; files[key] = m
+        kind = "video" if m.endswith(".mp4") else "photo"
+        items.append({"id": f"s{i+1}", "media": {"type": kind, "media": f"attach://{key}"}})
+    rich = {"html": p["html"]}
+    if items: rich["media"] = items
+    f = {"chat_id": CHAT, "rich_message": rich}
+    if p.get("buttons"): f["reply_markup"] = kb(p["buttons"])
+    return call("sendRichMessage", f, files or None)
+
 def send(p):
     media = p.get("media", [])
     markup = kb(p.get("buttons"))
+    if p["type"] == "rich":
+        try:
+            send_rich(p); return
+        except Exception as e:
+            if not p.get("fallback"): raise
+            print("rich xato, oddiy usulga o'tildi:", str(e).replace(TOKEN, "***"))
+            p = dict(p, **p["fallback"]); media = p.get("media", []); markup = kb(p.get("buttons"))
     if p["type"] == "album":
         items, files = [], {}
         for i, m in enumerate(media):

@@ -1,0 +1,11 @@
+{
+ "send_at": "2026-10-26T16:00:00+05:00",
+ "type": "rich",
+ "media": [
+  "carousel1/slide1.jpg",
+  "carousel1/slide2.jpg",
+  "carousel1/slide3.jpg",
+  "carousel1/slide4.jpg"
+ ],
+ "html": "<h2>⭐ Telegram Stars — 3 bosishda</h2><tg-slideshow><img src=\"tg://photo?id=s1\"/><img src=\"tg://photo?id=s2\"/><img src=\"tg://photo?id=s3\"/><img src=\"tg://photo?id=s4\"/><figcaption>Suring → 4 ta slayd</figcaption></tg-slideshow><ol><li>Miqdor va username kiriting</li><li>Sahifadagi summani <b>aynan</b> o'zini to'lang</li><li>Tayyor ✅</li></ol><blockquote>⭐ 100 Stars — <b>22 000 so'm</b><br>1 so'm farq bo'lsa ham to'lov avtomatik aniqlanmaydi.</blockquote><blockquote expandable>Botda yana: 💎 Premium · 🎁 Gift · 🖼 NFT · 🎮 PUBG UC · 🔥 Free Fire · 📱 Telegram akkaunt</blockquote><tg-button-row align=\"center\"><tg-button type=\"url\" style=\"success\" url=\"https://t.me/StarsFuelBot\">⭐ Stars olish</tg-button></tg-button-row><tg-button-row><tg-button type=\"url\" url=\"https://t.me/StarsFuelBot\">⭐ Stars olish</tg-button><tg-button type=\"url\" url=\"https://www.instagram.com/starsfuelapp/\">📸 Instagram</tg-button></tg-button-row>"
+}
