@@ -1,0 +1,30 @@
+{
+ "send_at": "2026-10-26T19:00:00+05:00",
+ "type": "album",
+ "media": [
+  "carousel2/p1.jpg",
+  "carousel2/p2.jpg",
+  "carousel2/p3.jpg",
+  "carousel2/p4.jpg",
+  "carousel2/p5.jpg"
+ ],
+ "text": "<b>👑 Telegram Premium nima beradi?</b>\n\nKo'pchilik bilmaydigan 8 ta imkoniyat:\n<blockquote>📁 4 GB gacha fayl\n⚡️ Tezroq yuklab olish\n🎙 Ovozli xabar → matn\n🚫 Kanallarda reklama yo'q\n📈 Limitlar x2: 1000 kanal, 20 papka\n😎 Premium stiker, animatsiyali avatar, emoji status</blockquote>\n\n<b>💎 StarsFuel'da narxlar:</b>\n<blockquote expandable>3 oy — 190 000 so'm\n6 oy — 250 000 so'm\n12 oy — 400 000 so'm ⭐ eng foydali</blockquote>\n\nO'zingizga yoki do'stingizga — username yozasiz, xolos 👇",
+ "buttons": [
+  [
+   {
+    "text": "💎 Premium olish",
+    "url": "https://t.me/StarsFuelBot"
+   }
+  ],
+  [
+   {
+    "text": "⭐ Stars olish",
+    "url": "https://t.me/StarsFuelBot"
+   },
+   {
+    "text": "📸 Instagram",
+    "url": "https://www.instagram.com/starsfuelapp/"
+   }
+  ]
+ ]
+}
