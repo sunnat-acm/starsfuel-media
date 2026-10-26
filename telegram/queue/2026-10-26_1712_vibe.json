@@ -1,0 +1,26 @@
+{
+ "send_at": "2026-10-26T17:00:00+05:00",
+ "type": "video",
+ "media": [
+  "vibe_reel.mp4"
+ ],
+ "text": "<b>⭐ Kichik qadam — katta imkoniyat.</b>\n\n<blockquote>Ishda. Ko'chada. Kafeda. Uyda.\nTelegram Stars — bir necha bosishda.</blockquote>\n\n⭐ 100 Stars — <b>22 000 so'm</b>\n<blockquote expandable>💎 Premium · 🎁 Gift · 🖼 NFT\n🎮 PUBG UC · 🔥 Free Fire · 📱 Telegram akkaunt\n— hammasi bitta botda.</blockquote>",
+ "buttons": [
+  [
+   {
+    "text": "⭐ Stars olish",
+    "url": "https://t.me/StarsFuelBot"
+   }
+  ],
+  [
+   {
+    "text": "💎 Premium",
+    "url": "https://t.me/StarsFuelBot"
+   },
+   {
+    "text": "📸 Instagram",
+    "url": "https://www.instagram.com/starsfuelapp/"
+   }
+  ]
+ ]
+}
