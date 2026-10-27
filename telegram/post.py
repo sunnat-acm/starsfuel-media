@@ -61,6 +61,8 @@ def send(p):
             key = f"f{i}"; files[key] = m
             items.append({"type": "photo", "media": f"attach://{key}"})
         msgs = call("sendMediaGroup", {"chat_id": CHAT, "media": items}, files)
+        if not p.get("text") and not markup:
+            return
         f = {"chat_id": CHAT, "text": p["text"], "parse_mode": "HTML",
              "reply_parameters": {"message_id": msgs[0]["message_id"]}, "link_preview_options": {"is_disabled": True}}
         if markup: f["reply_markup"] = markup
