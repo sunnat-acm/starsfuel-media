@@ -4,18 +4,18 @@
 @font-face{font-family:'I';font-weight:900;src:url('inter-latin-900-normal.woff2')}
 html,body{margin:0;background:#000}*{box-sizing:border-box}
 .s{position:relative;width:1080px;height:1350px;overflow:hidden;font-family:'I';color:#fff;
- background:radial-gradient(ellipse 75% 50% at 50% 58%,#E58A5E 0%,#B06750 38%,#4E2215 78%,#220E08 100%)}
+ background:radial-gradient(ellipse 75% 50% at 50% 58%,#A6D06A 0%,#6F9E3C 36%,#24401A 76%,#0C1708 100%)}
 .rays{position:absolute;left:-460px;top:-260px;width:2000px;height:2000px;background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(255,255,255,.06) 0deg 5deg,rgba(255,255,255,0) 5deg 15deg);-webkit-mask:radial-gradient(circle,#000 0,#000 22%,transparent 55%)}
 .grain{position:absolute;inset:0;opacity:.09;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>")}
 .top{position:absolute;left:0;right:0;top:70px;display:flex;justify-content:center;align-items:center;gap:16px;font-weight:800;font-size:34px;letter-spacing:4px}
 .top img{width:62px;height:62px}
 .big{position:absolute;left:0;right:0;top:150px;text-align:center;font-weight:900;font-size:228px;letter-spacing:-.06em;line-height:.86;
- background:linear-gradient(180deg,#fff 0%,#FFE2C8 100%);-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 18px 40px rgba(0,0,0,.35))}
+ background:linear-gradient(180deg,#fff 0%,#E4F6CC 100%);-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 18px 40px rgba(0,0,0,.35))}
 canvas{position:absolute;left:0;top:0}
 .glass{position:absolute;padding:22px 30px;border-radius:30px;background:linear-gradient(135deg,rgba(255,255,255,.26),rgba(255,255,255,.07));border:2px solid rgba(255,255,255,.38);backdrop-filter:blur(14px);box-shadow:0 24px 50px rgba(0,0,0,.35)}
 .glass .a{font-weight:900;font-size:54px;letter-spacing:-.03em;line-height:1}
 .glass .b{font-weight:800;font-size:24px;opacity:.85;margin-top:8px;letter-spacing:1px}
-.pill{position:absolute;left:50%;bottom:62px;transform:translateX(-50%);padding:24px 54px;border-radius:60px;background:#fff;color:#B06750;font-weight:900;font-size:44px;letter-spacing:-.01em;box-shadow:0 20px 50px rgba(0,0,0,.4);white-space:nowrap}
+.pill{position:absolute;left:50%;bottom:62px;transform:translateX(-50%);padding:24px 54px;border-radius:60px;background:#fff;color:#5E8E2E;font-weight:900;font-size:44px;letter-spacing:-.01em;box-shadow:0 20px 50px rgba(0,0,0,.4);white-space:nowrap}
 </style>
 <script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
 </head><body>
