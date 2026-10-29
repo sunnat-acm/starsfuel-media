@@ -1,0 +1,1 @@
+Phonk 3D reel: three.js iPhone (studio/phone3d/phone.glb) + dark-green app screens (cap.py with mock_dark.js -> scr/, tex.py+frame.html -> tex_*.jpg 1290x2796 with iOS status bar + TG header). Render: 2 workers, render.py T0 SPB DUR w n (30fps x2 subframes, ~2s/frame swiftshader). Song: Phonk Time FUNK POWER ULTRA SLOWED, drop 61.55s, 95.7 BPM, audio -ss 58.75.
