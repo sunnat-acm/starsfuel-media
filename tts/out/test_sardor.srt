@@ -1,0 +1,12 @@
+1
+00:00:00,100 --> 00:00:02,265
+Telegram Stars kerakmi?
+
+2
+00:00:02,215 --> 00:00:06,357
+StarsFuelBot orqali yuz yulduz — atigi yigirma ikki ming so'm.
+
+3
+00:00:06,357 --> 00:00:08,644
+Tez, qulay, bitta botda!
+
