@@ -1,0 +1,121 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="fa/css/all.min.css">
+<style>
+@font-face{font-family:'I';font-weight:800;src:url('inter-latin-800-normal.woff2')}
+@font-face{font-family:'I';font-weight:900;src:url('inter-latin-900-normal.woff2')}
+html,body{margin:0;background:#000;overflow:hidden}*{box-sizing:border-box}
+#st{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:'I';color:#fff;background:#050805}
+#cam{position:absolute;inset:-30px}
+.sc{position:absolute;inset:30px;overflow:hidden;visibility:hidden}
+.bg{position:absolute;inset:0}
+.floor{position:absolute;left:-600px;width:2280px;top:1250px;height:1300px;transform-origin:50% 0;transform:perspective(700px) rotateX(72deg);
+ background-image:linear-gradient(rgba(138,172,98,.5) 2px,transparent 2px),linear-gradient(90deg,rgba(138,172,98,.5) 2px,transparent 2px);background-size:120px 120px;-webkit-mask:linear-gradient(180deg,transparent 0,#000 20%,#000 60%,transparent)}
+.glass{position:absolute;border-radius:40px;background:linear-gradient(135deg,rgba(166,208,106,.28),rgba(20,30,15,.55));border:2px solid rgba(166,208,106,.7);box-shadow:0 0 50px rgba(138,172,98,.45),0 24px 60px rgba(0,0,0,.5);backdrop-filter:blur(14px)}
+.chip{position:absolute;padding:20px 34px;border-radius:999px;font-weight:900;font-size:46px;white-space:nowrap;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.25);color:#ddd}
+.phone{position:absolute;left:290px;top:250px;width:500px;height:1040px;border-radius:76px;padding:14px;background:linear-gradient(145deg,#3a3d44,#0b0b0d 45%,#26282d);box-shadow:0 0 0 2px #555,0 60px 120px rgba(0,0,0,.6),0 0 90px rgba(138,172,98,.35)}
+.phone .in{position:relative;width:100%;height:100%;border-radius:62px;overflow:hidden;background:#1E1E1E}
+.phone img{width:100%;display:block}
+.isl{position:absolute;left:50%;top:18px;width:140px;height:40px;margin-left:-70px;border-radius:22px;background:#000}
+.tile{position:absolute;width:300px;height:340px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;font-weight:900;font-size:50px}
+.tile i{font-size:110px;color:#A6D06A;filter:drop-shadow(0 0 24px rgba(166,208,106,.7))}
+.row{position:absolute;left:0;white-space:nowrap;font-weight:900;font-size:220px;letter-spacing:-.05em;line-height:1}
+#flash{position:absolute;inset:0;background:#E9FFD0;opacity:0;mix-blend-mode:screen;pointer-events:none}
+#vig{position:absolute;inset:0;background:radial-gradient(ellipse 75% 60% at 50% 50%,transparent 55%,rgba(0,0,0,.7) 100%);pointer-events:none}
+#grain{position:absolute;left:-100px;top:-100px;width:1300px;height:2200px;opacity:.12;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/></filter><rect width='260' height='260' filter='url(%23n)'/></svg>")}
+#cap{z-index:5}
+</style><script src="motionkit.js"></script></head><body>
+<div id="st"><div id="cam">
+ <!-- S1 HOOK -->
+ <div class="sc" id="s1"><div class="bg" style="background:radial-gradient(ellipse 80% 50% at 50% 40%,#5a1010 0%,#220606 55%,#070202 100%)"></div>
+  <div id="ring" style="position:absolute;left:290px;top:330px;width:500px;height:500px;border-radius:50%;border:16px solid #ff3b3b;box-shadow:0 0 80px #ff3b3b,inset 0 0 60px rgba(255,59,59,.6);display:flex;align-items:center;justify-content:center"><i class="fas fa-hand-paper" style="font-size:240px;color:#fff"></i></div>
+  <div id="tags1"></div></div>
+ <!-- S2 PROBLEM -->
+ <div class="sc" id="s2"><div class="bg" style="background:radial-gradient(ellipse 80% 55% at 50% 45%,#2b2b2b 0%,#141414 60%,#050505 100%)"></div>
+  <svg id="tangle" width="1080" height="1920" style="position:absolute;inset:0;opacity:.35"></svg><div id="chips2"></div></div>
+ <!-- S3 SOLUTION -->
+ <div class="sc" id="s3"><div class="bg" style="background:radial-gradient(ellipse 80% 45% at 50% 45%,#2a5216 0%,#0c1a08 50%,#030503 100%)"><div class="floor" id="floor3"></div></div>
+  <div id="burst3"></div>
+  <div class="phone" id="ph3"><div class="in"><img src="tex_stars_filled.jpg"><div class="isl"></div></div></div>
+  <div class="glass" id="price3" style="left:90px;top:900px;width:900px;padding:34px 0;text-align:center"><div style="font-weight:900;font-size:130px;letter-spacing:-.03em;line-height:1">100 ⭐</div><div style="font-weight:900;font-size:76px;color:#CFEAA8;margin-top:10px">22 000 so'm</div></div></div>
+ <!-- S4 VALUE -->
+ <div class="sc" id="s4"><div class="bg" style="background:radial-gradient(ellipse 80% 50% at 50% 40%,#1f3a12 0%,#0a1407 55%,#030503 100%)"></div>
+  <div id="rows4" style="position:absolute;left:0;right:0;top:110px;opacity:.35"></div>
+  <div class="glass tile" id="t1" style="left:60px;top:560px"><i class="fas fa-gem"></i>Premium</div>
+  <div class="glass tile" id="t2" style="left:390px;top:500px"><i class="fas fa-gift"></i>Gift</div>
+  <div class="glass tile" id="t3" style="left:720px;top:560px"><i class="fas fa-gamepad"></i>PUBG UC</div></div>
+ <!-- S5 CTA -->
+ <div class="sc" id="s5"><div class="bg" style="background:radial-gradient(ellipse 80% 50% at 50% 45%,#2f5a1a 0%,#0c1a08 55%,#030503 100%)"><div class="floor" id="floor5"></div></div>
+  <img id="logo5" src="logo_white.png" style="position:absolute;left:390px;top:330px;width:300px;height:300px;filter:drop-shadow(0 0 50px rgba(166,208,106,.9))">
+  <div id="word5" style="position:absolute;left:0;right:0;top:680px;text-align:center;font-weight:900;font-size:110px;letter-spacing:.04em">STARSFUEL</div>
+  <div id="pill5" style="position:absolute;left:50%;top:900px;transform:translateX(-50%);padding:34px 70px;border-radius:90px;background:#A6D06A;color:#0d1a07;font-weight:900;font-size:66px;white-space:nowrap;box-shadow:0 0 80px rgba(166,208,106,.7)"><i class="fab fa-telegram-plane"></i> @StarsFuelBot</div>
+  <i id="hand5" class="fas fa-hand-pointer" style="position:absolute;left:700px;top:990px;font-size:140px;color:#fff;filter:drop-shadow(0 10px 20px rgba(0,0,0,.6))"></i></div>
+ <div id="cap"></div>
+</div>
+<div id="flash"></div><div id="vig"></div><div id="grain"></div></div>
+<script>
+const {ease,captions,tr,shake,reset,rnd,cl,lin,mix}=MK;
+let TL;const $=id=>document.getElementById(id);
+// static decor
+$('tags1').innerHTML=[...Array(7)].map((_,i)=>`<div class="chip" style="color:#ffb3b3;border-color:rgba(255,80,80,.5);background:rgba(255,60,60,.12)">⭐ ???</div>`).join('');
+const C2=["narx?","karta?","qaysi kanal?","to'lov?","ishonsa bo'ladimi?","qancha?","admin?"];
+$('chips2').innerHTML=C2.map(c=>`<div class="chip">${c}</div>`).join('');
+$('tangle').innerHTML=[...Array(14)].map((_,i)=>`<path d="M${rnd(i)*1080} ${rnd(i+1)*1920} C ${rnd(i+2)*1080} ${rnd(i+3)*1920}, ${rnd(i+4)*1080} ${rnd(i+5)*1920}, ${rnd(i+6)*1080} ${rnd(i+7)*1920}" stroke="#bbb" stroke-width="5" fill="none"/>`).join('');
+$('burst3').innerHTML=[...Array(26)].map(()=>`<i class="fas fa-star" style="position:absolute;color:#F2B544;filter:drop-shadow(0 0 12px #F2B544)"></i>`).join('');
+const R4=["PREMIUM  GIFT  PUBG UC  ","STARS  NFT  RAQAMLAR  "];
+$('rows4').innerHTML=R4.map((r,i)=>`<div class="row" style="top:${i*1020}px;color:${i==1?'transparent':'#A6D06A'};-webkit-text-stroke:${i==1?'4px rgba(166,208,106,.8)':'0'}">${r.repeat(4)}</div>`).join('');
+const TRANS=['glitch','liquid','whip','zoomBlur'];
+const sc=['s1','s2','s3','s4','s5'].map(id=>$(id));
+function wordT(i){return TL.words[i].t0}
+window.seek=function(t){
+ const S=TL.scenes;let cur=0;S.forEach((s,i)=>{if(t>=s.start)cur=i});
+ sc.forEach(e=>{reset(e)});
+ let fx={shake:0,flash:0};
+ // transition window around boundary
+ let inTr=false;
+ for(let i=1;i<S.length;i++){const b=S[i].start,w0=b-.22,w1=b+.22;
+  if(t>=w0&&t<w1){inTr=true;fx=tr[TRANS[i-1]](sc[i-1],sc[i],(t-w0)/(w1-w0),{x:540,y:960,dir:1});}}
+ if(!inTr){sc[cur].style.visibility='visible'}
+ const ph=((t-0)%TL.spb)/TL.spb, beatK=Math.exp(-ph*6);
+ // ---- S1
+ {const s=S[0],k=lin(t,s.sp[0]-.05,s.sp[0]+.35);const r=$('ring');
+  r.style.transform=`scale(${mix(0.2,1,ease.elastic(k))*(1+.04*Math.sin(t*12))})`;r.style.opacity=k>0?1:0;
+  const hot=lin(t,TL.words[4].t0,TL.words[4].t0+.1);
+  [...$('tags1').children].forEach((c,i)=>{const a=i/7*2*Math.PI+t*.6;const R=380+30*Math.sin(t*2+i);
+   c.style.left=(540+R*Math.cos(a)-110)+'px';c.style.top=(580+R*0.9*Math.sin(a)-40)+'px';c.style.transform=`rotate(${Math.sin(t*2+i)*12}deg) scale(${1+hot*.25*Math.abs(Math.sin(t*20+i))})`;
+   c.style.opacity=lin(t,.3+i*.08,.5+i*.08)});
+  if(t<S[1].start-.22&&t>s.sp[0]&&t<s.sp[0]+.3)fx.shake=Math.max(fx.shake,22*(1-lin(t,s.sp[0],s.sp[0]+.3)));}
+ // ---- S2
+ {const s=S[1];[...$('chips2').children].forEach((c,i)=>{const a=lin(t,s.start+.15+i*.28,s.start+.35+i*.28);
+   const jx=(rnd(Math.floor(t*12)+i*7)-.5)*14;c.style.left=(80+rnd(i*3.3)*560+jx)+'px';c.style.top=(220+i*150+(rnd(i*5.1)-.5)*60)+'px';
+   c.style.opacity=a;c.style.transform=`rotate(${(rnd(i*9.9)-.5)*16}deg) scale(${mix(.4,1,ease.back(a))})`});
+  $('tangle').style.transform=`rotate(${Math.sin(t)*2}deg)`;}
+ // ---- S3
+ {const s=S[2],k=ease.out(lin(t,s.start,s.start+.7));const ph3=$('ph3');
+  ph3.style.transform=`perspective(1600px) rotateY(${mix(-35,-12,k)+3*Math.sin(t*1.3)}deg) rotateX(6deg) translateY(${mix(200,0,k)}px) scale(${mix(.8,.92,k)})`;
+  const pi=TL.words.findIndex(w=>w.text==='22 000');const pk=ease.back(lin(t,wordT(pi)-.05,wordT(pi)+.3));
+  const pr=$('price3');pr.style.opacity=t<wordT(pi)-.05?0:1;pr.style.transform=`scale(${mix(1.8,1,pk)}) rotate(-3deg)`;
+  if(t>wordT(pi)-.05&&t<wordT(pi)+.35&&t<S[3].start)fx.shake=Math.max(fx.shake,26*(1-lin(t,wordT(pi),wordT(pi)+.35)));
+  [...$('burst3').children].forEach((e,i)=>{const bt=t-wordT(pi);const a=i/26*2*Math.PI+rnd(i)*.4;const d=ease.out(cl(bt/1.2))*(300+rnd(i+3)*500);
+   e.style.left=(540+Math.cos(a)*d)+'px';e.style.top=(1000+Math.sin(a)*d+bt*bt*200)+'px';e.style.fontSize=(30+rnd(i+5)*50)+'px';e.style.opacity=bt>0?1-lin(bt,.8,1.6):0;e.style.transform=`rotate(${bt*300*(i%2?1:-1)}deg)`});
+  $('floor3').style.backgroundPosition=`0 ${(t*420)%120}px`;}
+ // ---- S4
+ {const s=S[3];const keys=['Premium,','Gift,','PUBG UC'];['t1','t2','t3'].forEach((id,i)=>{const wi=TL.words.findIndex(w=>w.text===keys[i]);
+   const k=lin(t,wordT(wi)-.08,wordT(wi)+.25);const el=$(id);el.style.opacity=k>0?1:0;el.style.transform=`translateY(${mix(220,0,ease.back(k))+(k>=1?10*Math.sin(t*3+i):0)}px) scale(${mix(.5,1,ease.back(k))})`});
+  [...$('rows4').children].forEach((r,i)=>{r.style.transform=`translateX(${-700+(i%2?1:-1)*((t*260)%1300)}px)`});}
+ // ---- S5
+ {const s=S[4];const k=ease.back(lin(t,s.start+.05,s.start+.5));$('logo5').style.transform=`scale(${mix(.3,1,k)}) rotate(${mix(-90,0,ease.out(lin(t,s.start,s.start+.5)))}deg)`;
+  $('word5').style.opacity=lin(t,s.start+.25,s.start+.5);$('word5').style.letterSpacing=mix(.3,.04,ease.out(lin(t,s.start+.25,s.start+.7)))+'em';
+  const pk=lin(t,s.start+.4,s.start+.8);const tap=(t-s.start-1.2)%1.25;const press=tap>0&&tap<.25?Math.sin(tap/.25*Math.PI):0;
+  $('pill5').style.opacity=pk>0?1:0;$('pill5').style.transform=`translateX(-50%) scale(${mix(.5,1,ease.back(pk))*(1-press*.06)})`;
+  $('hand5').style.opacity=lin(t,s.start+.9,s.start+1.1);$('hand5').style.transform=`translate(${-press*20}px,${-press*30}px) rotate(-15deg)`;
+  $('floor5').style.backgroundPosition=`0 ${(t*300)%120}px`;}
+ // captions
+ captions($('cap'),TL.words,t,{y:t>=S[4].start-.2?1220:1440,font:t>=S[2].start-.2&&t<S[3].start?84:92,maxChars:15});
+ // global fx
+ if(t>=S[2].start)fx.shake=Math.max(fx.shake,6*beatK);
+ shake($('cam'),fx.shake,t);
+ $('flash').style.opacity=Math.max(fx.flash,t>=S[2].start&&t<S[2].start+.4?.8*(1-lin(t,S[2].start,S[2].start+.4)):0);
+ $('grain').style.transform=`translate(${-rnd(Math.floor(t*30))*100}px,${-rnd(Math.floor(t*30)+3)*100}px)`;
+};
+fetch('timeline.json').then(r=>r.json()).then(j=>{TL=j;return document.fonts.load('900 90px I')}).then(()=>{seek(0);window.READY=1});
+</script></body></html>

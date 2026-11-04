@@ -1,0 +1,8 @@
+{"title":"Stars qimmatmi?","hook_variants":["To'xta! Hali ham Stars'ni qimmatga olyapsanmi?","Telegram Stars'ni arzonga olishni bilasanmi?","Bitta bot — hamma Telegram xizmatlari."],
+"scenes":[
+ {"id":"s1","role":"hook","say":"To'xta! Hali ham Stars'ni qimmatga olyapsanmi?","cap":[["TO'XTA!","To'xta!"],["Hali","Hali"],["ham","ham"],["Stars'ni","Stars'ni"],["qimmatga","qimmatga",1],["olyapsanmi?","olyapsanmi?"]]},
+ {"id":"s2","role":"muammo","say":"Har kanalda boshqa narx, chalkash to'lovlar...","cap":[["Har","Har"],["kanalda","kanalda"],["boshqa","boshqa"],["narx,","narx,",1],["chalkash","chalkash"],["to'lovlar...","to'lovlar..."]]},
+ {"id":"s3","role":"yechim","say":"StarsFuelBot'da yuz yulduz — atigi yigirma ikki ming so'm.","cap":[["StarsFuelBot'da","StarsFuelBot'da",1],["100","yuz"],["⭐","yulduz"],["—",""],["atigi","atigi"],["22 000","yigirma ikki ming",1],["so'm.","so'm."]]},
+ {"id":"s4","role":"qiymat","say":"Premium, Gift, PUBG UC — hammasi bitta botda.","cap":[["Premium,","Premium,",1],["Gift,","Gift,",1],["PUBG UC","PUBG UC",1],["—",""],["hammasi","hammasi"],["bitta","bitta"],["botda.","botda."]]},
+ {"id":"s5","role":"cta","say":"Hoziroq kiring — StarsFuelBot!","cap":[["Hoziroq","Hoziroq"],["kiring","kiring"],["—",""],["@StarsFuelBot","StarsFuelBot!",1]]}
+]}
