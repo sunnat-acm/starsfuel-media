@@ -1,5 +1,5 @@
 ---
-name: motionsites-web-builder
+name: web-builder
 description: Build award-level, cinematic websites, landing pages and hero sections, or detailed prompts for Lovable, Bolt and v0, using top MotionSites designs, real media and a screenshot-and-fix loop.
 ---
 
