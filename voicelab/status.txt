@@ -1,2 +1,8 @@
 GET /voices 200
 GET /tts/languages 200
+ok test_amir 384044
+ok test_botir 284684
+ok test_firdavs 399404
+ok test_gulya 379244
+ok test_javohir 295724
+ok test_malika 405644
