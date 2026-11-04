@@ -1,0 +1,13 @@
+import { paperFinish } from './paper.js';
+import { loadFonts } from './glyph.js';
+import { renderFilm, DUR, events, setLines, subs, setLogo } from './film.js';
+await Promise.all(['400 40px LGothic', '600 40px LSpartan'].map(f => document.fonts.load(f)));
+await loadFonts();
+const lines = await (await fetch('lines.json')).json();
+const dur = await (await fetch('dur.json')).json();
+setLines(lines, dur);
+const img = new Image(); img.src = 'logo_ink.png'; await img.decode(); setLogo(img);
+const Q = new URLSearchParams(location.search);
+window.DUR = DUR; window.EV = events(); window.SUBS = subs();
+window.render = t => { renderFilm(t, { nosub: Q.has('nosub') }); paperFinish(); };
+window.READY = true;

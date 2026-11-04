@@ -1,0 +1,8 @@
+OPERATSIYA: STARS — credits for third-party assets
+- Paper-cut engine (paper.js, glyph.js, chars.js): Lemo-Opuscar "60s Spy Title Sequence" style, MIT (github.com/lemomo-ai/lemo-opuscar)
+- opentype.js: MIT (vendor/opentype-LICENSE.txt)
+- Fonts: League Gothic, League Spartan — SIL Open Font License (fonts/*.txt)
+- Voice: VoiceLab (Aisha) TTS, voice "Abdulhay Otaxo'jayev" — synthetic voice, used under VoiceLab terms
+- Sound effects: Earshot SFX bank (code-made), MIT (github.com/Leonxlnx/earshot)
+- Music: user's track "Phonk Time - FUNK POWER ULTRA SLOWED" (supplied by the user)
+- Logo: StarsFuel official logo (owner's asset)
