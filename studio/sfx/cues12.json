@@ -1,0 +1,146 @@
+[
+[
+"cut_hit/punch",
+0.3,
+{
+"weight": 0.8
+}
+],
+[
+"cut_hit/punch",
+0.925,
+{
+"weight": 0.8
+}
+],
+[
+"riser/snatch",
+1.551,
+{
+"weight": 0.6
+}
+],
+[
+"sub_drop/punch",
+1.551,
+{
+"weight": 1
+}
+],
+[
+"whoosh_big/jet",
+1.582,
+{
+"align": "start",
+"dur": 1.0,
+"apex": 0.3,
+"weight": 0.8
+}
+],
+[
+"swish/soft",
+2.427,
+{
+"align": "start",
+"weight": 0.35
+}
+],
+[
+"pro_pop_in/round",
+2.227,
+{
+"weight": 0.7
+}
+],
+[
+"pro_pop_in/airy",
+2.696,
+{
+"weight": 0.7
+}
+],
+[
+"pro_pop_in/double",
+3.165,
+{
+"weight": 0.7
+}
+],
+[
+"pro_pop_in/deep",
+3.634,
+{
+"weight": 0.7
+}
+],
+[
+"pro_pop_in/knock",
+4.103,
+{
+"weight": 0.7
+}
+],
+[
+"pro_pop_in/round",
+4.572,
+{
+"weight": 0.7
+}
+],
+[
+"cut_hit/kick",
+5.304,
+{
+"weight": 0.9
+}
+],
+[
+"pro_notify/ding_2045",
+5.492,
+{
+"weight": 0.6
+}
+],
+[
+"glitch/hit",
+5.929,
+{
+"weight": 0.5
+}
+],
+[
+"glitch/hit",
+6.555,
+{
+"weight": 0.5
+}
+],
+[
+"glitch/hit",
+7.18,
+{
+"weight": 0.5
+}
+],
+[
+"whoosh_big/thump",
+7.806,
+{
+"weight": 0.9
+}
+],
+[
+"pro_logo_sting/sweep_hit",
+8.056,
+{
+"weight": 0.6
+}
+],
+[
+"ui_pop/wide",
+8.807,
+{
+"weight": 0.6
+}
+]
+]
