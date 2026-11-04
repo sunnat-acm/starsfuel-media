@@ -1,1 +1,2 @@
-VOICELAB_API_KEY yoq
+GET /voices 200
+GET /tts/languages 200
