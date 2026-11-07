@@ -53,8 +53,8 @@ def split_ready(buf: str, first: bool):
             break
     if m:
         return buf[:m.end()].strip(), buf[m.end():]
-    if first and len(buf) > 48:
-        i = buf.rfind(",", 20)
+    if first and len(buf) > 28:
+        i = buf.rfind(",", 14)
         if i > 0:
             return buf[:i + 1].strip(), buf[i + 1:]
     return None, buf
@@ -278,13 +278,15 @@ class Call:
         if not text:
             await self.set_state("listening")
             return
-        if lang in ("uz", "ru"):
-            self.lang = lang
+        cyr = sum(1 for ch in text if "\u0400" <= ch <= "\u04ff")
+        lat = sum(1 for ch in text if ch.isascii() and ch.isalpha())
+        self.lang = "ru" if cyr > lat else ("uz" if lat else (lang if lang in ("uz", "ru") else self.lang))
         full = (self.pending_user + " " + text).strip()
         self.pending_user = full                 # kept if we get cancelled before speaking
         await self.jsend(type="transcript", role="user", text=full, final=True)
-        msgs = [{"role": "system", "content": RULES}] + self.history[-12:] + [
-            {"role": "user", "content": f"[lang={self.lang}] {full}"}]
+        must = "Отвечай ТОЛЬКО по-русски." if self.lang == "ru" else "Faqat o'zbek tilida (lotin) javob ber."
+        msgs = [{"role": "system", "content": RULES + "\n" + must}] + self.history[-12:] + [
+            {"role": "user", "content": full}]
         self.audio_started, self.spoken = False, ""
         q: asyncio.Queue = asyncio.Queue()
         tts_task = asyncio.create_task(self.tts_worker(q, m, t_end))
