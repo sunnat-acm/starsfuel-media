@@ -60,7 +60,7 @@ TOPIC_HINT = {"stars": "The caller chose: questions about buying Telegram Stars.
 RULES_END = {"uz": "Muomala qoidalari buzilgani sababli suhbat yakunlanadi. Xayr.",
              "ru": "В связи с нарушением правил общения разговор завершается. До свидания."}
 BAD = ("бля", "сука", "суки", "хуй", "хуе", "хуё", "пизд", "ебан", "ебат", "ёб", "мудак", "гандон", "долбоеб",
-       "jalab", "qanjiq", "onangni", "онангни", "sikay", "сикай", "itvachcha", "dalbayob", "далбаёб", "jallab")
+       "suka", "blya", "blyat", "nahuy", "nahui", "pizd", "yeban", "mudak", "gandon", "jalab", "qanjiq", "onangni", "онангни", "sikay", "сикай", "itvachcha", "dalbayob", "далбаёб", "jallab")
 
 
 def is_abusive(text: str) -> bool:
