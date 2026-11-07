@@ -29,10 +29,14 @@ jobs:
         env:
           VOICELAB_API_KEY: ${{ secrets.VOICELAB_API_KEY }}
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          STT_PROVIDER: groq
+          TTS_PROVIDER: edge
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           CHAT: ${{ github.event.inputs.chat_id }}
         run: |
           cd ai-call
+          sudo apt-get install -y -qq ffmpeg >/dev/null
           pip install -q -r requirements.txt
           export ALLOW_NO_AUTH=${{ github.event.inputs.noauth }}
           (python -m uvicorn server.app:app --host 127.0.0.1 --port 8000 > /tmp/server.log 2>&1 &)

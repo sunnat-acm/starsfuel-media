@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       llm: {description: 'deepseek or mock', default: 'deepseek'}
-      stt: {description: 'groq | whisper | voicelab', default: 'whisper'}
+      stt: {description: 'groq | whisper | voicelab', default: 'groq'}
       tts: {description: 'edge | voicelab', default: 'edge'}
       wmodel: {description: 'local whisper model', default: 'small'}
 permissions:

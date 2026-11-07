@@ -19,17 +19,43 @@ def _wav(pcm: bytes):
     return b.getvalue()
 
 
-async def groq(pcm: bytes):
-    data = {"model": C.GROQ_STT_MODEL, "response_format": "verbose_json", "temperature": "0", "prompt": PROMPT}
-    if C.STT_LANGUAGE in ("uz", "ru"):
-        data["language"] = C.STT_LANGUAGE
-    async with httpx.AsyncClient(timeout=20) as c:
-        r = await c.post("https://api.groq.com/openai/v1/audio/transcriptions",
+PROMPTS = {"uz": "Assalomu alaykum. StarsFuelBot orqali Telegram Stars, Premium, Gift, PUBG UC sotib olish. Narxi necha pul?",
+           "ru": "Здравствуйте. Как купить Telegram Stars, Premium, подарки через StarsFuelBot? Сколько стоит?"}
+_http = None
+HALLU = ("продолжение следует", "субтитры", "спасибо за просмотр", "подписывайтесь", "redactor", "amara.org",
+         "obuna bo'ling", "thanks for watching", "dimatorzok")
+
+
+async def _groq_one(wav: bytes, lang: str):
+    global _http
+    if _http is None:
+        _http = httpx.AsyncClient(timeout=20, http2=False)
+    r = await _http.post("https://api.groq.com/openai/v1/audio/transcriptions",
                          headers={"Authorization": f"Bearer {C.GROQ_API_KEY}"},
-                         data=data, files={"file": ("u.wav", _wav(pcm), "audio/wav")})
-        r.raise_for_status()
-        j = r.json()
-        return j.get("text", "").strip(), LANGS.get(str(j.get("language", "")).lower())
+                         data={"model": C.GROQ_STT_MODEL, "response_format": "verbose_json", "temperature": "0",
+                               "language": lang, "prompt": PROMPTS[lang]},
+                         files={"file": ("u.wav", wav, "audio/wav")})
+    r.raise_for_status()
+    j = r.json()
+    segs = j.get("segments") or []
+    score = sum(sg.get("avg_logprob", -5) for sg in segs) / len(segs) if segs else -5
+    nos = max((sg.get("no_speech_prob", 0) for sg in segs), default=0)
+    return j.get("text", "").strip(), lang, score, nos
+
+
+async def groq(pcm: bytes):
+    """Transcribe as Uzbek and as Russian in parallel, keep the more confident one."""
+    wav = _wav(pcm)
+    langs = [C.STT_LANGUAGE] if C.STT_LANGUAGE in ("uz", "ru") else ["uz", "ru"]
+    res = [r for r in await asyncio.gather(*[_groq_one(wav, l) for l in langs], return_exceptions=True)
+           if not isinstance(r, Exception)]
+    if not res:
+        raise RuntimeError("groq stt failed")
+    text, lang, score, nos = max(res, key=lambda r: r[2])
+    low = text.lower().strip(" .!?…")
+    if nos > 0.8 or not low or any(h in low for h in HALLU):
+        return "", None
+    return text, lang
 
 
 _model = None
