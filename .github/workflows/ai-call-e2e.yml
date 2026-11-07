@@ -28,9 +28,9 @@ jobs:
             --dur 48 --save tests/e2e_out.wav > tests/e2e_log.txt 2>&1 &
           SIM=$!; sleep 60; kill $SIM 2>/dev/null || true; sleep 1
           echo "LLM=$LLM" >> tests/e2e_log.txt
-          grep -E "turn|WARNING|ERROR|Traceback|error" /tmp/server.log | sed "s/${VOICELAB_API_KEY:-___}/***/g" >> tests/e2e_log.txt || true
+          cat /tmp/server.log | grep -v "GET /health" | sed "s/${VOICELAB_API_KEY:-___}/***/g" >> tests/e2e_log.txt || true
       - name: commit
         if: always()
         run: |
           git config user.name e2e-bot; git config user.email e2e-bot@users.noreply.github.com
-          git add -A ai-call/tests/e2e_log.txt ai-call/tests/e2e_out.wav; git commit -m "ai-call: e2e run" || exit 0; git pull --rebase; git push
+          git add -A ai-call/tests; git commit -m "ai-call: e2e run" || exit 0; git pull --rebase; git push
