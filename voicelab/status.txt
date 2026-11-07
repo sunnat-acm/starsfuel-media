@@ -1,8 +1,6 @@
 GET /voices 200
 GET /tts/languages 200
-ok op_l1 103724
-ok op_l2 159404
-ok op_l3 165164
-ok op_l4 99884
-ok op_l5 207404
-ok op_l6 199724
+ok q_ru1 203564
+ok q_uz1 131084
+ok q_uz2 88364
+ok q_uz3 100844
