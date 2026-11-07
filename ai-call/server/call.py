@@ -22,7 +22,7 @@ def providers():
     if C.STT_PROVIDER == "mock" or C.TTS_PROVIDER == "mock" or C.LLM_PROVIDER == "mock":
         from .providers import mock
     stt = tts = None
-    if C.STT_PROVIDER in ("groq", "whisper"):
+    if C.STT_PROVIDER in ("groq", "whisper", "hybrid"):
         from .providers import whisper as stt
     elif C.STT_PROVIDER == "voicelab":
         from .providers import voicelab as stt
@@ -67,12 +67,12 @@ def split_ready(buf: str, first: bool):
 PROMPT_CACHE: dict = {}      # fixed IVR lines -> PCM (synthesized once)
 
 
-async def synth_all(TTS, text, lang="uz", timeout=10):
+async def synth_all(TTS, text, lang="uz", timeout=10, **kw):
     buf = bytearray()
 
     async def go():
         job = TTS.TTSJob()
-        async for ch in job.stream(text, lang):
+        async for ch in job.stream(text, lang, **kw):
             buf.extend(ch)
     await asyncio.wait_for(go(), timeout)
     return bytes(buf)
@@ -80,7 +80,8 @@ async def synth_all(TTS, text, lang="uz", timeout=10):
 
 async def cached(TTS, text):
     if text not in PROMPT_CACHE:
-        PROMPT_CACHE[text] = await synth_all(TTS, text, timeout=15)
+        kw = {"rate": C.IVR_RATE, "pitch": C.IVR_PITCH} if C.TTS_PROVIDER == "edge" else {}
+        PROMPT_CACHE[text] = await synth_all(TTS, text, timeout=15, **kw)
     return PROMPT_CACHE[text]
 
 

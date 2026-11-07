@@ -43,6 +43,50 @@ async def _groq_one(wav: bytes, lang: str):
     return j.get("text", "").strip(), lang, score, nos
 
 
+async def groq_all(pcm: bytes):
+    wav = _wav(pcm)
+    langs = [C.STT_LANGUAGE] if C.STT_LANGUAGE in ("uz", "ru") else ["uz", "ru"]
+    return [r for r in await asyncio.gather(*[_groq_one(wav, l) for l in langs], return_exceptions=True)
+            if not isinstance(r, Exception)]
+
+
+def _clean(text):
+    low = text.lower().strip(" .!?…")
+    return "" if not low or any(h in low for h in HALLU) else text
+
+
+_navai = None
+
+
+def _navai_uz(pcm: bytes):
+    global _navai
+    import numpy as np
+    from faster_whisper import WhisperModel
+    if _navai is None:
+        _navai = WhisperModel(C.NAVAI_MODEL, device="cpu", compute_type="int8", cpu_threads=C.WHISPER_THREADS)
+    x = np.frombuffer(pcm, dtype=np.int16).astype("float32") / 32768
+    segs, _ = _navai.transcribe(x, language="uz", beam_size=1, vad_filter=False, condition_on_previous_text=False,
+                                without_timestamps=True)
+    return " ".join(s.text.strip() for s in segs).strip()
+
+
+async def hybrid(pcm: bytes):
+    """Groq (uz+ru) decides the language; Uzbek text comes from the NavAI Uzbek model."""
+    loop = asyncio.get_running_loop()
+    uz_task = loop.run_in_executor(None, _navai_uz, pcm)
+    res = await groq_all(pcm)
+    best = max(res, key=lambda r: r[2]) if res else None
+    if best and best[1] == "ru" and best[3] < 0.8:
+        return _clean(best[0]), "ru"
+    try:
+        text = await uz_task
+    except Exception:
+        text = best[0] if best else ""
+    if best and best[3] > 0.8:
+        return "", None
+    return _clean(text), "uz"
+
+
 async def groq(pcm: bytes):
     """Transcribe as Uzbek and as Russian in parallel, keep the more confident one."""
     wav = _wav(pcm)
@@ -80,7 +124,13 @@ def warmup():
         _local(b"\x00\x00" * 16000)
 
 
+def warm_navai():
+    _navai_uz(b"\x00\x00" * 16000)
+
+
 async def transcribe(pcm: bytes, language=None):
+    if C.STT_PROVIDER == "hybrid" and C.GROQ_API_KEY:
+        return await hybrid(pcm)
     if C.STT_PROVIDER == "groq" and C.GROQ_API_KEY:
         return await groq(pcm)
     return await asyncio.get_running_loop().run_in_executor(None, _local, pcm)

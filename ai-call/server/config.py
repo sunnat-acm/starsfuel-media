@@ -9,8 +9,8 @@ VOICELAB_API_KEY = E("VOICELAB_API_KEY", "")
 DEEPSEEK_API_KEY = E("DEEPSEEK_API_KEY", "")
 TG_BOT_TOKEN = E("TG_BOT_TOKEN", "")            # the bot that opens the WebApp (for initData check)
 
-# providers — STT: groq | whisper | voicelab | voicestudio | mock ; TTS: edge | voicelab | voicestudio | mock
-STT_PROVIDER = E("STT_PROVIDER", "groq")
+# providers — STT: hybrid (Groq picks uz/ru, NavAI Uzbek model writes Uzbek) | groq | whisper | voicelab | voicestudio | mock ; TTS: edge | voicelab | voicestudio | mock
+STT_PROVIDER = E("STT_PROVIDER", "hybrid")
 TTS_PROVIDER = E("TTS_PROVIDER", "edge")
 LLM_PROVIDER = E("LLM_PROVIDER", "deepseek")    # deepseek | mock
 
@@ -27,10 +27,13 @@ STT_LANGUAGE = E("STT_LANGUAGE", "auto")         # auto | uz | ru
 # free providers
 GROQ_API_KEY = E("GROQ_API_KEY", "")
 GROQ_STT_MODEL = E("GROQ_STT_MODEL", "whisper-large-v3-turbo")
-WHISPER_MODEL = E("WHISPER_MODEL", "small")          # local faster-whisper fallback: small | medium | large-v3-turbo
+WHISPER_MODEL = E("WHISPER_MODEL", "small")
+NAVAI_MODEL = E("NAVAI_MODEL", os.path.join(os.path.dirname(__file__), "..", "models", "navai-small-ct2"))   # Uzbek fine-tuned Whisper (CT2)          # local faster-whisper fallback: small | medium | large-v3-turbo
 WHISPER_THREADS = int(E("WHISPER_THREADS", "4"))
 EDGE_VOICE_UZ = E("EDGE_VOICE_UZ", "uz-UZ-MadinaNeural")
 EDGE_VOICE_RU = E("EDGE_VOICE_RU", "ru-RU-SvetlanaNeural")
+IVR_RATE = E("IVR_RATE", "-12%")       # recorded IVR lines: slower
+IVR_PITCH = E("IVR_PITCH", "-10Hz")    # and deeper
 
 VOICESTUDIO_URL = E("VOICESTUDIO_URL", "http://voicestudio:3900/v1")
 VOICESTUDIO_KEY = E("VOICESTUDIO_KEY", "not-needed")

@@ -16,7 +16,13 @@ async def warm():
     import asyncio
     from .call import warm_prompts
     asyncio.create_task(warm_prompts())
-    if C.STT_PROVIDER == "whisper" or (C.STT_PROVIDER == "groq" and not C.GROQ_API_KEY):
+    if C.STT_PROVIDER == "hybrid":
+        from .providers import whisper
+        try:
+            await asyncio.get_running_loop().run_in_executor(None, whisper.warm_navai)
+        except Exception as e:
+            logging.getLogger("app").warning("navai model not loaded: %r", e)
+    elif C.STT_PROVIDER == "whisper" or (C.STT_PROVIDER == "groq" and not C.GROQ_API_KEY):
         from .providers import whisper
         await asyncio.get_running_loop().run_in_executor(None, whisper._local, b"\x00\x00" * 16000)
 

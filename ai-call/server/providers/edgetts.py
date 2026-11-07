@@ -11,16 +11,16 @@ class TTSJob:
         self.stop = False
         self.proc = None
 
-    async def stream(self, text, lang="uz", voice=None, speed=None):
+    async def stream(self, text, lang="uz", voice=None, speed=None, rate=None, pitch="+0Hz"):
         voice = voice or (C.EDGE_VOICE_RU if lang == "ru" else C.EDGE_VOICE_UZ)
-        rate = f"{int(round(((speed or C.TTS_SPEED) - 1) * 100)):+d}%"
+        rate = rate or f"{int(round(((speed or C.TTS_SPEED) - 1) * 100)):+d}%"
         self.proc = await asyncio.create_subprocess_exec(
             "ffmpeg", "-loglevel", "error", "-f", "mp3", "-i", "pipe:0", "-f", "s16le", "-ac", "1", "-ar", str(TTS_SR), "pipe:1",
             stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE)
 
         async def feed():
             try:
-                async for ch in edge_tts.Communicate(text, voice, rate=rate).stream():
+                async for ch in edge_tts.Communicate(text, voice, rate=rate, pitch=pitch).stream():
                     if self.stop:
                         break
                     if ch["type"] == "audio":
