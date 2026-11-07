@@ -1,0 +1,18 @@
+name: fetch
+on:
+  push:
+    paths: ['fetch/urls.txt']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p fetch/out
+          while read -r u; do [ -z "$u" ] && continue; n=$(echo "$u" | sed 's#https\?://##; s#[/?&=]#_#g'); curl -sSL -m 60 -A "Mozilla/5.0" "$u" -o "fetch/out/$n" -w "$u %{http_code} %{size_download}\n" >> fetch/out/_log.txt || echo "$u FAIL" >> fetch/out/_log.txt; done < fetch/urls.txt
+      - run: |
+          git config user.name fetch-bot; git config user.email fetch-bot@users.noreply.github.com
+          git add -A fetch; git commit -m "fetch: run" || exit 0; git pull --rebase; git push

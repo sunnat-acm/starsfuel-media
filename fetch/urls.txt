@@ -1,0 +1,6 @@
+https://docs.voicelab.uz/api/realtime-stt
+https://docs.voicelab.uz/api/tts
+https://docs.voicelab.uz/api/stt
+https://docs.voicelab.uz/libraries/for-agents
+https://docs.voicelab.uz/llms.txt
+https://docs.voicelab.uz/llms-full.txt
