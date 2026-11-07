@@ -1,59 +1,67 @@
-  0.38 server: {"type": "state", "state": "ringing"}
-  2.19 server: {"type": "state", "state": "connected"}
-  2.19 server: {"type": "transcript", "role": "ai", "text": "Assalomu alaykum! StarsFuel qo'llab-quvvatlash xizmati. Sizga qanday yordam bera olaman?", "final": true}
-  2.19 server: {"type": "seq", "seq": 1}
-  2.20 server: {"type": "state", "state": "listening"}
+  0.55 server: {"type": "state", "state": "ringing"}
+  2.15 server: {"type": "state", "state": "connected"}
+  2.15 server: {"type": "transcript", "role": "ai", "text": "Assalomu alaykum! StarsFuel qo'llab-quvvatlash xizmati. Sizga qanday yordam bera olaman?", "final": true}
+  2.15 server: {"type": "seq", "seq": 1}
+  2.17 server: {"type": "state", "state": "listening"}
   8.82 server: {"type": "clear"}
-  8.85 client: playback idle seq 1
+  8.83 client: playback idle seq 1
  11.18 server: {"type": "state", "state": "thinking"}
- 14.07 server: {"type": "transcript", "role": "user", "text": "السلام آلیکم. YouSters نیچه پلتورا به.", "final": true}
- 16.03 server: {"type": "seq", "seq": 2}
- 16.03 server: {"type": "state", "state": "speaking"}
- 17.15 server: {"type": "transcript", "role": "ai", "text": "Kechirasiz, men sizni tushunmadim. Iltimos, o'zbek yoki rus tilida yozing.", "final": true}
- 17.15 server: {"type": "metrics", "speech_ms": 2530, "stt": 2887, "llm_first": 1126, "first_audio": 4847, "total": 5966}
+ 11.53 server: {"type": "transcript", "role": "user", "text": "Assalomu alaykum. Jūs tarsnei čia pul turabi.", "final": true}
+ 14.40 server: {"type": "seq", "seq": 2}
+ 14.40 server: {"type": "state", "state": "speaking"}
+ 15.77 server: {"type": "transcript", "role": "ai", "text": "Kechirasiz, savolingizni to'liq tushunmadim. Telegram Stars yoki boshqa xizmat haqida so'ramoqchimisiz?", "final":
+ 15.77 server: {"type": "metrics", "speech_ms": 2530, "stt": 345, "llm_first": 952, "first_audio": 3215, "total": 4585}
  17.74 server: {"type": "clear"}
  17.74 server: {"type": "state", "state": "listening"}
- 17.77 client: playback idle seq 2
+ 17.76 client: playback idle seq 2
  19.28 server: {"type": "state", "state": "thinking"}
+ 19.60 server: {"type": "transcript", "role": "user", "text": "Kata orqali qandai Tuleiman?", "final": true}
+ 20.95 server: {"type": "seq", "seq": 3}
+ 20.95 server: {"type": "state", "state": "speaking"}
+ 22.93 server: {"type": "transcript", "role": "ai", "text": "Karta orqali to'lash uchun botda Stars bo'limiga kirib, miqdorni va qabul qiluvchining username ini kiritasiz, key
+ 22.93 server: {"type": "metrics", "speech_ms": 1698, "stt": 313, "llm_first": 448, "first_audio": 1665, "total": 3644}
  27.76 server: {"type": "clear"}
  27.76 server: {"type": "state", "state": "listening"}
+ 27.81 client: playback idle seq 3
  31.60 server: {"type": "state", "state": "thinking"}
+ 31.95 server: {"type": "transcript", "role": "user", "text": "Здравствуйте. Сколько стоит Premium на три месяца?", "final": true}
+ 33.24 server: {"type": "seq", "seq": 4}
+ 33.24 server: {"type": "state", "state": "speaking"}
+ 35.17 server: {"type": "transcript", "role": "ai", "text": "Здравствуйте! Telegram Premium на три месяца стоит сто девяносто тысяч сумов.", "final": true}
+ 35.17 server: {"type": "metrics", "speech_ms": 4002, "stt": 348, "llm_first": 681, "first_audio": 1641, "total": 3569}
  38.52 server: {"type": "clear"}
  38.52 server: {"type": "state", "state": "listening"}
+ 38.56 client: playback idle seq 4
  40.62 server: {"type": "state", "state": "thinking"}
- 48.00 server: {"type": "state", "state": "ended"}
-LLM=deepseek STT=whisper TTS=edge W=small
-INFO:     Started server process [3192]
+ 40.89 server: {"type": "transcript", "role": "user", "text": "Рахмат. Башка савалом yok. Хайр.", "final": true}
+ 43.05 server: {"type": "seq", "seq": 5}
+ 43.05 server: {"type": "state", "state": "speaking"}
+ 44.46 server: {"type": "transcript", "role": "ai", "text": "Спасибо вам большое, всего доброго!", "final": true}
+ 44.46 server: {"type": "metrics", "speech_ms": 2274, "stt": 267, "llm_first": 507, "first_audio": 2427, "total": 3837}
+ 47.63 client: playback idle seq 5
+ 47.63 server: {"type": "state", "state": "ended"}
+ 47.63 closed; audio received 43.9 s
+LLM=deepseek STT=groq TTS=edge W=small
+INFO:     Started server process [3662]
 INFO:     Waiting for application startup.
-2026-11-07 12:43:40,596 httpx2 INFO HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
-2026-11-07 12:43:40,666 httpx2 INFO HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-small/revision/main "HTTP/1.1 200 OK"
-2026-11-07 12:43:40,743 httpx2 INFO HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-small/tree/536b0662742c02347bc0e980a01041f333bce120?recursive=true&expand=false "HTTP/1.1 200 OK"
-2026-11-07 12:43:40,825 httpx2 INFO HTTP Request: HEAD https://huggingface.co/Systran/faster-whisper-small/resolve/536b0662742c02347bc0e980a01041f333bce120/vocabulary.txt "HTTP/1.1 307 Temporary Redirect"
-Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-2026-11-07 12:43:40,825 huggingface_hub.utils._http WARNING Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-2026-11-07 12:43:40,830 httpx2 INFO HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/vocabulary.txt?%2FSystran%2Ffaster-whisper-small%2Fresolve%2F536b0662742c02347bc0e980a01041f333bce120%2Fvocabulary.txt=&etag=%22c9074644d9d1205686f16d411564729461324b75%22 "HTTP/1.1 200 OK"
-2026-11-07 12:43:40,836 httpx2 INFO HTTP Request: GET https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/vocabulary.txt?%2FSystran%2Ffaster-whisper-small%2Fresolve%2F536b0662742c02347bc0e980a01041f333bce120%2Fvocabulary.txt=&etag=%22c9074644d9d1205686f16d411564729461324b75%22 "HTTP/1.1 200 OK"
-2026-11-07 12:43:40,836 httpx2 INFO HTTP Request: HEAD https://huggingface.co/Systran/faster-whisper-small/resolve/536b0662742c02347bc0e980a01041f333bce120/tokenizer.json "HTTP/1.1 307 Temporary Redirect"
-2026-11-07 12:43:40,838 httpx2 INFO HTTP Request: HEAD https://huggingface.co/Systran/faster-whisper-small/resolve/536b0662742c02347bc0e980a01041f333bce120/config.json "HTTP/1.1 307 Temporary Redirect"
-2026-11-07 12:43:40,842 httpx2 INFO HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/tokenizer.json?%2FSystran%2Ffaster-whisper-small%2Fresolve%2F536b0662742c02347bc0e980a01041f333bce120%2Ftokenizer.json=&etag=%227818adb6de9fa3064d3ff81226fdd675be1f6344%22 "HTTP/1.1 200 OK"
-2026-11-07 12:43:40,842 httpx2 INFO HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-small/xet-read-token/536b0662742c02347bc0e980a01041f333bce120 "HTTP/1.1 200 OK"
-2026-11-07 12:43:40,844 httpx2 INFO HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/config.json?%2FSystran%2Ffaster-whisper-small%2Fresolve%2F536b0662742c02347bc0e980a01041f333bce120%2Fconfig.json=&etag=%22e5047537059bd8f182d9ca64c470201585015187%22 "HTTP/1.1 200 OK"
-2026-11-07 12:43:40,849 httpx2 INFO HTTP Request: GET https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/tokenizer.json?%2FSystran%2Ffaster-whisper-small%2Fresolve%2F536b0662742c02347bc0e980a01041f333bce120%2Ftokenizer.json=&etag=%227818adb6de9fa3064d3ff81226fdd675be1f6344%22 "HTTP/1.1 200 OK"
-2026-11-07 12:43:40,851 httpx2 INFO HTTP Request: GET https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/config.json?%2FSystran%2Ffaster-whisper-small%2Fresolve%2F536b0662742c02347bc0e980a01041f333bce120%2Fconfig.json=&etag=%22e5047537059bd8f182d9ca64c470201585015187%22 "HTTP/1.1 200 OK"
-2026-11-07 12:43:45,798 faster_whisper INFO Processing audio with duration 00:01.000
-2026-11-07 12:43:47,106 faster_whisper INFO Detected language 'en' with probability 0.37
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     ('127.0.0.1', 52896) - "WebSocket /ws" [accepted]
+INFO:     ('127.0.0.1', 54364) - "WebSocket /ws" [accepted]
 INFO:     connection open
-2026-11-07 12:44:00,753 faster_whisper INFO Processing audio with duration 00:02.530
-2026-11-07 12:44:02,024 faster_whisper INFO Detected language 'fa' with probability 0.73
-2026-11-07 12:44:04,098 httpx INFO HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
-2026-11-07 12:44:06,719 call INFO turn {'speech_ms': 2530, 'stt': 2887, 'llm_first': 1126, 'first_audio': 4847, 'total': 5966}
-2026-11-07 12:44:08,852 faster_whisper INFO Processing audio with duration 00:01.698
-2026-11-07 12:44:10,137 faster_whisper INFO Detected language 'hy' with probability 0.53
-2026-11-07 12:44:21,175 faster_whisper INFO Processing audio with duration 00:04.002
-2026-11-07 12:44:30,196 faster_whisper INFO Processing audio with duration 00:02.274
-2026-11-07 12:44:33,070 faster_whisper INFO Detected language 'ru' with probability 0.99
-2026-11-07 12:44:41,378 faster_whisper INFO Detected language 'fa' with probability 0.72
+2026-11-07 13:23:18,209 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-11-07 13:23:18,215 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-11-07 13:23:18,596 httpx INFO HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-11-07 13:23:22,456 call INFO turn {'speech_ms': 2530, 'stt': 345, 'llm_first': 952, 'first_audio': 3215, 'total': 4585}
+2026-11-07 13:23:26,218 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-11-07 13:23:26,283 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-11-07 13:23:26,646 httpx INFO HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-11-07 13:23:29,614 call INFO turn {'speech_ms': 1698, 'stt': 313, 'llm_first': 448, 'first_audio': 1665, 'total': 3644}
+2026-11-07 13:23:38,492 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-11-07 13:23:38,639 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-11-07 13:23:38,940 httpx INFO HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-11-07 13:23:41,861 call INFO turn {'speech_ms': 4002, 'stt': 348, 'llm_first': 681, 'first_audio': 1641, 'total': 3569}
+2026-11-07 13:23:47,550 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-11-07 13:23:47,578 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-11-07 13:23:47,889 httpx INFO HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-11-07 13:23:51,148 call INFO turn {'speech_ms': 2274, 'stt': 267, 'llm_first': 507, 'first_audio': 2427, 'total': 3837}
 INFO:     connection closed
