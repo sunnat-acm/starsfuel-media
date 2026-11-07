@@ -1,0 +1,72 @@
+name: ai-call-demo
+on:
+  workflow_dispatch:
+    inputs:
+      mode: {description: 'check | demo', default: 'demo'}
+      minutes: {description: 'demo length', default: '30'}
+      chat_id: {description: 'Telegram user id to receive the call button', default: '6224123260'}
+permissions:
+  contents: write
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+      - name: bot info
+        env: {TG: '${{ secrets.TG_BOT_TOKEN }}'}
+        run: |
+          mkdir -p ai-call/demo
+          curl -s "https://api.telegram.org/bot$TG/getMe" | python3 -c "import sys,json;d=json.load(sys.stdin);print('bot:',d.get('result',{}).get('username'),'ok:',d.get('ok'))" > ai-call/demo/status.txt
+          cat ai-call/demo/status.txt
+      - uses: actions/setup-python@v5
+        if: github.event.inputs.mode == 'demo'
+        with: {python-version: '3.12'}
+      - name: start server + tunnel, send button
+        if: github.event.inputs.mode == 'demo'
+        env:
+          VOICELAB_API_KEY: ${{ secrets.VOICELAB_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          CHAT: ${{ github.event.inputs.chat_id }}
+        run: |
+          cd ai-call
+          pip install -q -r requirements.txt
+          (python -m uvicorn server.app:app --host 127.0.0.1 --port 8000 > /tmp/server.log 2>&1 &)
+          curl -sL -o /tmp/cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 && chmod +x /tmp/cloudflared
+          (/tmp/cloudflared tunnel --no-autoupdate --url http://127.0.0.1:8000 > /tmp/cf.log 2>&1 &)
+          for i in $(seq 1 40); do URL=$(grep -o 'https://[a-z0-9-]*\.trycloudflare\.com' /tmp/cf.log | head -1); [ -n "$URL" ] && break; sleep 2; done
+          sleep 8; curl -s "$URL/health" || true; echo
+          python3 - <<'PY'
+          import json,os,urllib.request
+          url=os.popen("grep -o 'https://[a-z0-9-]*\\.trycloudflare\\.com' /tmp/cf.log | head -1").read().strip()
+          body={"chat_id":os.environ["CHAT"],"text":"📞 StarsFuel AI qo'ng'iroq demosi (${{ github.event.inputs.minutes }} daqiqa). Tugmani bosing:",
+                "reply_markup":{"inline_keyboard":[[{"text":"📞 Qo'ng'iroq qilish","web_app":{"url":url+"/"}}]]}}
+          r=urllib.request.Request(f"https://api.telegram.org/bot{os.environ['TG_BOT_TOKEN']}/sendMessage",data=json.dumps(body).encode(),headers={"Content-Type":"application/json"})
+          try: res=json.load(urllib.request.urlopen(r)); print("send ok:",res.get("ok"))
+          except Exception as e: print("send failed:",getattr(e,'read',lambda:b'')().decode()[:300])
+          PY
+      - name: report start
+        if: github.event.inputs.mode == 'demo'
+        run: |
+          echo "demo started $(date -u +%H:%M) UTC for ${{ github.event.inputs.minutes }} min" >> ai-call/demo/status.txt
+          git config user.name demo-bot; git config user.email demo-bot@users.noreply.github.com
+          git add -A ai-call/demo; git commit -m "demo: started" || true; git pull --rebase; git push || true
+      - name: keep alive
+        if: github.event.inputs.mode == 'demo'
+        run: sleep $(( ${{ github.event.inputs.minutes }} * 60 ))
+      - name: report end
+        if: always() && github.event.inputs.mode == 'demo'
+        env:
+          VOICELAB_API_KEY: ${{ secrets.VOICELAB_API_KEY }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          CHAT: ${{ github.event.inputs.chat_id }}
+        run: |
+          curl -s "https://api.telegram.org/bot$TG_BOT_TOKEN/sendMessage" -d chat_id=$CHAT -d text="Demo tugadi." > /dev/null || true
+          grep -E "turn|WARNING|ERROR" /tmp/server.log | sed "s/${VOICELAB_API_KEY:-___}/***/g" | tail -40 > ai-call/demo/log.txt || true
+          git pull --rebase || true; git add -A ai-call/demo; git commit -m "demo: log" || true; git push || true
+      - name: commit check
+        if: github.event.inputs.mode == 'check'
+        run: |
+          git config user.name demo-bot; git config user.email demo-bot@users.noreply.github.com
+          git add -A ai-call/demo; git commit -m "demo: bot check" || true; git push || true
