@@ -32,8 +32,8 @@ NAVAI_MODEL = E("NAVAI_MODEL", os.path.join(os.path.dirname(__file__), "..", "mo
 WHISPER_THREADS = int(E("WHISPER_THREADS", "4"))
 EDGE_VOICE_UZ = E("EDGE_VOICE_UZ", "uz-UZ-MadinaNeural")
 EDGE_VOICE_RU = E("EDGE_VOICE_RU", "ru-RU-SvetlanaNeural")
-IVR_RATE = E("IVR_RATE", "-12%")       # recorded IVR lines: slower
-IVR_PITCH = E("IVR_PITCH", "-10Hz")    # and deeper
+IVR_RATE = E("IVR_RATE", "-5%")       # recorded IVR lines: slower
+IVR_PITCH = E("IVR_PITCH", "-5Hz")    # and deeper
 
 VOICESTUDIO_URL = E("VOICESTUDIO_URL", "http://voicestudio:3900/v1")
 VOICESTUDIO_KEY = E("VOICESTUDIO_KEY", "not-needed")
