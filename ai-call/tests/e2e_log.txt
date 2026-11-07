@@ -1,37 +1,92 @@
-  1.56 server: {"type": "state", "state": "menu"}
-  1.56 server: {"type": "transcript", "role": "ai", "text": "StarsFuel'ga xush kelibsiz! Stars xarid qilish bo'yicha savollar uchun bir raqamini bosing. Premium xarid qilish u
+  1.57 server: {"type": "state", "state": "menu"}
+  1.57 server: {"type": "transcript", "role": "ai", "text": "StarsFuel'ga xush kelibsiz! Stars xarid qilish bo'yicha savollar uchun bir raqamini bosing. Premium xarid qilish u
   1.57 server: {"type": "seq", "seq": 1}
- 21.85 client: playback idle seq 1
- 25.88 server: {"type": "state", "state": "menu_done"}
- 25.88 server: {"type": "transcript", "role": "ai", "text": "Operator bilan ulanmoqdasiz. Iltimos, operator bilan gaplashishda muomala qoidalariga amal qiling.", "final": true
- 25.88 server: {"type": "seq", "seq": 2}
- 34.59 client: playback idle seq 2
- 34.99 server: {"type": "state", "state": "transfer"}
- 39.59 server: {"type": "state", "state": "connected"}
- 39.59 server: {"type": "transcript", "role": "ai", "text": "Assalomu alaykum! Men Madina. Sizga qanday yordam bera olaman?", "final": true}
- 39.59 server: {"type": "seq", "seq": 3}
- 39.60 server: {"type": "state", "state": "listening"}
- 39.94 server: {"type": "clear"}
- 39.97 client: playback idle seq 3
- 40.62 server: {"type": "state", "state": "thinking"}
- 42.81 server: {"type": "transcript", "role": "user", "text": "yoʻq hayit", "final": true}
- 44.23 server: {"type": "seq", "seq": 4}
- 44.23 server: {"type": "state", "state": "speaking"}
- 46.02 server: {"type": "transcript", "role": "ai", "text": "Xo'p, tushunarli. Savolingiz bo'lsa, bemalol yozing. Xayr!", "final": true}
- 46.02 server: {"type": "metrics", "speech_ms": 598, "stt": 2189, "llm_first": 815, "first_audio": 3607, "total": 5396}
- 48.00 server: {"type": "state", "state": "ended"}
- 50.91 client: playback idle seq 4
+  4.07 client: dtmf 1
+  4.07 server: {"type": "clear"}
+  4.07 server: {"type": "state", "state": "menu_done"}
+  4.07 server: {"type": "transcript", "role": "ai", "text": "Operator bilan ulanmoqdasiz. Iltimos, operator bilan gaplashishda muomala qoidalariga amal qiling.", "final": true
+  4.07 server: {"type": "seq", "seq": 2}
+ 12.77 client: playback idle seq 2
+ 13.17 server: {"type": "state", "state": "transfer"}
+ 17.77 server: {"type": "state", "state": "connected"}
+ 17.77 server: {"type": "transcript", "role": "ai", "text": "Assalomu alaykum! Men Madina. Stars xarid qilish bo'yicha sizga qanday yordam bera olaman?", "final": true}
+ 17.77 server: {"type": "seq", "seq": 3}
+ 17.79 server: {"type": "state", "state": "listening"}
+ 25.41 client: playback idle seq 3
+ 28.20 server: {"type": "state", "state": "thinking"}
+ 30.59 server: {"type": "transcript", "role": "user", "text": "assalomu alaykum yuz dars necha pul turadi", "final": true}
+ 32.24 server: {"type": "seq", "seq": 4}
+ 32.24 server: {"type": "state", "state": "speaking"}
+ 32.93 server: {"type": "transcript", "role": "ai", "text": "Yuz Stars yigirma ikki ming so'm turadi. Xarid qilishni xohlaysizmi?", "final": true}
+ 32.93 server: {"type": "metrics", "speech_ms": 2562, "stt": 2386, "llm_first": 1005, "first_audio": 4034, "total": 4730}
+ 35.78 server: {"type": "clear"}
+ 35.78 server: {"type": "state", "state": "listening"}
+ 35.78 client: playback idle seq 4
+ 37.26 server: {"type": "state", "state": "thinking"}
+ 39.53 server: {"type": "transcript", "role": "user", "text": "karta orqali qanday toʻlayman", "final": true}
+ 41.42 server: {"type": "seq", "seq": 5}
+ 41.42 server: {"type": "state", "state": "speaking"}
+ 45.27 server: {"type": "transcript", "role": "ai", "text": "Botda Stars bo'limiga o'ting, miqdorni va qabul qiluvchining username ini kiriting, keyin Karta orqali ni tanlab, 
+ 45.27 server: {"type": "metrics", "speech_ms": 1666, "stt": 2264, "llm_first": 628, "first_audio": 4156, "total": 8006}
+ 46.76 server: {"type": "clear"}
+ 46.76 server: {"type": "state", "state": "listening"}
+ 46.76 client: playback idle seq 5
+ 50.66 server: {"type": "state", "state": "thinking"}
+ 51.17 server: {"type": "transcript", "role": "user", "text": "Здравствуйте. Сколько стоит премиум на три месяца?", "final": true}
+ 52.52 server: {"type": "seq", "seq": 6}
+ 52.52 server: {"type": "state", "state": "speaking"}
+ 54.49 client: playback idle seq 6
+ 54.49 server: {"type": "state", "state": "listening"}
+ 55.09 server: {"type": "transcript", "role": "ai", "text": "Здравствуйте! Телеграм Премиум на три месяца стоит сто девяносто тысяч сумов. Хотите оформить?", "final": true}
+ 55.09 server: {"type": "metrics", "speech_ms": 4066, "stt": 511, "llm_first": 810, "first_audio": 1850, "total": 4426}
+ 59.62 server: {"type": "state", "state": "thinking"}
+ 60.18 server: {"type": "transcript", "role": "user", "text": "Рахмат. Башка савалом йок хайф.", "final": true}
+ 62.14 server: {"type": "seq", "seq": 7}
+ 62.14 server: {"type": "state", "state": "speaking"}
+ 62.21 server: {"type": "transcript", "role": "ai", "text": "Sog' bo'ling, kuningiz yaxshi o'tsin!", "final": true}
+ 62.21 server: {"type": "metrics", "speech_ms": 2210, "stt": 556, "llm_first": 1008, "first_audio": 2516, "total": 2591}
+ 65.12 client: playback idle seq 7
+ 65.12 server: {"type": "state", "state": "ended"}
+ 65.12 closed; audio received 62.4 s
 LLM=deepseek STT=hybrid TTS=edge W=small
-INFO:     Started server process [3765]
+INFO:     Started server process [3421]
 INFO:     Waiting for application startup.
-2026-11-07 13:51:25,433 faster_whisper INFO Processing audio with duration 00:01.000
+2026-11-07 13:54:12,782 faster_whisper INFO Processing audio with duration 00:01.000
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     ('127.0.0.1', 54954) - "WebSocket /ws" [accepted]
+INFO:     ('127.0.0.1', 41504) - "WebSocket /ws" [accepted]
 INFO:     connection open
-2026-11-07 13:52:11,521 faster_whisper INFO Processing audio with duration 00:00.598
-2026-11-07 13:52:11,933 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
-2026-11-07 13:52:11,938 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
-2026-11-07 13:52:14,106 httpx INFO HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
-2026-11-07 13:52:16,917 call INFO turn {'speech_ms': 598, 'stt': 2189, 'llm_first': 815, 'first_audio': 3607, 'total': 5396}
+2026-11-07 13:54:46,327 faster_whisper INFO Processing audio with duration 00:02.562
+2026-11-07 13:54:46,798 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-11-07 13:54:46,861 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-11-07 13:54:46,862 stt INFO groq 536 ms: [('uz', -0.27, 'Assalomu alaykum. Jūs tarsnei čia pul turabi.'), ('ru', -0.66, 'Ассалону алекиум. Юстар Снеча Пултура.')]
+2026-11-07 13:54:48,712 stt INFO navai 2386 ms: assalomu alaykum yuz dars necha pul turadi
+2026-11-07 13:54:49,310 httpx INFO HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-11-07 13:54:51,057 call INFO turn {'speech_ms': 2562, 'stt': 2386, 'llm_first': 1005, 'first_audio': 4034, 'total': 4730}
+2026-11-07 13:54:55,388 faster_whisper INFO Processing audio with duration 00:01.666
+2026-11-07 13:54:55,672 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-11-07 13:54:55,686 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-11-07 13:54:55,687 stt INFO groq 302 ms: [('uz', -0.43, 'Karta orqali qandai Tuleiman.'), ('ru', -0.94, 'Картар, олгали, кандай, Тулайман.')]
+2026-11-07 13:54:57,649 stt INFO navai 2264 ms: karta orqali qanday toʻlayman
+2026-11-07 13:54:58,037 httpx INFO HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-11-07 13:55:03,391 call INFO turn {'speech_ms': 1666, 'stt': 2264, 'llm_first': 628, 'first_audio': 4156, 'total': 8006}
+2026-11-07 13:55:08,788 faster_whisper INFO Processing audio with duration 00:04.066
+2026-11-07 13:55:09,159 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-11-07 13:55:09,296 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-11-07 13:55:09,297 stt INFO groq 511 ms: [('uz', -0.25, 'Здравствуйте! Сколько стоит премиум на три месяца?'), ('ru', -0.15, 'Здравствуйте. Сколько стоит премиум на три месяца?')]
+2026-11-07 13:55:09,660 httpx INFO HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-11-07 13:55:11,258 stt INFO navai 2472 ms: izdra astoydil sukulka stoyid premium notry messeksiya
+[mp3 @ 0x55a30d17ee80] Failed to read frame size: Could not seek to 1026.
+[in#0 @ 0x55a30d17ed80] Error opening input: Invalid argument
+Error opening input file pipe:0.
+Error opening input files: Invalid argument
+2026-11-07 13:55:13,212 call WARNING tts failed: NoAudioReceived('No audio was received. Please verify that your parameters are correct.')
+2026-11-07 13:55:13,213 call INFO turn {'speech_ms': 4066, 'stt': 511, 'llm_first': 810, 'first_audio': 1850, 'total': 4426}
+2026-11-07 13:55:17,747 faster_whisper INFO Processing audio with duration 00:02.210
+2026-11-07 13:55:18,164 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-11-07 13:55:18,300 httpx INFO HTTP Request: POST https://api.groq.com/openai/v1/audio/transcriptions "HTTP/1.1 200 OK"
+2026-11-07 13:55:18,301 stt INFO groq 556 ms: [('uz', -0.7, 'Rahmat, basqqa svalim yok khayf.'), ('ru', -0.49, 'Рахмат. Башка савалом йок хайф.')]
+2026-11-07 13:55:18,705 httpx INFO HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-11-07 13:55:20,046 stt INFO navai 2301 ms: rahmat boshqa savolim yoʻq hayf
+2026-11-07 13:55:20,337 call INFO turn {'speech_ms': 2210, 'stt': 556, 'llm_first': 1008, 'first_audio': 2516, 'total': 2591}
 INFO:     connection closed
