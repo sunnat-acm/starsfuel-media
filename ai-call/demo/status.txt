@@ -1,2 +1,2 @@
 bot: eDanatbot ok: True
-demo started 14:05 UTC for 45 min
+demo started 15:24 UTC for 60 min
