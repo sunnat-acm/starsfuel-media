@@ -25,7 +25,11 @@ h1{margin:0;font-size:28px;font-weight:700;letter-spacing:-.02em}
 .ln.ai{align-self:flex-start;background:rgba(166,208,106,.12);border:1px solid rgba(166,208,106,.22)}
 .ln.user{align-self:flex-end;background:rgba(255,255,255,.08)}
 @keyframes in{from{opacity:0;transform:translateY(6px)}}
-#sub.off .ln{display:none}
+#sub.off{display:none}
+#pad{flex:1;display:grid;grid-template-columns:repeat(3,76px);gap:14px 26px;align-content:center;justify-content:center;padding:10px 0}
+#pad button{width:76px;height:76px;border-radius:50%;border:0;background:rgba(255,255,255,.1);color:#fff;font:600 30px Inter,system-ui;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;cursor:pointer}
+#pad button small{font-size:10px;letter-spacing:2px;color:var(--mut);margin-top:3px;font-weight:600}
+#pad button:active{background:rgba(255,255,255,.28)}
 .st{font-size:13px;color:var(--acc2);height:18px;text-align:center;margin-bottom:14px;letter-spacing:.02em}
 .ctrl{display:flex;gap:26px;justify-content:center;align-items:flex-end}
 .b{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12px;color:var(--mut)}
@@ -47,12 +51,13 @@ h1{margin:0;font-size:28px;font-weight:700;letter-spacing:-.02em}
   <div id="status">AI qo'llab-quvvatlash</div>
  </div>
  <div id="sub"></div>
+ <div id="pad" class="hide"></div>
  <div class="st" id="st"></div>
  <div class="ctrl" id="pre"><div class="b"><button id="call" aria-label="Qo'ng'iroq qilish"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></button>Qo'ng'iroq qilish</div></div>
  <div class="ctrl hide" id="inc">
   <div class="b"><button id="mute" aria-label="Mikrofon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg></button>Ovozsiz</div>
   <div class="b"><button id="hang" aria-label="Tugatish"><svg viewBox="0 0 24 24" fill="currentColor" style="transform:rotate(135deg)"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></button>Tugatish</div>
-  <div class="b"><button id="cc" class="on" aria-label="Subtitr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 10.5a2 2 0 100 3M16 10.5a2 2 0 100 3"/></svg></button>Matn</div>
+  <div class="b"><button id="kp" aria-label="Klaviatura"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="5" r="1.7"/><circle cx="12" cy="5" r="1.7"/><circle cx="18" cy="5" r="1.7"/><circle cx="6" cy="11" r="1.7"/><circle cx="12" cy="11" r="1.7"/><circle cx="18" cy="11" r="1.7"/><circle cx="6" cy="17" r="1.7"/><circle cx="12" cy="17" r="1.7"/><circle cx="18" cy="17" r="1.7"/><circle cx="12" cy="22" r="1.7"/></svg></button>Klaviatura</div>
  </div>
  <div id="err" class="hide"></div><div id="lat"></div>
 </div>
@@ -71,12 +76,24 @@ function line(role, text) {
 }
 function err(t) { $('err').textContent = t; $('err').classList.remove('hide'); }
 
-function startRing() {        // ringback tone 425 Hz, 1 s on / 3 s off
+function startRing(onceSec) {  // 425 Hz: one long 'duuud' (onceSec) or ringback 1 s on / 3 s off
+  stopRing();
   const g = ctx.createGain(); g.gain.value = 0; g.connect(ctx.destination);
   ringOsc = ctx.createOscillator(); ringOsc.frequency.value = 425; ringOsc.connect(g); ringOsc.start();
-  const beat = () => { const t = ctx.currentTime; g.gain.setTargetAtTime(.07, t, .01); g.gain.setTargetAtTime(0, t + 1, .02); };
-  beat(); ringTimer = setInterval(beat, 4000);
+  const beat = (len) => { const t = ctx.currentTime; g.gain.setTargetAtTime(.07, t, .01); g.gain.setTargetAtTime(0, t + len, .02); };
+  if (onceSec) { beat(onceSec); return; }
+  beat(1); ringTimer = setInterval(() => beat(1), 4000);
 }
+const DT = { '1': [697, 1209], '2': [697, 1336], '3': [697, 1477], '4': [770, 1209], '5': [770, 1336], '6': [770, 1477], '7': [852, 1209], '8': [852, 1336], '9': [852, 1477], '*': [941, 1209], '0': [941, 1336], '#': [941, 1477] };
+function dtmfTone(d) {
+  if (!ctx) return; const g = ctx.createGain(); g.gain.value = .06; g.connect(ctx.destination); const t = ctx.currentTime;
+  DT[d].forEach(f => { const o = ctx.createOscillator(); o.frequency.value = f; o.connect(g); o.start(t); o.stop(t + .16); });
+}
+const KEYS = [['1', ''], ['2', 'ABC'], ['3', 'DEF'], ['4', 'GHI'], ['5', 'JKL'], ['6', 'MNO'], ['7', 'PQRS'], ['8', 'TUV'], ['9', 'WXYZ'], ['*', ''], ['0', '+'], ['#', '']];
+$('pad').innerHTML = KEYS.map(([d, l]) => `<button data-d="${d}">${d}<small>${l || '&nbsp;'}</small></button>`).join('');
+$('pad').onclick = e => { const b = e.target.closest('button'); if (!b) return; const d = b.dataset.d; dtmfTone(d); hap('light');
+  if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'dtmf', digit: d })); };
+function showPad(on) { $('pad').classList.toggle('hide', !on); $('sub').classList.toggle('off', on); $('kp').classList.toggle('on', on); }
 function stopRing() { clearInterval(ringTimer); try { ringOsc.stop() } catch (e) {} ringOsc = null; }
 
 async function call() {
@@ -95,13 +112,11 @@ async function call() {
   const el = new Audio(); el.srcObject = dest.stream; el.autoplay = true; el.playsInline = true; await el.play().catch(() => player.connect(ctx.destination));
   player.port.onmessage = e => {
     if (e.data.idle && ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'idle', seq }));
-    if (e.data.level !== undefined) { const s = 1 + Math.min(.18, e.data.level * 3); $('core').style.transform = `scale(${s})`; }
   };
-  startRing();
   const src = ctx.createMediaStreamSource(mic);
   micNode = new AudioWorkletNode(ctx, 'mic-capture');
   src.connect(micNode);
-  micNode.port.onmessage = e => { if (!muted && ws && ws.readyState === 1 && state !== 'ringing') ws.send(e.data); };
+  micNode.port.onmessage = e => { if (!muted && ws && ws.readyState === 1 && !['ringing', 'menu', 'menu_done', 'transfer'].includes(state)) ws.send(e.data); };
   const q = new URLSearchParams({ initData: tg ? tg.initData : '' });
   ws = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws?' + q);
   ws.binaryType = 'arraybuffer';
@@ -112,7 +127,7 @@ async function call() {
     else if (m.type === 'seq') seq = m.seq;
     else if (m.type === 'clear') player.port.postMessage('clear');
     else if (m.type === 'transcript') line(m.role, m.text);
-    else if (m.type === 'metrics') $('lat').textContent = (m.first_audio || '-') + ' ms';
+    else if (m.type === 'metrics') console.log('latency', m);
     else if (m.type === 'error') err(m.message || 'Xatolik');
   };
   ws.onclose = () => { if (state !== 'ended') onState('ended'); };
@@ -120,13 +135,17 @@ async function call() {
 
 function onState(s) {
   state = s;
-  const lbl = { listening: 'Tinglayapman…', thinking: "O'ylayapman…", speaking: '' };
+  const lbl = { listening: 'Tinglayapman…', thinking: "O'ylayapman…", menu: 'Raqamni tanlang', transfer: 'Operatorga ulanmoqda…' };
   $('st').textContent = lbl[s] ?? '';
-  if (s === 'connected') {
-    stopRing(); hap('heavy'); $('av').classList.remove('ringing'); t0 = Date.now();
+  if (s === 'ringing') startRing(1.4);
+  if (s === 'menu') {
+    stopRing(); hap('heavy'); $('av').classList.remove('ringing'); showPad(true); t0 = Date.now();
     timerI = setInterval(() => { const x = Math.floor((Date.now() - t0) / 1000); setStatus(String(Math.floor(x / 60)).padStart(2, '0') + ':' + String(x % 60).padStart(2, '0')); }, 500);
     setStatus('00:00');
   }
+  if (s === 'menu_done') showPad(false);
+  if (s === 'transfer') { $('av').classList.add('ringing'); startRing(); }
+  if (s === 'connected') { stopRing(); hap('heavy'); $('av').classList.remove('ringing'); showPad(false); }
   if (s === 'ended') {
     stopRing(); clearInterval(timerI); setStatus("Qo'ng'iroq tugadi"); $('st').textContent = ''; hap('medium');
     try { ws && ws.close() } catch (e) {}
@@ -137,11 +156,11 @@ function reset() {
   try { mic && mic.getTracks().forEach(t => t.stop()) } catch (e) {}
   try { ctx && ctx.close() } catch (e) {}
   ws = null; ctx = null; state = 'idle'; muted = false; $('mute').classList.remove('on');
-  $('inc').classList.add('hide'); $('pre').classList.remove('hide'); $('core').style.transform = '';
+  $('inc').classList.add('hide'); $('pre').classList.remove('hide'); showPad(false); $('sub').innerHTML = ''; lastUserEl = null;
   setStatus("AI qo'llab-quvvatlash");
 }
 $('call').onclick = call;
 $('hang').onclick = () => { hap('heavy'); if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'hangup' })); onState('ended'); };
 $('mute').onclick = () => { muted = !muted; $('mute').classList.toggle('on', muted); hap(); if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'mute', on: muted })); };
-$('cc').onclick = () => { $('cc').classList.toggle('on'); $('sub').classList.toggle('off'); hap(); };
+$('kp').onclick = () => { hap(); showPad($('pad').classList.contains('hide')); };
 </script></body></html>

@@ -30,15 +30,42 @@ Speak like a friendly, calm human operator. This is SPEECH, not chat:
   say you cannot check that by voice and ask them to write to {C.OPERATOR_CONTACT}.
 - Never ask for card numbers, passwords, SMS or login codes. If the user starts to say them, stop them politely.
 - You cannot see orders or payments and you cannot perform actions; you explain how to do them.
+- You are the support operator named {C.OPERATOR_NAME}. If asked whether you are a human or a bot, say honestly that you are an AI assistant of StarsFuel.
+- If the user insults you or uses profanity, reply only: "Muomala qoidalari buzilgani sababli suhbat yakunlanadi. Xayr." (or the Russian equivalent) and end with [END].
 - If the user says goodbye or has no more questions, say a short warm goodbye and end your reply with [END].
 Facts:
 {KNOWLEDGE}
 """
 
 
-def greeting(name: str | None) -> str:
+def greeting(name: str | None, topic: str | None = None) -> str:
     n = f", {name}" if name else ""
-    return f"Assalomu alaykum{n}! StarsFuel qo'llab-quvvatlash xizmati. Sizga qanday yordam bera olaman?"
+    if topic in TOPIC_PHRASE:
+        return f"Assalomu alaykum{n}! Men {C.OPERATOR_NAME}. {TOPIC_PHRASE[topic]} sizga qanday yordam bera olaman?"
+    return f"Assalomu alaykum{n}! Men {C.OPERATOR_NAME}. Sizga qanday yordam bera olaman?"
+
+
+# IVR (fixed recorded lines, not AI)
+MENU = ("StarsFuel'ga xush kelibsiz! Stars xarid qilish bo'yicha savollar uchun bir raqamini bosing. "
+        "Premium xarid qilish uchun ikki raqamini bosing. To'lovlar bo'yicha uch raqamini bosing. "
+        "Operator bilan bog'lanish uchun nol raqamini bosing yoki kuting.")
+CONNECTING = "Operator bilan ulanmoqdasiz. Iltimos, operator bilan gaplashishda muomala qoidalariga amal qiling."
+TOPICS = {"1": "stars", "2": "premium", "3": "payment", "0": "general"}
+TOPIC_PHRASE = {"stars": "Stars xarid qilish bo'yicha", "premium": "Premium xarid qilish bo'yicha",
+                "payment": "To'lovlar bo'yicha"}
+TOPIC_HINT = {"stars": "The caller chose: questions about buying Telegram Stars.",
+              "premium": "The caller chose: questions about buying Telegram Premium.",
+              "payment": "The caller chose: questions about payments.",
+              "general": "The caller asked for an operator (general question)."}
+RULES_END = {"uz": "Muomala qoidalari buzilgani sababli suhbat yakunlanadi. Xayr.",
+             "ru": "В связи с нарушением правил общения разговор завершается. До свидания."}
+BAD = ("бля", "сука", "суки", "хуй", "хуе", "хуё", "пизд", "ебан", "ебат", "ёб", "мудак", "гандон", "долбоеб",
+       "jalab", "qanjiq", "onangni", "онангни", "sikay", "сикай", "itvachcha", "dalbayob", "далбаёб", "jallab")
+
+
+def is_abusive(text: str) -> bool:
+    t = text.lower()
+    return any(b in t for b in BAD)
 
 
 FAREWELL = {"uz": "Aloqa uzilib qoldi shekilli. Savollaringiz bo'lsa, yana qo'ng'iroq qiling. Xayr!",

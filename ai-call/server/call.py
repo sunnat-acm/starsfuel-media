@@ -12,7 +12,7 @@ Client protocol (WebSocket):
 """
 import asyncio, json, logging, re, time
 from . import config as C
-from .prompts import RULES, greeting, FAREWELL, STILL_THERE
+from .prompts import RULES, greeting, FAREWELL, STILL_THERE, MENU, CONNECTING, TOPICS, TOPIC_HINT, RULES_END, is_abusive
 from .vad import TurnDetector
 
 log = logging.getLogger("call")
@@ -64,6 +64,35 @@ def split_ready(buf: str, first: bool):
     return None, buf
 
 
+PROMPT_CACHE: dict = {}      # fixed IVR lines -> PCM (synthesized once)
+
+
+async def synth_all(TTS, text, lang="uz", timeout=10):
+    buf = bytearray()
+
+    async def go():
+        job = TTS.TTSJob()
+        async for ch in job.stream(text, lang):
+            buf.extend(ch)
+    await asyncio.wait_for(go(), timeout)
+    return bytes(buf)
+
+
+async def cached(TTS, text):
+    if text not in PROMPT_CACHE:
+        PROMPT_CACHE[text] = await synth_all(TTS, text, timeout=15)
+    return PROMPT_CACHE[text]
+
+
+async def warm_prompts():
+    _, TTS, _ = providers()
+    for t in (MENU, CONNECTING):
+        try:
+            await cached(TTS, t)
+        except Exception as e:
+            log.warning("prompt cache failed: %r", e)
+
+
 class Call:
     def __init__(self, ws, user: dict | None):
         self.ws = ws
@@ -88,6 +117,8 @@ class Call:
         self.t0 = time.monotonic()
         self.closed = False
         self.out_lock = asyncio.Lock()
+        self.digit_fut = None
+        self.topic = "general"
 
     # ---------- send helpers ----------
     async def jsend(self, **m):
@@ -115,34 +146,78 @@ class Call:
 
     # ---------- main ----------
     async def run(self):
-        await self.jsend(type="state", state="ringing")
-        name = (self.user.get("first_name") or "").strip()[:24] or None
-        text = greeting(name)
-        ring_until = time.monotonic() + 1.6
-        audio = bytearray()
-        async def synth():
-            job = self.TTS.TTSJob()
-            async for ch in job.stream(text, "uz"):
-                audio.extend(ch)
+        recv = asyncio.create_task(self.recv_loop())
+        watchdog = None
         try:
-            await asyncio.wait_for(synth(), 8)
+            await self.ivr()
+            if not self.closed:
+                await self.set_state("listening")
+                watchdog = asyncio.create_task(self.watchdog())
+            await recv
+        finally:
+            if watchdog:
+                watchdog.cancel()
+            recv.cancel()
+            await self.cancel_reply()
+            self.closed = True
+
+    async def play(self, pcm: bytes):
+        await self.begin_utterance()
+        for i in range(0, len(pcm), 9600):
+            await self.asend(pcm[i:i + 9600])
+        return len(pcm) / 48000          # seconds of audio
+
+    async def ivr(self):
+        """Ring once -> recorded menu -> digit (or wait) -> 'connecting' line -> ringback -> operator greeting."""
+        await self.set_state("ringing")
+        menu_pcm = asyncio.create_task(cached(self.TTS, MENU))
+        await asyncio.sleep(1.5)                                   # one long 'duuud'
+        try:
+            pcm = await menu_pcm
         except Exception as e:
-            log.warning("greeting tts failed: %r", e)
-        await asyncio.sleep(max(0, ring_until - time.monotonic()))
+            log.warning("menu tts failed: %r", e); pcm = b""
+        if self.closed:
+            return
+        await self.set_state("menu")
+        await self.jsend(type="transcript", role="ai", text=MENU, final=True)
+        dur = await self.play(pcm)
+        self.digit_fut = asyncio.get_running_loop().create_future()
+        try:
+            digit = await asyncio.wait_for(self.digit_fut, dur + C.MENU_WAIT_SEC)
+            await self.jsend(type="clear")
+        except asyncio.TimeoutError:
+            digit = "0"
+        self.digit_fut = None
+        if self.closed:
+            return
+        self.topic = TOPICS.get(digit, "general")
+        await self.set_state("menu_done")
+        try:
+            con = await cached(self.TTS, CONNECTING)
+        except Exception:
+            con = b""
+        await self.jsend(type="transcript", role="ai", text=CONNECTING, final=True)
+        dur = await self.play(con)
+        name = (self.user.get("first_name") or "").strip()[:24] or None
+        text = greeting(name, self.topic)
+        g = asyncio.create_task(synth_all(self.TTS, text, timeout=10))
+        await asyncio.sleep(dur + 0.4)
+        if self.closed:
+            return
+        await self.set_state("transfer")                            # client plays ringback 'duuud... duuud...'
+        t_ring = time.monotonic()
+        try:
+            gpcm = await g
+        except Exception as e:
+            log.warning("greeting tts failed: %r", e); gpcm = b""
+        await asyncio.sleep(max(0, 4.6 - (time.monotonic() - t_ring)))
+        if self.closed:
+            return
         await self.set_state("connected")
         self.history.append({"role": "assistant", "content": text})
         await self.jsend(type="transcript", role="ai", text=text, final=True)
-        await self.begin_utterance()
-        for i in range(0, len(audio), 9600):
-            await self.asend(bytes(audio[i:i + 9600]))
-        await self.set_state("listening")
-        watchdog = asyncio.create_task(self.watchdog())
-        try:
-            await self.recv_loop()
-        finally:
-            watchdog.cancel()
-            await self.cancel_reply()
-            self.closed = True
+        await self.play(gpcm)
+        self.last_activity = time.monotonic()
 
     async def begin_utterance(self):
         self.seq += 1
@@ -161,6 +236,9 @@ class Call:
                 t = m.get("type")
                 if t == "hangup":
                     break
+                if t == "dtmf":
+                    if self.digit_fut is not None and not self.digit_fut.done():
+                        self.digit_fut.set_result(str(m.get("digit", ""))[:1])
                 if t == "mute":
                     self.muted = bool(m.get("on"))
                     if self.muted:
@@ -173,6 +251,7 @@ class Call:
                     if self.state == "speaking":
                         await self.set_state("listening")
         await self.set_state("ended")
+        self.closed = True
 
     async def end_call(self):
         await self.set_state("ended")
@@ -203,7 +282,7 @@ class Call:
 
     # ---------- audio in ----------
     async def on_audio(self, pcm: bytes):
-        if self.muted or self.state in ("ringing", "ended"):
+        if self.muted or self.state in ("ringing", "menu", "menu_done", "transfer", "ended"):
             return
         for ev in self.td.feed(pcm):
             if ev[0] == "speech_start":
@@ -286,9 +365,13 @@ class Call:
         lat = sum(1 for ch in text if ch.isascii() and ch.isalpha())
         self.lang = "ru" if cyr > lat else ("uz" if lat else (lang if lang in ("uz", "ru") else self.lang))
         full = (self.pending_user + " " + text).strip()
+        if is_abusive(full):
+            await self.jsend(type="transcript", role="user", text=full, final=True)
+            await self.say(RULES_END["ru" if self.lang == "ru" else "uz"], end=True)
+            return
         self.pending_user = full                 # kept if we get cancelled before speaking
         await self.jsend(type="transcript", role="user", text=full, final=True)
-        msgs = [{"role": "system", "content": RULES}] + self.history[-12:] + [
+        msgs = [{"role": "system", "content": RULES + "\n" + TOPIC_HINT.get(self.topic, "")}] + self.history[-12:] + [
             {"role": "user", "content": full}]
         self.audio_started, self.spoken = False, ""
         q: asyncio.Queue = asyncio.Queue()
