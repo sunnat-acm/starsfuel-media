@@ -1,0 +1,34 @@
+name: ai-call-e2e
+on:
+  workflow_dispatch:
+    inputs:
+      llm: {description: 'deepseek or mock', default: 'deepseek'}
+permissions:
+  contents: write
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -q -r ai-call/requirements.txt soundfile librosa
+      - name: run call simulation
+        env:
+          VOICELAB_API_KEY: ${{ secrets.VOICELAB_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: |
+          cd ai-call
+          LLM=${{ github.event.inputs.llm }}; if [ -z "$DEEPSEEK_API_KEY" ]; then LLM=mock; fi
+          (ALLOW_NO_AUTH=1 LLM_PROVIDER=$LLM python -m uvicorn server.app:app --port 8000 > /tmp/server.log 2>&1 &)
+          sleep 6; curl -s localhost:8000/health; echo
+          python tests/sim_client.py ws://127.0.0.1:8000/ws \
+            ../voicelab/out/q_uz1.wav@8 ../voicelab/out/q_uz2.wav@17 ../voicelab/out/q_ru1.wav@27 ../voicelab/out/q_uz3.wav@38 \
+            --dur 48 --save tests/e2e_out.wav > tests/e2e_log.txt 2>&1 || true
+          echo "LLM=$LLM" >> tests/e2e_log.txt
+          grep -E "turn|WARNING|ERROR|Traceback|error" /tmp/server.log | sed "s/${VOICELAB_API_KEY:-___}/***/g" >> tests/e2e_log.txt || true
+      - name: commit
+        if: always()
+        run: |
+          git config user.name e2e-bot; git config user.email e2e-bot@users.noreply.github.com
+          git add -A ai-call/tests/e2e_log.txt ai-call/tests/e2e_out.wav; git commit -m "ai-call: e2e run" || exit 0; git pull --rebase; git push
