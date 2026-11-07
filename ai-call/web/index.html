@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="uz"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>StarsFuel Support</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg0:#0b120a;--bg1:#14240f;--acc:#8AAC62;--acc2:#A6D06A;--txt:#f3f6ef;--mut:#9aa695;--red:#e5484d}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg0);color:var(--txt);font-family:Inter,system-ui,sans-serif;overflow:hidden;user-select:none}
+#app{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;padding:calc(env(safe-area-inset-top) + 48px) 24px calc(env(safe-area-inset-bottom) + 34px);
+ background:radial-gradient(120% 70% at 50% 18%,#26421a 0%,var(--bg1) 38%,var(--bg0) 78%)}
+.who{margin-top:4vh;text-align:center}
+.av{position:relative;width:132px;height:132px;margin:0 auto 22px}
+.av .ring{position:absolute;inset:0;border-radius:50%;border:2px solid var(--acc);opacity:0}
+.av .core{position:absolute;inset:0;border-radius:50%;background:linear-gradient(145deg,#2c4a1e,#16260f);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1px rgba(166,208,106,.25),0 20px 50px rgba(0,0,0,.5)}
+.av svg{width:64px;height:64px}
+.ringing .ring{animation:pulse 1.6s infinite}.ringing .ring.r2{animation-delay:.53s}.ringing .ring.r3{animation-delay:1.06s}
+@keyframes pulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.9);opacity:0}}
+h1{margin:0;font-size:28px;font-weight:700;letter-spacing:-.02em}
+#status{margin-top:8px;font-size:16px;color:var(--mut);font-variant-numeric:tabular-nums;min-height:20px}
+#sub{flex:1;width:100%;max-width:520px;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;padding:18px 0;overflow:hidden;mask-image:linear-gradient(transparent,#000 30%)}
+.ln{font-size:15px;line-height:1.4;padding:9px 13px;border-radius:16px;max-width:86%;animation:in .25s ease}
+.ln.ai{align-self:flex-start;background:rgba(166,208,106,.12);border:1px solid rgba(166,208,106,.22)}
+.ln.user{align-self:flex-end;background:rgba(255,255,255,.08)}
+@keyframes in{from{opacity:0;transform:translateY(6px)}}
+#sub.off .ln{display:none}
+.st{font-size:13px;color:var(--acc2);height:18px;text-align:center;margin-bottom:14px;letter-spacing:.02em}
+.ctrl{display:flex;gap:26px;justify-content:center;align-items:flex-end}
+.b{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12px;color:var(--mut)}
+.b button{width:64px;height:64px;border-radius:50%;border:0;background:rgba(255,255,255,.1);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .1s,background .2s}
+.b button:active{transform:scale(.93)}.b button.on{background:#fff;color:#0b120a}
+.b button svg{width:28px;height:28px}
+#hang{width:72px;height:72px;background:var(--red)}
+#call{width:76px;height:76px;background:#30c158;animation:bob 1.8s infinite}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.hide{display:none!important}
+#err{position:fixed;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom) + 130px);padding:12px 14px;border-radius:14px;background:rgba(229,72,77,.15);border:1px solid rgba(229,72,77,.4);font-size:14px;text-align:center}
+#lat{position:fixed;top:8px;right:10px;font-size:11px;color:#5d6b58}
+</style></head>
+<body><div id="app">
+ <div class="who">
+  <div class="av" id="av"><div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div>
+   <div class="core" id="core"><img src="/static/logo.png" alt="" style="width:76px;height:76px"></div></div>
+  <h1>StarsFuel Support</h1>
+  <div id="status">AI qo'llab-quvvatlash</div>
+ </div>
+ <div id="sub"></div>
+ <div class="st" id="st"></div>
+ <div class="ctrl" id="pre"><div class="b"><button id="call" aria-label="Qo'ng'iroq qilish"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></button>Qo'ng'iroq qilish</div></div>
+ <div class="ctrl hide" id="inc">
+  <div class="b"><button id="mute" aria-label="Mikrofon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg></button>Ovozsiz</div>
+  <div class="b"><button id="hang" aria-label="Tugatish"><svg viewBox="0 0 24 24" fill="currentColor" style="transform:rotate(135deg)"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></button>Tugatish</div>
+  <div class="b"><button id="cc" class="on" aria-label="Subtitr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 10.5a2 2 0 100 3M16 10.5a2 2 0 100 3"/></svg></button>Matn</div>
+ </div>
+ <div id="err" class="hide"></div><div id="lat"></div>
+</div>
+<script>
+const tg = window.Telegram && Telegram.WebApp; if (tg) { tg.ready(); tg.expand(); tg.setHeaderColor && tg.setHeaderColor('#0b120a'); tg.setBackgroundColor && tg.setBackgroundColor('#0b120a'); }
+const $ = id => document.getElementById(id);
+const hap = t => { try { tg.HapticFeedback.impactOccurred(t || 'light') } catch (e) {} };
+let ctx, ws, mic, micNode, player, ringOsc, ringTimer, t0, timerI, seq = 0, muted = false, state = 'idle', lastUserEl = null;
+
+function setStatus(s) { $('status').textContent = s; }
+function line(role, text) {
+  if (role === 'user' && lastUserEl && lastUserEl.dataset.open === '1') { lastUserEl.textContent = text; return; }
+  const d = document.createElement('div'); d.className = 'ln ' + role; d.textContent = text; $('sub').appendChild(d);
+  if (role === 'user') { d.dataset.open = '1'; lastUserEl = d; } else if (lastUserEl) lastUserEl.dataset.open = '0';
+  while ($('sub').children.length > 8) $('sub').firstChild.remove();
+}
+function err(t) { $('err').textContent = t; $('err').classList.remove('hide'); }
+
+function startRing() {        // ringback tone 425 Hz, 1 s on / 3 s off
+  const g = ctx.createGain(); g.gain.value = 0; g.connect(ctx.destination);
+  ringOsc = ctx.createOscillator(); ringOsc.frequency.value = 425; ringOsc.connect(g); ringOsc.start();
+  const beat = () => { const t = ctx.currentTime; g.gain.setTargetAtTime(.07, t, .01); g.gain.setTargetAtTime(0, t + 1, .02); };
+  beat(); ringTimer = setInterval(beat, 4000);
+}
+function stopRing() { clearInterval(ringTimer); try { ringOsc.stop() } catch (e) {} ringOsc = null; }
+
+async function call() {
+  hap('medium');
+  $('pre').classList.add('hide'); $('inc').classList.remove('hide'); $('av').classList.add('ringing');
+  setStatus("Qo'ng'iroq qilinmoqda…");
+  try {
+    ctx = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: 'interactive' });
+    await ctx.resume();
+    mic = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true, channelCount: 1 } });
+  } catch (e) { err("Mikrofonga ruxsat bering va qayta urinib ko'ring."); setStatus('Mikrofon yoqilmagan'); $('av').classList.remove('ringing'); return reset(); }
+  await ctx.audioWorklet.addModule('/static/audio-worklets.js');
+  // playback goes through an <audio> element so the browser echo canceller hears it
+  player = new AudioWorkletNode(ctx, 'pcm-player', { outputChannelCount: [1] });
+  const dest = ctx.createMediaStreamDestination(); player.connect(dest);
+  const el = new Audio(); el.srcObject = dest.stream; el.autoplay = true; el.playsInline = true; await el.play().catch(() => player.connect(ctx.destination));
+  player.port.onmessage = e => {
+    if (e.data.idle && ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'idle', seq }));
+    if (e.data.level !== undefined) { const s = 1 + Math.min(.18, e.data.level * 3); $('core').style.transform = `scale(${s})`; }
+  };
+  startRing();
+  const src = ctx.createMediaStreamSource(mic);
+  micNode = new AudioWorkletNode(ctx, 'mic-capture');
+  src.connect(micNode);
+  micNode.port.onmessage = e => { if (!muted && ws && ws.readyState === 1 && state !== 'ringing') ws.send(e.data); };
+  const q = new URLSearchParams({ initData: tg ? tg.initData : '' });
+  ws = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws?' + q);
+  ws.binaryType = 'arraybuffer';
+  ws.onmessage = ev => {
+    if (typeof ev.data !== 'string') { player.port.postMessage(ev.data, [ev.data]); return; }
+    const m = JSON.parse(ev.data);
+    if (m.type === 'state') onState(m.state);
+    else if (m.type === 'seq') seq = m.seq;
+    else if (m.type === 'clear') player.port.postMessage('clear');
+    else if (m.type === 'transcript') line(m.role, m.text);
+    else if (m.type === 'metrics') $('lat').textContent = (m.first_audio || '-') + ' ms';
+    else if (m.type === 'error') err(m.message || 'Xatolik');
+  };
+  ws.onclose = () => { if (state !== 'ended') onState('ended'); };
+}
+
+function onState(s) {
+  state = s;
+  const lbl = { listening: 'Tinglayapman…', thinking: "O'ylayapman…", speaking: '' };
+  $('st').textContent = lbl[s] ?? '';
+  if (s === 'connected') {
+    stopRing(); hap('heavy'); $('av').classList.remove('ringing'); t0 = Date.now();
+    timerI = setInterval(() => { const x = Math.floor((Date.now() - t0) / 1000); setStatus(String(Math.floor(x / 60)).padStart(2, '0') + ':' + String(x % 60).padStart(2, '0')); }, 500);
+    setStatus('00:00');
+  }
+  if (s === 'ended') {
+    stopRing(); clearInterval(timerI); setStatus("Qo'ng'iroq tugadi"); $('st').textContent = ''; hap('medium');
+    try { ws && ws.close() } catch (e) {}
+    setTimeout(reset, 1800);
+  }
+}
+function reset() {
+  try { mic && mic.getTracks().forEach(t => t.stop()) } catch (e) {}
+  try { ctx && ctx.close() } catch (e) {}
+  ws = null; ctx = null; state = 'idle'; muted = false; $('mute').classList.remove('on');
+  $('inc').classList.add('hide'); $('pre').classList.remove('hide'); $('core').style.transform = '';
+  setStatus("AI qo'llab-quvvatlash");
+}
+$('call').onclick = call;
+$('hang').onclick = () => { hap('heavy'); if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'hangup' })); onState('ended'); };
+$('mute').onclick = () => { muted = !muted; $('mute').classList.toggle('on', muted); hap(); if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'mute', on: muted })); };
+$('cc').onclick = () => { $('cc').classList.toggle('on'); $('sub').classList.toggle('off'); hap(); };
+</script></body></html>
