@@ -1,12 +1,41 @@
+  0.24 server: {"type": "state", "state": "ringing"}
+  2.72 server: {"type": "state", "state": "connected"}
+  2.72 server: {"type": "transcript", "role": "ai", "text": "Assalomu alaykum! StarsFuel qo'llab-quvvatlash xizmati. Sizga qanday yordam bera olaman?", "final": true}
+  2.72 server: {"type": "seq", "seq": 1}
+  2.74 server: {"type": "state", "state": "listening"}
+  8.82 server: {"type": "clear"}
+  8.86 client: playback idle seq 1
+ 11.18 server: {"type": "state", "state": "thinking"}
+ 12.13 server: {"type": "transcript", "role": "user", "text": "Assalomu alaykum, yuz tars necha pul turadi?", "final": true}
+ 14.63 server: {"type": "seq", "seq": 2}
+ 14.63 server: {"type": "state", "state": "speaking"}
+ 16.67 client: playback idle seq 2
+ 16.67 server: {"type": "state", "state": "listening"}
+ 17.81 server: {"type": "clear"}
+ 19.28 server: {"type": "state", "state": "thinking"}
+ 20.24 server: {"type": "transcript", "role": "user", "text": "Karta orqali qanday to'layman?", "final": true}
+ 22.71 server: {"type": "seq", "seq": 3}
+ 22.71 server: {"type": "state", "state": "speaking"}
+ 27.96 server: {"type": "clear"}
+ 27.96 server: {"type": "state", "state": "listening"}
+ 27.99 client: playback idle seq 3
+ 31.60 server: {"type": "state", "state": "thinking"}
+ 32.76 server: {"type": "transcript", "role": "user", "text": "Здравствуйте. Сколько стоит премиум на три месяца?", "final": true}
+ 35.44 server: {"type": "transcript", "role": "ai", "text": "Salom! Telegram Premium uch oyga yuz to'qson ming so'm turadi.", "final": true}
+ 35.44 server: {"type": "metrics", "speech_ms": 4002, "stt": 1153, "llm_first": 760, "total": 3843}
+ 41.44 server: {"type": "state", "state": "listening"}
+ 48.00 server: {"type": "state", "state": "ended"}
 LLM=deepseek
-INFO:     Started server process [2459]
+INFO:     Started server process [2161]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     ('127.0.0.1', 41198) - "WebSocket /ws" [accepted]
+INFO:     ('127.0.0.1', 57052) - "WebSocket /ws" [accepted]
 INFO:     connection open
-2026-11-07 12:23:10,414 call WARNING stt failed: RuntimeError("stt error: {'event': 'error', 'code': 'validation_error', 'message': 'word_timestamps must be true for realtime STT'}")
-2026-11-07 12:23:18,510 call WARNING stt failed: RuntimeError("stt error: {'event': 'error', 'code': 'validation_error', 'message': 'word_timestamps must be true for realtime STT'}")
-2026-11-07 12:23:31,022 call WARNING stt failed: RuntimeError("stt error: {'event': 'error', 'code': 'validation_error', 'message': 'word_timestamps must be true for realtime STT'}")
-2026-11-07 12:23:39,857 call WARNING stt failed: RuntimeError("stt error: {'event': 'error', 'code': 'validation_error', 'message': 'word_timestamps must be true for realtime STT'}")
+2026-11-07 12:25:19,053 httpx INFO HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-11-07 12:25:27,035 httpx INFO HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-11-07 12:25:39,605 httpx INFO HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-11-07 12:25:41,932 call WARNING tts failed: RuntimeError("tts error: {'event': 'error', 'code': 'insufficient_credits', 'message': 'Your account does not have enough credits.', 'details': {'available_credits': 11, 'required_credits': 62}}")
+2026-11-07 12:25:41,933 call INFO turn {'speech_ms': 4002, 'stt': 1153, 'llm_first': 760, 'total': 3843}
+2026-11-07 12:25:47,930 call WARNING stt failed: RuntimeError("stt error: {'event': 'error', 'code': 'insufficient_credits', 'message': 'Your account does not have enough credits.', 'details': {'available_credits': 11, 'required_credits': 16}}")
 INFO:     connection closed
