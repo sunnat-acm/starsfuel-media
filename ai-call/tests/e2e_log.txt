@@ -1,41 +1,59 @@
-  0.24 server: {"type": "state", "state": "ringing"}
-  2.72 server: {"type": "state", "state": "connected"}
-  2.72 server: {"type": "transcript", "role": "ai", "text": "Assalomu alaykum! StarsFuel qo'llab-quvvatlash xizmati. Sizga qanday yordam bera olaman?", "final": true}
-  2.72 server: {"type": "seq", "seq": 1}
-  2.74 server: {"type": "state", "state": "listening"}
+  0.38 server: {"type": "state", "state": "ringing"}
+  2.19 server: {"type": "state", "state": "connected"}
+  2.19 server: {"type": "transcript", "role": "ai", "text": "Assalomu alaykum! StarsFuel qo'llab-quvvatlash xizmati. Sizga qanday yordam bera olaman?", "final": true}
+  2.19 server: {"type": "seq", "seq": 1}
+  2.20 server: {"type": "state", "state": "listening"}
   8.82 server: {"type": "clear"}
-  8.86 client: playback idle seq 1
+  8.85 client: playback idle seq 1
  11.18 server: {"type": "state", "state": "thinking"}
- 12.13 server: {"type": "transcript", "role": "user", "text": "Assalomu alaykum, yuz tars necha pul turadi?", "final": true}
- 14.63 server: {"type": "seq", "seq": 2}
- 14.63 server: {"type": "state", "state": "speaking"}
- 16.67 client: playback idle seq 2
- 16.67 server: {"type": "state", "state": "listening"}
- 17.81 server: {"type": "clear"}
+ 14.07 server: {"type": "transcript", "role": "user", "text": "السلام آلیکم. YouSters نیچه پلتورا به.", "final": true}
+ 16.03 server: {"type": "seq", "seq": 2}
+ 16.03 server: {"type": "state", "state": "speaking"}
+ 17.15 server: {"type": "transcript", "role": "ai", "text": "Kechirasiz, men sizni tushunmadim. Iltimos, o'zbek yoki rus tilida yozing.", "final": true}
+ 17.15 server: {"type": "metrics", "speech_ms": 2530, "stt": 2887, "llm_first": 1126, "first_audio": 4847, "total": 5966}
+ 17.74 server: {"type": "clear"}
+ 17.74 server: {"type": "state", "state": "listening"}
+ 17.77 client: playback idle seq 2
  19.28 server: {"type": "state", "state": "thinking"}
- 20.24 server: {"type": "transcript", "role": "user", "text": "Karta orqali qanday to'layman?", "final": true}
- 22.71 server: {"type": "seq", "seq": 3}
- 22.71 server: {"type": "state", "state": "speaking"}
- 27.96 server: {"type": "clear"}
- 27.96 server: {"type": "state", "state": "listening"}
- 27.99 client: playback idle seq 3
+ 27.76 server: {"type": "clear"}
+ 27.76 server: {"type": "state", "state": "listening"}
  31.60 server: {"type": "state", "state": "thinking"}
- 32.76 server: {"type": "transcript", "role": "user", "text": "Здравствуйте. Сколько стоит премиум на три месяца?", "final": true}
- 35.44 server: {"type": "transcript", "role": "ai", "text": "Salom! Telegram Premium uch oyga yuz to'qson ming so'm turadi.", "final": true}
- 35.44 server: {"type": "metrics", "speech_ms": 4002, "stt": 1153, "llm_first": 760, "total": 3843}
- 41.44 server: {"type": "state", "state": "listening"}
+ 38.52 server: {"type": "clear"}
+ 38.52 server: {"type": "state", "state": "listening"}
+ 40.62 server: {"type": "state", "state": "thinking"}
  48.00 server: {"type": "state", "state": "ended"}
-LLM=deepseek
-INFO:     Started server process [2161]
+LLM=deepseek STT=whisper TTS=edge W=small
+INFO:     Started server process [3192]
 INFO:     Waiting for application startup.
+2026-11-07 12:43:40,596 httpx2 INFO HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-11-07 12:43:40,666 httpx2 INFO HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-small/revision/main "HTTP/1.1 200 OK"
+2026-11-07 12:43:40,743 httpx2 INFO HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-small/tree/536b0662742c02347bc0e980a01041f333bce120?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-07 12:43:40,825 httpx2 INFO HTTP Request: HEAD https://huggingface.co/Systran/faster-whisper-small/resolve/536b0662742c02347bc0e980a01041f333bce120/vocabulary.txt "HTTP/1.1 307 Temporary Redirect"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-11-07 12:43:40,825 huggingface_hub.utils._http WARNING Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-11-07 12:43:40,830 httpx2 INFO HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/vocabulary.txt?%2FSystran%2Ffaster-whisper-small%2Fresolve%2F536b0662742c02347bc0e980a01041f333bce120%2Fvocabulary.txt=&etag=%22c9074644d9d1205686f16d411564729461324b75%22 "HTTP/1.1 200 OK"
+2026-11-07 12:43:40,836 httpx2 INFO HTTP Request: GET https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/vocabulary.txt?%2FSystran%2Ffaster-whisper-small%2Fresolve%2F536b0662742c02347bc0e980a01041f333bce120%2Fvocabulary.txt=&etag=%22c9074644d9d1205686f16d411564729461324b75%22 "HTTP/1.1 200 OK"
+2026-11-07 12:43:40,836 httpx2 INFO HTTP Request: HEAD https://huggingface.co/Systran/faster-whisper-small/resolve/536b0662742c02347bc0e980a01041f333bce120/tokenizer.json "HTTP/1.1 307 Temporary Redirect"
+2026-11-07 12:43:40,838 httpx2 INFO HTTP Request: HEAD https://huggingface.co/Systran/faster-whisper-small/resolve/536b0662742c02347bc0e980a01041f333bce120/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-11-07 12:43:40,842 httpx2 INFO HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/tokenizer.json?%2FSystran%2Ffaster-whisper-small%2Fresolve%2F536b0662742c02347bc0e980a01041f333bce120%2Ftokenizer.json=&etag=%227818adb6de9fa3064d3ff81226fdd675be1f6344%22 "HTTP/1.1 200 OK"
+2026-11-07 12:43:40,842 httpx2 INFO HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-small/xet-read-token/536b0662742c02347bc0e980a01041f333bce120 "HTTP/1.1 200 OK"
+2026-11-07 12:43:40,844 httpx2 INFO HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/config.json?%2FSystran%2Ffaster-whisper-small%2Fresolve%2F536b0662742c02347bc0e980a01041f333bce120%2Fconfig.json=&etag=%22e5047537059bd8f182d9ca64c470201585015187%22 "HTTP/1.1 200 OK"
+2026-11-07 12:43:40,849 httpx2 INFO HTTP Request: GET https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/tokenizer.json?%2FSystran%2Ffaster-whisper-small%2Fresolve%2F536b0662742c02347bc0e980a01041f333bce120%2Ftokenizer.json=&etag=%227818adb6de9fa3064d3ff81226fdd675be1f6344%22 "HTTP/1.1 200 OK"
+2026-11-07 12:43:40,851 httpx2 INFO HTTP Request: GET https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/config.json?%2FSystran%2Ffaster-whisper-small%2Fresolve%2F536b0662742c02347bc0e980a01041f333bce120%2Fconfig.json=&etag=%22e5047537059bd8f182d9ca64c470201585015187%22 "HTTP/1.1 200 OK"
+2026-11-07 12:43:45,798 faster_whisper INFO Processing audio with duration 00:01.000
+2026-11-07 12:43:47,106 faster_whisper INFO Detected language 'en' with probability 0.37
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     ('127.0.0.1', 57052) - "WebSocket /ws" [accepted]
+INFO:     ('127.0.0.1', 52896) - "WebSocket /ws" [accepted]
 INFO:     connection open
-2026-11-07 12:25:19,053 httpx INFO HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
-2026-11-07 12:25:27,035 httpx INFO HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
-2026-11-07 12:25:39,605 httpx INFO HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
-2026-11-07 12:25:41,932 call WARNING tts failed: RuntimeError("tts error: {'event': 'error', 'code': 'insufficient_credits', 'message': 'Your account does not have enough credits.', 'details': {'available_credits': 11, 'required_credits': 62}}")
-2026-11-07 12:25:41,933 call INFO turn {'speech_ms': 4002, 'stt': 1153, 'llm_first': 760, 'total': 3843}
-2026-11-07 12:25:47,930 call WARNING stt failed: RuntimeError("stt error: {'event': 'error', 'code': 'insufficient_credits', 'message': 'Your account does not have enough credits.', 'details': {'available_credits': 11, 'required_credits': 16}}")
+2026-11-07 12:44:00,753 faster_whisper INFO Processing audio with duration 00:02.530
+2026-11-07 12:44:02,024 faster_whisper INFO Detected language 'fa' with probability 0.73
+2026-11-07 12:44:04,098 httpx INFO HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-11-07 12:44:06,719 call INFO turn {'speech_ms': 2530, 'stt': 2887, 'llm_first': 1126, 'first_audio': 4847, 'total': 5966}
+2026-11-07 12:44:08,852 faster_whisper INFO Processing audio with duration 00:01.698
+2026-11-07 12:44:10,137 faster_whisper INFO Detected language 'hy' with probability 0.53
+2026-11-07 12:44:21,175 faster_whisper INFO Processing audio with duration 00:04.002
+2026-11-07 12:44:30,196 faster_whisper INFO Processing audio with duration 00:02.274
+2026-11-07 12:44:33,070 faster_whisper INFO Detected language 'ru' with probability 0.99
+2026-11-07 12:44:41,378 faster_whisper INFO Detected language 'fa' with probability 0.72
 INFO:     connection closed
