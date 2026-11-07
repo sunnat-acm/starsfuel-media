@@ -288,8 +288,7 @@ class Call:
         full = (self.pending_user + " " + text).strip()
         self.pending_user = full                 # kept if we get cancelled before speaking
         await self.jsend(type="transcript", role="user", text=full, final=True)
-        must = "Отвечай ТОЛЬКО по-русски." if self.lang == "ru" else "Faqat o'zbek tilida (lotin) javob ber."
-        msgs = [{"role": "system", "content": RULES + "\n" + must}] + self.history[-12:] + [
+        msgs = [{"role": "system", "content": RULES}] + self.history[-12:] + [
             {"role": "user", "content": full}]
         self.audio_started, self.spoken = False, ""
         q: asyncio.Queue = asyncio.Queue()
@@ -341,6 +340,9 @@ class Call:
                 chunk = await q.get()
                 if chunk is None:
                     return
+                cyr = sum(1 for ch in chunk if "\u0400" <= ch <= "\u04ff")
+                lat = sum(1 for ch in chunk if ch.isascii() and ch.isalpha())
+                self.lang = "ru" if cyr > lat else "uz"
                 job = self.TTS.TTSJob()
                 async for pcm in job.stream(chunk, self.lang):
                     if not self.audio_started:
