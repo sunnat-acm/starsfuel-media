@@ -22,13 +22,17 @@ def providers():
     if C.STT_PROVIDER == "mock" or C.TTS_PROVIDER == "mock" or C.LLM_PROVIDER == "mock":
         from .providers import mock
     stt = tts = None
-    if C.STT_PROVIDER == "voicelab":
+    if C.STT_PROVIDER in ("groq", "whisper"):
+        from .providers import whisper as stt
+    elif C.STT_PROVIDER == "voicelab":
         from .providers import voicelab as stt
     elif C.STT_PROVIDER == "voicestudio":
         from .providers import voicestudio as stt
     else:
         stt = mock
-    if C.TTS_PROVIDER == "voicelab":
+    if C.TTS_PROVIDER == "edge":
+        from .providers import edgetts as tts
+    elif C.TTS_PROVIDER == "voicelab":
         from .providers import voicelab as tts
     elif C.TTS_PROVIDER == "voicestudio":
         from .providers import voicestudio as tts
