@@ -5,6 +5,8 @@ on:
       mode: {description: 'check | demo', default: 'demo'}
       minutes: {description: 'demo length', default: '30'}
       chat_id: {description: 'Telegram user id to receive the call button', default: '6224123260'}
+      noauth: {description: '1 = open in any browser (demo only)', default: '0'}
+      pubkey: {description: 'base64 PEM public key to encrypt the URL', default: ''}
 permissions:
   contents: write
 jobs:
@@ -32,11 +34,13 @@ jobs:
         run: |
           cd ai-call
           pip install -q -r requirements.txt
+          export ALLOW_NO_AUTH=${{ github.event.inputs.noauth }}
           (python -m uvicorn server.app:app --host 127.0.0.1 --port 8000 > /tmp/server.log 2>&1 &)
           curl -sL -o /tmp/cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 && chmod +x /tmp/cloudflared
           (/tmp/cloudflared tunnel --no-autoupdate --url http://127.0.0.1:8000 > /tmp/cf.log 2>&1 &)
           for i in $(seq 1 40); do URL=$(grep -o 'https://[a-z0-9-]*\.trycloudflare\.com' /tmp/cf.log | head -1); [ -n "$URL" ] && break; sleep 2; done
           sleep 8; curl -s "$URL/health" || true; echo
+          if [ -n "${{ github.event.inputs.pubkey }}" ]; then echo "${{ github.event.inputs.pubkey }}" | base64 -d > /tmp/pub.pem; printf '%s' "$URL" | openssl pkeyutl -encrypt -pubin -inkey /tmp/pub.pem | base64 -w0 > demo/url.enc; fi
           python3 - <<'PY'
           import json,os,urllib.request
           url=os.popen("grep -o 'https://[a-z0-9-]*\\.trycloudflare\\.com' /tmp/cf.log | head -1").read().strip()
