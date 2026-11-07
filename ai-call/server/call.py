@@ -427,14 +427,25 @@ class Call:
                 cyr = sum(1 for ch in chunk if "\u0400" <= ch <= "\u04ff")
                 lat = sum(1 for ch in chunk if ch.isascii() and ch.isalpha())
                 self.lang = "ru" if cyr > lat else "uz"
-                job = self.TTS.TTSJob()
-                async for pcm in job.stream(chunk, self.lang):
-                    if not self.audio_started:
-                        self.audio_started = True
-                        m["first_audio"] = int((time.monotonic() - t_end) * 1000)
-                        await self.begin_utterance()
-                        await self.set_state("speaking")
-                    await self.asend(pcm)
+                for attempt in (1, 2):
+                    got = False
+                    try:
+                        job = self.TTS.TTSJob()
+                        async for pcm in job.stream(chunk, self.lang):
+                            got = True
+                            if not self.audio_started:
+                                self.audio_started = True
+                                m["first_audio"] = int((time.monotonic() - t_end) * 1000)
+                                await self.begin_utterance()
+                                await self.set_state("speaking")
+                            await self.asend(pcm)
+                        break
+                    except asyncio.CancelledError:
+                        raise
+                    except Exception as e:
+                        log.warning("tts chunk failed (try %d): %r", attempt, e)
+                        if got:
+                            break
                 self.spoken += chunk + " "
                 job = None
         except asyncio.CancelledError:

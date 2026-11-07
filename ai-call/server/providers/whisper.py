@@ -84,9 +84,16 @@ async def hybrid(pcm: bytes):
     uz_task = loop.run_in_executor(None, timed)
     res = await groq_all(pcm)
     lg.info("groq %.0f ms: %s", (time.monotonic() - t0) * 1000, [(r[1], round(r[2], 2), r[0][:50]) for r in res])
+    by = {r[1]: r for r in res}
+    uz, ru = by.get("uz"), by.get("ru")
     best = max(res, key=lambda r: r[2]) if res else None
-    if best and best[1] == "ru" and best[3] < 0.8:
-        return _clean(best[0]), "ru"
+
+    def cyr(t):
+        c = sum(1 for ch in t if "\u0400" <= ch <= "\u04ff"); l = sum(1 for ch in t if ch.isascii() and ch.isalpha())
+        return c > l
+    is_ru = bool(ru) and ((uz and cyr(uz[0])) or (uz is None) or (ru[2] > uz[2] + 0.35))
+    if is_ru and ru[3] < 0.8:
+        return _clean(ru[0]), "ru"
     try:
         text = await uz_task
     except Exception:

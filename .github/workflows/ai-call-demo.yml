@@ -29,14 +29,14 @@ jobs:
         uses: actions/cache@v4
         id: navai
         with:
-          path: ai-call/models/navai-small-ct2
-          key: navai-small-ct2-v1
+          path: ai-call/models/navai-base-ct2
+          key: navai-base-ct2-v1
       - name: convert NavAI Uzbek model
         if: github.event.inputs.mode == 'demo' && steps.navai.outputs.cache-hit != 'true'
         run: |
           pip install -q torch --index-url https://download.pytorch.org/whl/cpu
           pip install -q transformers ctranslate2 sentencepiece
-          cd ai-call && python tools/convert_navai.py navai-uz/whisper-small-uzbek models/navai-small-ct2
+          cd ai-call && python tools/convert_navai.py navai-uz/whisper-base-uzbek models/navai-base-ct2
       - name: start server + tunnel, send button
         if: github.event.inputs.mode == 'demo'
         env:
