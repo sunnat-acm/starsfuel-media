@@ -72,9 +72,18 @@ def _navai_uz(pcm: bytes):
 
 async def hybrid(pcm: bytes):
     """Groq (uz+ru) decides the language; Uzbek text comes from the NavAI Uzbek model."""
+    import time, logging
+    lg = logging.getLogger("stt")
     loop = asyncio.get_running_loop()
-    uz_task = loop.run_in_executor(None, _navai_uz, pcm)
+    t0 = time.monotonic()
+
+    def timed():
+        r = _navai_uz(pcm)
+        lg.info("navai %.0f ms: %s", (time.monotonic() - t0) * 1000, r[:80])
+        return r
+    uz_task = loop.run_in_executor(None, timed)
     res = await groq_all(pcm)
+    lg.info("groq %.0f ms: %s", (time.monotonic() - t0) * 1000, [(r[1], round(r[2], 2), r[0][:50]) for r in res])
     best = max(res, key=lambda r: r[2]) if res else None
     if best and best[1] == "ru" and best[3] < 0.8:
         return _clean(best[0]), "ru"

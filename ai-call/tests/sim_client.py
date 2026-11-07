@@ -24,6 +24,7 @@ async def main():
     ap.add_argument("clips", nargs="*")
     ap.add_argument("--dur", type=float, default=30)
     ap.add_argument("--save", default="")
+    ap.add_argument("--dtmf", default="")
     a = ap.parse_args()
     total = int(a.dur * 16000)
     tl = np.random.default_rng(0).normal(0, 0.002, total).astype(np.float32)
@@ -56,7 +57,14 @@ async def main():
                     await ws.send(json.dumps({"type": "idle", "seq": seq["n"]}))
                     print(T(), "client: playback idle seq", seq["n"])
 
-        st = asyncio.create_task(sender()); it = asyncio.create_task(idler())
+        async def dial():
+            if a.dtmf:
+                d, t = a.dtmf.split("@")
+                await asyncio.sleep(float(t))
+                await ws.send(json.dumps({"type": "dtmf", "digit": d}))
+                print(T(), "client: dtmf", d)
+
+        st = asyncio.create_task(sender()); it = asyncio.create_task(idler()); dt = asyncio.create_task(dial())
         try:
             async for msg in ws:
                 now = time.monotonic()

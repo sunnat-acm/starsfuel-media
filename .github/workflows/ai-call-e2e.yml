@@ -43,9 +43,9 @@ jobs:
           (ALLOW_NO_AUTH=1 LLM_PROVIDER=$LLM python -m uvicorn server.app:app --port 8000 > /tmp/server.log 2>&1 &)
           for i in $(seq 1 60); do curl -sf localhost:8000/health && break; sleep 3; done; echo
           python -u tests/sim_client.py ws://127.0.0.1:8000/ws \
-            ../voicelab/out/q_uz1.wav@8 ../voicelab/out/q_uz2.wav@17 ../voicelab/out/q_ru1.wav@27 ../voicelab/out/q_uz3.wav@38 \
-            --dur 48 --save tests/e2e_out.wav > tests/e2e_log.txt 2>&1 &
-          SIM=$!; sleep 60; kill $SIM 2>/dev/null || true; sleep 1
+            ../voicelab/out/q_uz1.wav@25 ../voicelab/out/q_uz2.wav@35 ../voicelab/out/q_ru1.wav@46 ../voicelab/out/q_uz3.wav@57 \
+            --dtmf 1@4 --dur 68 --save tests/e2e_out.wav > tests/e2e_log.txt 2>&1 &
+          SIM=$!; sleep 80; kill $SIM 2>/dev/null || true; sleep 1
           echo "LLM=$LLM STT=$STT_PROVIDER TTS=$TTS_PROVIDER W=$WHISPER_MODEL" >> tests/e2e_log.txt
           cat /tmp/server.log | grep -v "GET /health" | sed "s/${VOICELAB_API_KEY:-___}/***/g" >> tests/e2e_log.txt || true
       - name: commit
