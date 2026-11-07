@@ -1,0 +1,6 @@
+https://docs.voicelab.uz/api/realtime-stt 200 139649
+https://docs.voicelab.uz/api/tts 200 217602
+https://docs.voicelab.uz/api/stt 200 270819
+https://docs.voicelab.uz/libraries/for-agents 200 80466
+https://docs.voicelab.uz/llms.txt 200 6315
+https://docs.voicelab.uz/llms-full.txt 404 17997

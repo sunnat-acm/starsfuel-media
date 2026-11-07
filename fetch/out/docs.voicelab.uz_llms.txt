@@ -1,0 +1,55 @@
+# VoiceLab
+
+> API documentation for text generation, speech, transcription, voice cloning, and audio cleanup.
+
+API base URL: https://api.voicelab.uz
+
+## Start here
+
+1. Read [AGENTS.md](https://docs.voicelab.uz/AGENTS.md) for credentials and retry rules.
+2. Fetch the Markdown reference for your task below. These files are public; send no credentials.
+3. Read its request fields, response states, and errors before making a call. If a contract is missing or unavailable, report the gap instead of guessing.
+
+## Request essentials
+
+- Product REST routes use a server-side `Authorization: Bearer <VOICELAB_API_KEY>` with a `vlk_` key. Account management and analytics use a user access JWT.
+- JSON requests use `Content-Type: application/json`. Let your HTTP client set multipart boundaries. Upload fields: STT/cloning/meetings `audio`, isolation `file` or batch `files`, LLM files `file`.
+- Save an idempotency key before a paid generation/upload. STT, isolation, and meeting uploads require UUIDs. Reuse the key and input on retries. Cloning, LLM file uploads, and webhook creation have no idempotency contract; inspect existing resources after a lost response.
+- TTS returns `200` WAV or `202` job JSON. New STT uploads return `202`. Poll until completed or failed; never save pending JSON as audio. New meetings also return `202`; poll until `ready`, `transcribed`, or `failed`. Current STT jobs and meetings require polling, not webhooks.
+- Browser WebSockets use backend-issued, service-bound tickets. Keep API keys out of browser code, URLs and prompts. Download signed storage URLs without API authorization.
+- For LLM streams, parse SSE errors and wait for `[DONE]`. Save `X-LLM-Request-ID`; inspect request status after interruption. Do not retry errors marked `retryable:false` or bypass usage holds.
+
+## Choose a task
+
+- [VoiceLab API](https://docs.voicelab.uz/markdown/api/index.md): Generate text and speech, transcribe or clean up audio, clone your voice, and stream realtime audio. [Web page](https://docs.voicelab.uz/api/).
+- [API usage analytics and request logs](https://docs.voicelab.uz/markdown/api/analytics.md): Read API usage and request logs with a signed-in user's access JWT. [Web page](https://docs.voicelab.uz/api/analytics).
+- [Authentication and API keys](https://docs.voicelab.uz/markdown/api/authentication.md): Create and manage API keys, set permissions, and issue short-lived WebSocket tickets. [Web page](https://docs.voicelab.uz/api/authentication).
+- [Errors, limits, and security](https://docs.voicelab.uz/markdown/api/errors.md): Read error codes, handle rate limits, and retry without duplicating paid work. [Web page](https://docs.voicelab.uz/api/errors).
+- [LLM files](https://docs.voicelab.uz/markdown/api/files.md): Upload images and PDFs, then reference the returned file IDs in chat completions. Files belong to the account that uploaded them. [Web page](https://docs.voicelab.uz/api/files).
+- [LLM API](https://docs.voicelab.uz/markdown/api/llm.md): Generate text or function calls as JSON or an SSE stream. Completions cost credits based on token usage; model discovery and status lookups are free. [Web page](https://docs.voicelab.uz/api/llm).
+- [Meeting AI](https://docs.voicelab.uz/markdown/api/meetings.md): Upload a meeting recording, poll until processing finishes, then read the speaker-labelled transcript, summary, decisions, and action items. [Web page](https://docs.voicelab.uz/api/meetings).
+- [Realtime STT over WebSocket](https://docs.voicelab.uz/markdown/api/realtime-stt.md): Send raw PCM audio over a WebSocket and receive one final transcript per commit. [Web page](https://docs.voicelab.uz/api/realtime-stt).
+- [Speech-to-Text (STT)](https://docs.voicelab.uz/markdown/api/stt.md): Transcribe audio with timestamps and optional speaker labels. Save, edit, and export the result. [Web page](https://docs.voicelab.uz/api/stt).
+- [Text to Speech](https://docs.voicelab.uz/markdown/api/tts.md): Generate mono, 16-bit PCM WAV audio at 24 kHz. Use a server-side API key with `tts:write` permission. [Web page](https://docs.voicelab.uz/api/tts).
+- [Voice Cloning](https://docs.voicelab.uz/markdown/api/voice-cloning.md): Clone your voice for TTS with a reference recording and explicit terms/rights consent. Live confirmation is temporarily not required for developer API creation. [Web page](https://docs.voicelab.uz/api/voice-cloning).
+- [Voice Isolator](https://docs.voicelab.uz/markdown/api/voice-isolator.md): Remove background noise and optionally restore speech with Sidon. Upload audio, poll the job, and download the result. [Web page](https://docs.voicelab.uz/api/voice-isolator).
+- [Voices and TTS capabilities](https://docs.voicelab.uz/markdown/api/voices.md): Find voices and supported languages, models, and audio formats for TTS. [Web page](https://docs.voicelab.uz/api/voices).
+- [Webhooks](https://docs.voicelab.uz/markdown/api/webhooks.md): Receive signed audio processing events and track or retry their delivery. [Web page](https://docs.voicelab.uz/api/webhooks).
+
+Realtime TTS uses the [speech streaming protocol](https://docs.voicelab.uz/api/tts#realtime-speech) in the TTS reference.
+
+## Guides
+
+- [MCP setup](https://docs.voicelab.uz/mcp/quickstart) and [tools](https://docs.voicelab.uz/mcp/tools): Connect an agent and check tool schemas.
+- [Quickstart](https://docs.voicelab.uz/guide/getting-started): First speech and transcription requests.
+- [Authentication](https://docs.voicelab.uz/guide/authentication): API keys, user JWTs, and WebSocket tickets.
+- [Workflows](https://docs.voicelab.uz/guide/developer-workflow): Discovery, submission, and polling.
+- [Python and TypeScript SDKs](https://docs.voicelab.uz/libraries/sdk): Installation and examples; use HTTP for operations without an SDK helper.
+- [Agent integration](https://docs.voicelab.uz/libraries/for-agents): Tool definitions and request handling.
+- [Pricing](https://docs.voicelab.uz/guide/pricing): Credit reservations and usage.
+
+## Full reference
+
+[llms-api.txt](https://docs.voicelab.uz/llms-api.txt) contains all 66 endpoint contracts, examples, and the endpoint inventory. Fetch a single Markdown page above when you only need one API.
+
+Generated from the API docs on every build. Undocumented dashboard and internal routes are not public developer contracts.
