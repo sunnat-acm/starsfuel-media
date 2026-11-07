@@ -1,0 +1,12 @@
+LLM=deepseek
+INFO:     Started server process [2459]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     ('127.0.0.1', 41198) - "WebSocket /ws" [accepted]
+INFO:     connection open
+2026-11-07 12:23:10,414 call WARNING stt failed: RuntimeError("stt error: {'event': 'error', 'code': 'validation_error', 'message': 'word_timestamps must be true for realtime STT'}")
+2026-11-07 12:23:18,510 call WARNING stt failed: RuntimeError("stt error: {'event': 'error', 'code': 'validation_error', 'message': 'word_timestamps must be true for realtime STT'}")
+2026-11-07 12:23:31,022 call WARNING stt failed: RuntimeError("stt error: {'event': 'error', 'code': 'validation_error', 'message': 'word_timestamps must be true for realtime STT'}")
+2026-11-07 12:23:39,857 call WARNING stt failed: RuntimeError("stt error: {'event': 'error', 'code': 'validation_error', 'message': 'word_timestamps must be true for realtime STT'}")
+INFO:     connection closed
