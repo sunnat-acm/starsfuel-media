@@ -37,7 +37,7 @@ class STTStream:
         if msg.get("event") != "ready":
             raise RuntimeError(f"stt not ready: {msg}")
         await self.ws.send(json.dumps({"type": "start", "language": self.language, "audio_format": "pcm_s16le",
-                                       "sample_rate": STT_SR, "channels": 1, "word_timestamps": False}))
+                                       "sample_rate": STT_SR, "channels": 1, "word_timestamps": True}))
         if pre_audio:
             await self.send(pre_audio)
 
