@@ -116,12 +116,14 @@ class Call:
         text = greeting(name)
         ring_until = time.monotonic() + 1.6
         audio = bytearray()
-        try:
+        async def synth():
             job = self.TTS.TTSJob()
             async for ch in job.stream(text, "uz"):
-                audio += ch
+                audio.extend(ch)
+        try:
+            await asyncio.wait_for(synth(), 8)
         except Exception as e:
-            log.warning("greeting tts failed: %s", e)
+            log.warning("greeting tts failed: %r", e)
         await asyncio.sleep(max(0, ring_until - time.monotonic()))
         await self.set_state("connected")
         self.history.append({"role": "assistant", "content": text})
@@ -270,7 +272,7 @@ class Call:
         except asyncio.CancelledError:
             raise
         except Exception as e:
-            log.warning("stt failed: %s", e)
+            log.warning("stt failed: %r", e)
             text, lang = "", None
         m["stt"] = int((time.monotonic() - t_end) * 1000)
         if not text:
@@ -349,7 +351,7 @@ class Call:
                 await job.close()
             raise
         except Exception as e:
-            log.warning("tts failed: %s", e)
+            log.warning("tts failed: %r", e)
 
     async def say(self, text, end=False):
         """Speak a fixed line (nudge / farewell) outside the LLM."""

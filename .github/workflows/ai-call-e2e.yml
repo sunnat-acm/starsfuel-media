@@ -14,6 +14,7 @@ jobs:
         with: {python-version: '3.12'}
       - run: pip install -q -r ai-call/requirements.txt soundfile librosa
       - name: run call simulation
+        timeout-minutes: 4
         env:
           VOICELAB_API_KEY: ${{ secrets.VOICELAB_API_KEY }}
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
@@ -24,7 +25,8 @@ jobs:
           sleep 6; curl -s localhost:8000/health; echo
           python tests/sim_client.py ws://127.0.0.1:8000/ws \
             ../voicelab/out/q_uz1.wav@8 ../voicelab/out/q_uz2.wav@17 ../voicelab/out/q_ru1.wav@27 ../voicelab/out/q_uz3.wav@38 \
-            --dur 48 --save tests/e2e_out.wav > tests/e2e_log.txt 2>&1 || true
+            --dur 48 --save tests/e2e_out.wav > tests/e2e_log.txt 2>&1 &
+          SIM=$!; sleep 60; kill $SIM 2>/dev/null || true; sleep 1
           echo "LLM=$LLM" >> tests/e2e_log.txt
           grep -E "turn|WARNING|ERROR|Traceback|error" /tmp/server.log | sed "s/${VOICELAB_API_KEY:-___}/***/g" >> tests/e2e_log.txt || true
       - name: commit

@@ -33,7 +33,7 @@ class STTStream:
 
     async def open(self, pre_audio: bytes = b""):
         self.ws = await _connect(f"{C.VOICELAB_WS}/stt/stream")
-        msg = json.loads(await self.ws.recv())
+        msg = json.loads(await asyncio.wait_for(self.ws.recv(), 8))
         if msg.get("event") != "ready":
             raise RuntimeError(f"stt not ready: {msg}")
         await self.ws.send(json.dumps({"type": "start", "language": self.language, "audio_format": "pcm_s16le",
@@ -88,12 +88,13 @@ class TTSJob:
         voice = voice or (C.VOICE_RU if lang == "ru" else C.VOICE_UZ)
         self.ws = await _connect(f"{C.VOICELAB_WS}/tts/stream")
         try:
-            first = json.loads(await self.ws.recv())
+            first = json.loads(await asyncio.wait_for(self.ws.recv(), 8))
             if first.get("event") != "ready":
                 raise RuntimeError(f"tts not ready: {first}")
             await self.ws.send(json.dumps({"text": text, "language": lang if lang in ("uz", "ru") else "uz",
                                            "voice_id": voice, "speed": speed or C.TTS_SPEED}))
-            async for raw in self.ws:
+            while True:
+                raw = await asyncio.wait_for(self.ws.recv(), 10)
                 if isinstance(raw, bytes):
                     yield raw
                     continue
