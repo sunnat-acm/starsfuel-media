@@ -11,6 +11,9 @@ import onnxruntime as ort
 SR = 16000
 WIN = 512          # 32 ms window required by Silero v5 at 16 kHz
 CTX = 64           # context samples prepended to each window
+MIN_RMS = float(os.getenv("VAD_MIN_RMS", "0.008"))   # ~-42 dBFS: quieter is never speech
+NOISE_X = float(os.getenv("VAD_NOISE_X", "3.0"))     # speech must be this many times louder than the noise floor
+STRONG_P = 0.85
 
 
 class Silero:
@@ -55,6 +58,9 @@ class TurnDetector:
         self.sil_run = 0.0
         self.utt_len = 0.0
         self.level = 0.0
+        self.noise = 0.003                          # adaptive noise floor (RMS)
+        self.strong_run = 0.0                       # clear, loud speech run (for barge-in)
+        self.weak = 0.0
 
     def feed(self, pcm: bytes):
         ev = []
@@ -65,6 +71,18 @@ class TurnDetector:
             w16 = (w * 32768).astype(np.int16)
             p = self.vad.prob(w)
             self.level = float(np.sqrt(np.mean(w * w)) + 1e-9)
+            if p < 0.3:                              # learn background noise level
+                self.noise = 0.95 * self.noise + 0.05 * self.level
+            loud = self.level > max(MIN_RMS, self.noise * NOISE_X)
+            if not loud:
+                p = min(p, self.th_off - 0.01)       # quiet sound / background noise is not speech
+            if p >= STRONG_P and loud:               # clear speech; short dips between words are tolerated
+                self.strong_run += WIN / SR
+                self.weak = 0.0
+            else:
+                self.weak += WIN / SR
+                if self.weak > 0.25:
+                    self.strong_run = 0.0
             dt = WIN / SR
             self.t += dt
             if not self.in_speech:

@@ -291,7 +291,7 @@ class Call:
             elif ev[0] == "speech_end":
                 await self.on_speech_end(ev[2])
         # barge-in once the user has really been talking for BARGE_IN_MIN_MS
-        if self.barge_armed and self.td.in_speech and self.td.speech_run * 1000 >= C.BARGE_IN_MIN_MS:
+        if self.barge_armed and self.td.in_speech and self.td.strong_run * 1000 >= C.BARGE_IN_MIN_MS:
             self.barge_armed = False
             await self.barge_in()
 

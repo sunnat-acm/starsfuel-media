@@ -49,6 +49,7 @@ h1{margin:0;font-family:var(--hfont);font-size:28px;font-weight:700;letter-spaci
 .ln.user{align-self:flex-end;background:rgba(255,255,255,.08)}
 @keyframes in{from{opacity:0;transform:translateY(6px)}}
 #sub.off{display:none}
+#sub{visibility:hidden}  /* transcripts are not shown on screen */
 #pad{flex:1;display:grid;grid-template-columns:repeat(3,62px);gap:12px 24px;align-content:center;justify-content:center;padding:10px 0}
 #pad button{width:62px;height:62px;border-radius:50%;border:1px solid var(--keybd);background:var(--key);box-shadow:var(--keysh);backdrop-filter:var(--keyfx);-webkit-backdrop-filter:var(--keyfx);color:var(--keytx);text-shadow:var(--glow);font:500 25px var(--hfont);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;cursor:pointer}
 #pad button small{font-family:Inter,system-ui;font-size:8px;letter-spacing:1.6px;text-shadow:none;color:var(--mut);margin-top:3px;font-weight:600}
@@ -87,7 +88,7 @@ h1{margin:0;font-family:var(--hfont);font-size:28px;font-weight:700;letter-spaci
 </div>
 <script>
 const QS = new URLSearchParams(location.search);
-const THEME = QS.get('theme') || document.documentElement.dataset.theme || 'green';
+const THEME = QS.get('theme') || 'gold';
 document.documentElement.dataset.theme = THEME;
 const BG0 = getComputedStyle(document.documentElement).getPropertyValue('--bg0').trim() || '#0b120a';
 const tg = window.Telegram && Telegram.WebApp; if (tg) { tg.ready(); tg.expand(); tg.setHeaderColor && tg.setHeaderColor(BG0); tg.setBackgroundColor && tg.setBackgroundColor(BG0); }
@@ -154,7 +155,7 @@ async function call() {
     if (m.type === 'state') onState(m.state);
     else if (m.type === 'seq') seq = m.seq;
     else if (m.type === 'clear') player.port.postMessage('clear');
-    else if (m.type === 'transcript') line(m.role, m.text);
+    else if (m.type === 'transcript') console.log(m.role + ':', m.text);
     else if (m.type === 'metrics') console.log('latency', m);
     else if (m.type === 'error') err(m.message || 'Xatolik');
   };
@@ -163,7 +164,7 @@ async function call() {
 
 function onState(s) {
   state = s;
-  const lbl = { listening: 'Tinglayapman…', thinking: "O'ylayapman…", menu: 'Raqamni tanlang', transfer: 'Operatorga ulanmoqda…' };
+  const lbl = { menu: 'Raqamni tanlang', transfer: 'Operatorga ulanmoqda…' };
   $('st').textContent = lbl[s] ?? '';
   if (s === 'ringing') startRing(1.4);
   if (s === 'menu') {

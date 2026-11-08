@@ -40,10 +40,10 @@ VOICESTUDIO_KEY = E("VOICESTUDIO_KEY", "not-needed")
 VOICESTUDIO_VOICE = E("VOICESTUDIO_VOICE", "default")
 
 # turn taking
-VAD_THRESHOLD = float(E("VAD_THRESHOLD", "0.55"))
+VAD_THRESHOLD = float(E("VAD_THRESHOLD", "0.6"))
 VAD_SILENCE_MS = int(E("VAD_SILENCE_MS", "550"))       # pause that ends the user's turn
-VAD_MIN_SPEECH_MS = int(E("VAD_MIN_SPEECH_MS", "200"))
-BARGE_IN_MIN_MS = int(E("BARGE_IN_MIN_MS", "300"))     # user must speak this long to interrupt the AI
+VAD_MIN_SPEECH_MS = int(E("VAD_MIN_SPEECH_MS", "250"))
+BARGE_IN_MIN_MS = int(E("BARGE_IN_MIN_MS", "450"))     # user must speak this long to interrupt the AI
 MAX_CALL_SEC = int(E("MAX_CALL_SEC", "600"))
 SILENCE_HANGUP_SEC = int(E("SILENCE_HANGUP_SEC", "45"))
 
