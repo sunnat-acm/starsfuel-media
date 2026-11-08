@@ -1,36 +1,39 @@
-# iOS Telegram animated icons (Lottie)
+# Telegram Lottie icon & emoji packs
 
-101 ta animatsiyali ikon (foydalanuvchi yuborgan `iOSTelegram_json.zip`). Har biri Lottie JSON: 512x512, 60 fps, 60 kadr (1 s), yumaloq iOS "squircle" fonli rangli ikon.
+Foydalanuvchi yuborgan 4 ta Lottie (JSON) to'plam. Hammasi 512x512, 60 fps. Har papkada `json/NNN.json` va ko'rinish varag'i (`sheet*.jpg/png`, raqamlari bilan).
+Pleyer: `lottie.min.js` (lottie-web 5.12.2, MIT).
 
-- `json/NNN.json` — ikonlar, `index.json` — raqam → nom (`093: star_gold`, `077: star_premium`, `070: gift` ...).
-- `sheet.png` — hammasining ko'rinishi (oxirgi kadr), raqamlari bilan.
-- `lottie.min.js` — lottie-web 5.12.2 (MIT) pleyer.
+| Papka | Soni | Nima | Uzunligi |
+|---|---|---|---|
+| `ios/` | 101 | iOS uslubidagi rangli "squircle" ikonlar (Stars, Premium, Gift, NFT, TON, telefon...). `index.json` = raqam → nom | 1 s (60 kadr), oxirgi kadr = tayyor holat |
+| `android/` | 515 | Telegram Android oq chiziqli (outline) ikonlar: menyu, chat, to'lov, vaqt, media, emoji, raqamli nishonlar | asosan 1 s; 71 tasi statik (1 kadr) |
+| `status/` | 96 | Telegram statuslari: verified, SCAM/BUSY/FAKE, batareya, Premium yulduz, NEW, +1/x2, tezlik 1.5x/2x | asosan 2 s; ba'zilari statik |
+| `duck/` | 182 | Sariq o'rdak (DMJ Duck) animatsiyali emoji/stikerlar: kulgi, pul, sovg'a, yangi yil, telefon, kod... | 3-4 s, loop |
 
 ## StarsFuel uchun eng kerakli
-| Mavzu | Ikon |
-|---|---|
-| Stars | 093 star_gold, 005 stars_bubble, 078 star_add, 079 star_boost |
-| Premium | 077 star_premium, 100 crown, 076 stars_team |
-| Gift / NFT | 070 gift, 071 gift_star, 094 diamond_nft, 064 auction |
-| Telegram akkaunt / raqam | 044 phone, 002 contact, 086 telegram, 049 tg_shield |
-| To'lov | 092 dollar, 088 ton, 042 check, 087 hourglass, 061 clock |
-| Xavfsizlik | 006 shield_star, 046 key, 099 lock_bubble, 090 verified |
-| Support / AI | 044 phone, 097 sparkle_ai_bubble, 003 chat, 012 mic |
-| Reklama | 001 megaphone, 055 announce_bubble, 021 free, 083 chart |
+**ios/** — 093 Stars (oltin), 005 Stars pufak, 078 Stars+, 079 boost, 077 Premium, 100 toj, 070 gift, 071 gift-yulduz, 094 NFT olmos, 064 auksion, 044 telefon, 086 Telegram, 092 dollar, 088 TON, 042 check, 006 qalqon, 090 verified, 097 AI.
 
-Brend logotiplari (013 instagram, 047 android, 048 apple, 088 ton) — faqat kontekstda, reklamada ehtiyot bo'ling.
+**android/** (oq outline, rangli fon ustiga yaxshi) — 001 Telegram, 002 yulduz, 003 yulduz+, 007 yulduzlar, 009-010 gift, 320-321 gift, 194 yulduzli chat, 172-173 yulduzli qalqon, 178 yulduzli qulf, 427 kartochka, 434 bank karta, 435 hamyon, 436 do'kon, 438-440 TON, 441-443 olmos (NFT), 444 toj, 446-450 dollar/coin, 451 $, 467 o'sish grafigi, 241-245 telefon, 246 mikrofon, 489 check, 490 x, 496-513 raqamli nishonlar (1..90), 514-515 Premium olmos.
 
-## Ishlatish (seek(t) bilan, video yoki slayd)
+**status/** — 001-002 verified, 003-008 Telegram samolyot, 009 qalqon-yulduz, 030-031 Premium yulduz, 018 SCAM / 019 BUSY / 020 FAKE, 022-025 batareya, 036 NEW, 037 +1, 049 X2, 057 check, 082-087 tezlik (1.5x, 2x, quyon/toshbaqa).
+
+**duck/** (emotsiya, hazil, Reels uchun) — 001-002 oddiy o'rdak, 016 pul ko'zli, 017 sevgi, 060 pul/boy, 062 ko'zoynakli "cool", 063 mashina, 064 yangiliklar, 068 kosmik, 070 uchish, 075 yangi yil, 086 Telegram, 098 Telegram fon, 106 FREE, 113/148 yangi yil 2026/2025, 116 yulduzli, 120 raketa, 133 kostyumli, 151 oltin uzuk.
+Eslatma: o'rdak to'plami — boshqa muallifning (DMJ) stikerlari; reklamada asosiy qahramon qilmang, kichik emoji sifatida ishlating. 133 (siyosiy shaxsga o'xshash) va 080/095 (real odamga o'xshash qiz) — ishlatmang. Brend logolari (Apple, Android, Instagram) — reklamada ishlatmang.
+
+## Ishlatish
 ```html
 <script src="../tg_icons/lottie.min.js"></script>
-<div id="ic" style="width:220px;height:220px"></div>
+<div data-ic="ios/093" style="width:220px;height:220px"></div>
 <script>
-const a = lottie.loadAnimation({container: ic, renderer: 'svg', loop: false, autoplay: false,
-  path: '../tg_icons/json/093.json'});
-// video: a.goToAndStop(Math.min(59, (t - start) * 60), true)  — kirish animatsiyasi
-// slayd: a.goToAndStop(59, true)                               — tayyor holat
+document.querySelectorAll('[data-ic]').forEach(el => {
+  const a = lottie.loadAnimation({container: el, renderer: 'svg', loop: false, autoplay: false,
+    path: '../tg_icons/' + el.dataset.ic.replace('/', '/json/') + '.json'});
+  a.addEventListener('DOMLoaded', () => a.goToAndStop(a.totalFrames - 1, true)); // slayd: tayyor holat
+});
+// video seek(t): a.goToAndStop((t - start) * 60 % a.totalFrames, true)
 </script>
 ```
-- `renderer:'svg'` aniq, har o'lchamda keskin. `fetch` uchun sahifani http serverdan oching (file:// da ishlamaydi) yoki JSONni `animationData` sifatida ichiga qo'ying.
-- 1 s animatsiya: urilish (beat) ustiga qo'ying; `goToAndStop(frame, true)` — `true` = kadr raqami.
-- Render tekshiruvi: `/tmp/lt/sheet.html` uslubida barcha ikonlarni grid qilib skrinshot oling.
+- `android/` va `status/` oq rangda: rang berish uchun konteynerga CSS `filter` yoki fon (masalan rangli squircle) qo'ying.
+- `duck/` uzun (3-4 s): slaydda o'rtadagi kadr (`totalFrames*0.5`) chiroyliroq.
+- Sahifani http serverdan oching (file:// da `fetch` ishlamaydi); skrinshotdan oldin barcha `DOMLoaded` ni kuting.
+- Namuna: `studio/slides/slides3.html` (5 slaydli karusel, ios ikonlar bilan).

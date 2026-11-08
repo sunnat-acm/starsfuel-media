@@ -99,6 +99,6 @@ if(N===3){document.querySelector('.s').insertAdjacentHTML('beforeend',dots(3)+sw
 const F=+(Q.get('f')||59);
 const els=[...document.querySelectorAll('[data-ic]')];let left=els.length;
 window.ready=left===0;
-els.forEach(el=>{const a=lottie.loadAnimation({container:el,renderer:'svg',loop:false,autoplay:false,path:'../tg_icons/json/'+el.dataset.ic+'.json'});
+els.forEach(el=>{const a=lottie.loadAnimation({container:el,renderer:'svg',loop:false,autoplay:false,path:'../tg_icons/ios/json/'+el.dataset.ic+'.json'});
  a.addEventListener('DOMLoaded',()=>{a.goToAndStop(F,true);if(--left===0)window.ready=true;});});
 </script></body></html>
