@@ -4,36 +4,59 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>StarsFuel Support</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg0:#0b120a;--bg1:#14240f;--acc:#8AAC62;--acc2:#A6D06A;--txt:#f3f6ef;--mut:#9aa695;--red:#e5484d}
+:root{--bg0:#0b120a;--bg1:#14240f;--acc:#8AAC62;--acc2:#A6D06A;--txt:#f3f6ef;--mut:#9aa695;--red:#e5484d;
+ --app:radial-gradient(120% 70% at 50% 18%,#26421a 0%,#14240f 38%,#0b120a 78%);--core:linear-gradient(145deg,#2c4a1e,#16260f);
+ --key:rgba(255,255,255,.1);--keyon:rgba(255,255,255,.28);--keytx:#fff;--keybd:transparent;--keysh:none;--keyfx:none;
+ --btn:rgba(255,255,255,.1);--btntx:#fff;--ai:rgba(166,208,106,.12);--aibd:rgba(166,208,106,.22);--hfont:Inter,system-ui,sans-serif;--glow:none}
+/* 2 Glass: chuqur ko'k, muzli shisha */
+[data-theme=glass]{--bg0:#0a0f1f;--acc:#7cc4ff;--acc2:#9fd4ff;--mut:#a3adc8;
+ --app:radial-gradient(60% 40% at 15% 20%,#3b2a8a 0%,transparent 70%),radial-gradient(55% 40% at 90% 75%,#0f6b8f 0%,transparent 70%),linear-gradient(#0b1024,#070a16);
+ --core:rgba(255,255,255,.08);--key:rgba(255,255,255,.07);--keyon:rgba(255,255,255,.22);--keybd:rgba(255,255,255,.16);--keyfx:blur(14px) saturate(160%);
+ --btn:rgba(255,255,255,.1);--ai:rgba(124,196,255,.1);--aibd:rgba(124,196,255,.25)}
+/* 3 Light: oq, toza */
+[data-theme=light]{--bg0:#f3f5ef;--txt:#141a12;--mut:#6b7466;--acc:#6f9a45;--acc2:#4f7f27;
+ --app:linear-gradient(180deg,#ffffff 0%,#eef2e8 100%);--core:linear-gradient(145deg,#5f8a3a,#2f4f1c);
+ --key:#fff;--keyon:#e3ead9;--keytx:#141a12;--keybd:rgba(20,26,18,.06);--keysh:0 6px 16px rgba(30,45,20,.08);
+ --btn:#e7ece1;--btntx:#141a12;--ai:#fff;--aibd:rgba(20,26,18,.08)}
+/* 4 Neon: qora + yashil chiziq */
+[data-theme=neon]{--bg0:#000;--acc:#A6FF3A;--acc2:#A6FF3A;--mut:#6f7b66;
+ --app:radial-gradient(70% 35% at 50% 22%,rgba(166,255,58,.14),transparent 70%),#000;--core:#000;
+ --key:transparent;--keyon:rgba(166,255,58,.18);--keytx:#d8ffb0;--keybd:rgba(166,255,58,.55);--keysh:0 0 14px rgba(166,255,58,.18) inset;
+ --btn:transparent;--btntx:#d8ffb0;--ai:rgba(166,255,58,.07);--aibd:rgba(166,255,58,.35);--hfont:'JetBrains Mono',ui-monospace,monospace;--glow:0 0 12px rgba(166,255,58,.7)}
+/* 5 Gold: qora + Stars oltini */
+[data-theme=gold]{--bg0:#0c0a07;--acc:#E8B64C;--acc2:#F5CF73;--txt:#fbf4e4;--mut:#a89a7c;
+ --app:radial-gradient(90% 55% at 50% 0%,#3a2a0e 0%,#16110a 55%,#0c0a07 100%);--core:linear-gradient(145deg,#2b2112,#120d07);
+ --key:linear-gradient(160deg,rgba(245,207,115,.14),rgba(245,207,115,.04));--keyon:rgba(245,207,115,.3);--keytx:#fbf4e4;--keybd:rgba(245,207,115,.28);
+ --btn:rgba(245,207,115,.12);--btntx:#F5CF73;--ai:rgba(232,182,76,.1);--aibd:rgba(232,182,76,.28);--hfont:'Playfair Display',Georgia,serif}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;background:var(--bg0);color:var(--txt);font-family:Inter,system-ui,sans-serif;overflow:hidden;user-select:none}
 #app{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;padding:calc(env(safe-area-inset-top) + 48px) 24px calc(env(safe-area-inset-bottom) + 34px);
- background:radial-gradient(120% 70% at 50% 18%,#26421a 0%,var(--bg1) 38%,var(--bg0) 78%)}
+ background:var(--app)}
 .who{margin-top:4vh;text-align:center}
 .av{position:relative;width:132px;height:132px;margin:0 auto 22px}
 .av .ring{position:absolute;inset:0;border-radius:50%;border:2px solid var(--acc);opacity:0}
-.av .core{position:absolute;inset:0;border-radius:50%;background:linear-gradient(145deg,#2c4a1e,#16260f);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1px rgba(166,208,106,.25),0 20px 50px rgba(0,0,0,.5)}
+.av .core{position:absolute;inset:0;border-radius:50%;background:var(--core);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1px rgba(166,208,106,.25),0 20px 50px rgba(0,0,0,.5)}
 .av svg{width:64px;height:64px}
 .ringing .ring{animation:pulse 1.6s infinite}.ringing .ring.r2{animation-delay:.53s}.ringing .ring.r3{animation-delay:1.06s}
 @keyframes pulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.9);opacity:0}}
-h1{margin:0;font-size:28px;font-weight:700;letter-spacing:-.02em}
+h1{margin:0;font-family:var(--hfont);font-size:28px;font-weight:700;letter-spacing:-.02em}
 #status{margin-top:8px;font-size:16px;color:var(--mut);font-variant-numeric:tabular-nums;min-height:20px}
 #sub{flex:1;width:100%;max-width:520px;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;padding:18px 0;overflow:hidden;mask-image:linear-gradient(transparent,#000 30%)}
 .ln{font-size:15px;line-height:1.4;padding:9px 13px;border-radius:16px;max-width:86%;animation:in .25s ease}
-.ln.ai{align-self:flex-start;background:rgba(166,208,106,.12);border:1px solid rgba(166,208,106,.22)}
+.ln.ai{align-self:flex-start;background:var(--ai);border:1px solid var(--aibd)}
 .ln.user{align-self:flex-end;background:rgba(255,255,255,.08)}
 @keyframes in{from{opacity:0;transform:translateY(6px)}}
 #sub.off{display:none}
-#pad{flex:1;display:grid;grid-template-columns:repeat(3,76px);gap:14px 26px;align-content:center;justify-content:center;padding:10px 0}
-#pad button{width:76px;height:76px;border-radius:50%;border:0;background:rgba(255,255,255,.1);color:#fff;font:600 30px Inter,system-ui;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;cursor:pointer}
-#pad button small{font-size:10px;letter-spacing:2px;color:var(--mut);margin-top:3px;font-weight:600}
-#pad button:active{background:rgba(255,255,255,.28)}
+#pad{flex:1;display:grid;grid-template-columns:repeat(3,62px);gap:12px 24px;align-content:center;justify-content:center;padding:10px 0}
+#pad button{width:62px;height:62px;border-radius:50%;border:1px solid var(--keybd);background:var(--key);box-shadow:var(--keysh);backdrop-filter:var(--keyfx);-webkit-backdrop-filter:var(--keyfx);color:var(--keytx);text-shadow:var(--glow);font:500 25px var(--hfont);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;cursor:pointer}
+#pad button small{font-family:Inter,system-ui;font-size:8px;letter-spacing:1.6px;text-shadow:none;color:var(--mut);margin-top:3px;font-weight:600}
+#pad button:active{background:var(--keyon)}
 .st{font-size:13px;color:var(--acc2);height:18px;text-align:center;margin-bottom:14px;letter-spacing:.02em}
 .ctrl{display:flex;gap:26px;justify-content:center;align-items:flex-end}
 .b{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12px;color:var(--mut)}
-.b button{width:64px;height:64px;border-radius:50%;border:0;background:rgba(255,255,255,.1);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .1s,background .2s}
+.b button{width:64px;height:64px;border-radius:50%;border:0;background:var(--btn);border:1px solid var(--keybd);color:var(--btntx);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .1s,background .2s}
 .b button:active{transform:scale(.93)}.b button.on{background:#fff;color:#0b120a}
 .b button svg{width:28px;height:28px}
 #hang{width:72px;height:72px;background:var(--red)}
@@ -42,6 +65,7 @@ h1{margin:0;font-size:28px;font-weight:700;letter-spacing:-.02em}
 .hide{display:none!important}
 #err{position:fixed;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom) + 130px);padding:12px 14px;border-radius:14px;background:rgba(229,72,77,.15);border:1px solid rgba(229,72,77,.4);font-size:14px;text-align:center}
 #lat{position:fixed;top:8px;right:10px;font-size:11px;color:#5d6b58}
+[data-theme=neon] .av .core{box-shadow:0 0 0 1px var(--acc),0 0 30px rgba(166,255,58,.35)}[data-theme=light] .av .core{box-shadow:0 12px 30px rgba(30,45,20,.12)}[data-theme=light] #lat{color:#aaa}
 </style></head>
 <body><div id="app">
  <div class="who">
@@ -62,7 +86,11 @@ h1{margin:0;font-size:28px;font-weight:700;letter-spacing:-.02em}
  <div id="err" class="hide"></div><div id="lat"></div>
 </div>
 <script>
-const tg = window.Telegram && Telegram.WebApp; if (tg) { tg.ready(); tg.expand(); tg.setHeaderColor && tg.setHeaderColor('#0b120a'); tg.setBackgroundColor && tg.setBackgroundColor('#0b120a'); }
+const QS = new URLSearchParams(location.search);
+const THEME = QS.get('theme') || document.documentElement.dataset.theme || 'green';
+document.documentElement.dataset.theme = THEME;
+const BG0 = getComputedStyle(document.documentElement).getPropertyValue('--bg0').trim() || '#0b120a';
+const tg = window.Telegram && Telegram.WebApp; if (tg) { tg.ready(); tg.expand(); tg.setHeaderColor && tg.setHeaderColor(BG0); tg.setBackgroundColor && tg.setBackgroundColor(BG0); }
 const $ = id => document.getElementById(id);
 const hap = t => { try { tg.HapticFeedback.impactOccurred(t || 'light') } catch (e) {} };
 let ctx, ws, mic, micNode, player, ringOsc, ringTimer, t0, timerI, seq = 0, muted = false, state = 'idle', lastUserEl = null;
@@ -160,6 +188,9 @@ function reset() {
   setStatus("AI qo'llab-quvvatlash");
 }
 $('call').onclick = call;
+if (QS.get('preview') === 'menu') { $('pre').classList.add('hide'); $('inc').classList.remove('hide'); showPad(true); setStatus('00:07'); $('st').textContent = 'Raqamni tanlang'; }
+if (QS.get('preview') === 'talk') { $('pre').classList.add('hide'); $('inc').classList.remove('hide'); setStatus('01:24');
+  line('ai', "Assalomu alaykum, men Madina. Sizga qanday yordam bera olaman?"); line('user', 'Yuz stars qancha turadi?'); line('ai', "Yuz stars yigirma ikki ming so'm turadi."); }
 $('hang').onclick = () => { hap('heavy'); if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'hangup' })); onState('ended'); };
 $('mute').onclick = () => { muted = !muted; $('mute').classList.toggle('on', muted); hap(); if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'mute', on: muted })); };
 $('kp').onclick = () => { hap(); showPad($('pad').classList.contains('hide')); };
