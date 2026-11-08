@@ -28,6 +28,7 @@ html,body{margin:0;background:#000}*{box-sizing:border-box}
 .dots i{display:block;width:14px;height:14px;border-radius:7px;background:rgba(255,255,255,.28)}.dots i.on{width:44px;background:#fff}
 .row{position:absolute;left:72px;width:936px;border-radius:36px;display:flex;align-items:center;gap:30px;padding:26px 40px 26px 28px}
 .row .t{flex:1}.row .t div{font-size:44px;font-weight:900;letter-spacing:-.02em}.row .t > span{display:block;font-size:26px;font-weight:600;color:rgba(255,255,255,.6);margin-top:4px}
+.row.c{padding:18px 36px 18px 22px;border-radius:32px}.row.c .t div{font-size:40px}.row.c .t > span{font-size:24px}.row.c .v{font-size:42px}
 .row .v{font-size:46px;font-weight:900;letter-spacing:-.02em;white-space:nowrap}.row .v small{font-size:26px;font-weight:700;opacity:.65;margin-left:6px}
 .row .t .best{display:inline-block;margin-top:0;color:#fff;font-size:20px;font-weight:800;letter-spacing:2px;padding:6px 14px;border-radius:12px;background:#A86BFF;color:#fff;vertical-align:middle;margin-left:14px}
 .gold{background:linear-gradient(90deg,#FFE08A,#F7B500 50%,#FF9F1C);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -46,7 +47,7 @@ const brand=`<div class="brand"><img src="../../brand/logo_white.png"><span>STAR
 const swipe=(n,last)=>`<div class="swipe glass"><div class="n">${n}<span>/5</span></div><div>${last?"Botga kiring":"Suring"}</div><div class="ar">${last?'↗':'→'}</div></div>`;
 const dots=n=>`<div class="dots">${[1,2,3,4,5].map(i=>`<i class="${i===n?'on':''}"></i>`).join('')}</div>`;
 const bg=(a,b,c)=>`<div class="glow" style="width:980px;height:980px;left:-340px;top:-360px;background:${a};opacity:.55"></div><div class="glow" style="width:860px;height:860px;right:-340px;bottom:-300px;background:${b};opacity:.42"></div><div class="glow" style="width:520px;height:520px;right:60px;top:300px;background:${c};opacity:.2"></div><div class="grid"></div><div class="grain"></div>`;
-const row=(top,id,title,sub,val,unit,extra='')=>`<div class="row glass" style="top:${top}px;${extra}">${ICI(id,112)}<div class="t"><div>${title}</div><span>${sub}</span></div><div class="v">${val}<small>${unit}</small></div></div>`;
+const row=(top,id,title,sub,val,unit,extra='',c=0)=>`<div class="row glass${c?' c':''}" style="top:${top}px;${extra}">${ICI(id,c?90:112)}<div class="t"><div>${title}</div><span>${sub}</span></div><div class="v">${val}<small>${unit}</small></div></div>`;
 const S={
 1:`${bg('#1F6FD6','#7B3FE4','#F7B500')}${brand}<div class="tag">@StarsFuelBot</div>
  ${IC('093',260,640,170,10)}${IC('077',190,420,330,-12)}${IC('070',170,870,410,14)}
@@ -67,13 +68,14 @@ const S={
   <div style="margin-top:22px;font-size:28px;font-weight:600;color:rgba(255,255,255,.6)">Istalgan miqdorda — o'zingizga yoki do'stingizga.</div></div>
  ${dots(2)}${swipe(2)}`,
 3:`${bg('#6A2FD6','#FF5E9C','#A86BFF')}${brand}<div class="tag">PREMIUM</div>
- ${IC('077',300,710,150,10)}${IC('100',130,890,420,-12)}
- <div class="k" style="top:300px;color:#D3B4FF">TELEGRAM</div>
- <div class="h" style="top:350px;font-size:150px"><span class="purp">Premium</span></div>
- <div class="p" style="top:540px;width:560px">O'zingizga yoki do'stingizga — <b>username orqali</b>.</div>
- ${row(660,'061','3 oy','Sinab ko\'rish uchun','190 000',"so'm")}
- ${row(825,'058','6 oy','Yarim yil','250 000',"so'm")}
- ${row(990,'100','12 oy<em class="best" style="font-style:normal">FOYDALI</em>','Oyiga ~33 000 so\'m','400 000',"so'm",'border-color:rgba(168,107,255,.7);box-shadow:0 0 0 2px rgba(168,107,255,.35),0 24px 60px rgba(0,0,0,.35)')}
+ ${IC('077',270,740,140,10)}${IC('100',120,910,380,-12)}
+ <div class="k" style="top:250px;color:#D3B4FF">TELEGRAM</div>
+ <div class="h" style="top:295px;font-size:146px"><span class="purp">Premium</span></div>
+ <div class="p" style="top:480px;width:620px"><b>1 oydan 12 oygacha</b> — o'zingizga mosini tanlang.</div>
+ ${row(612,'087','1 oy','Admin orqali faollashtiriladi','45 000',"so'm",'',1)}
+ ${row(754,'061','3 oy','Chorak yil','190 000',"so'm",'',1)}
+ ${row(896,'058','6 oy','Yarim yil','250 000',"so'm",'',1)}
+ ${row(1038,'100','12 oy<em class="best" style="font-style:normal">FOYDALI</em>','Oyiga ~33 000 so\'m','400 000',"so'm",'border-color:rgba(168,107,255,.7);box-shadow:0 0 0 2px rgba(168,107,255,.35),0 24px 60px rgba(0,0,0,.35)',1)}
  `,
 4:`${bg('#0E8F7A','#2AABEE','#22C7A9')}${brand}<div class="tag">YANA</div>
  <div class="k" style="top:200px;color:#9CF5E4">BOTDA YANA</div>

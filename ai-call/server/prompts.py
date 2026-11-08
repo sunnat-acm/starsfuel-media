@@ -5,6 +5,7 @@ KNOWLEDGE = """
 StarsFuelBot (Telegram bot, @StarsFuelBot) services:
 - Telegram Stars: 50 to 2500 stars per order. 100 Stars costs 22 000 so'm.
 - Telegram Premium: 3 months 190 000 so'm, 6 months 250 000 so'm, 12 months 400 000 so'm.
+- Telegram Premium 1 month: 45 000 so'm. It is activated by an admin (the admin logs into the customer's profile and buys it for them); order it through the bot or the admin.
 - Gifts (Telegram Gift), NFT gifts, game top-ups (PUBG UC, Free Fire diamonds), Telegram accounts / phone numbers
   (one Telegram number costs 10 000 so'm; available countries and stock change, they are shown in the bot).
 How to buy Stars: open the bot -> Stars tab -> enter the amount -> enter the recipient's @username
