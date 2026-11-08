@@ -1,0 +1,69 @@
+<!doctype html><html><head><meta charset="utf-8">
+<script src="../tg_icons/lottie.min.js"></script>
+<style>
+@font-face{font-family:'I';font-weight:500;src:url('inter-latin-500-normal.woff2')}
+@font-face{font-family:'I';font-weight:600;src:url('inter-latin-600-normal.woff2')}
+@font-face{font-family:'I';font-weight:700;src:url('inter-latin-700-normal.woff2')}
+@font-face{font-family:'I';font-weight:800;src:url('inter-latin-800-normal.woff2')}
+@font-face{font-family:'I';font-weight:900;src:url('inter-latin-900-normal.woff2')}
+html,body{margin:0;background:#000}*{box-sizing:border-box}
+.s{position:relative;width:1600px;height:900px;overflow:hidden;font-family:'I';color:#fff;background:#0a1018}
+.glow{position:absolute;border-radius:50%;filter:blur(140px)}
+.grain{position:absolute;inset:0;opacity:.06;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
+.grid{position:absolute;inset:0;opacity:.05;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(60% 70% at 72% 50%,#000,transparent)}
+.brand{position:absolute;left:84px;top:74px;display:flex;align-items:center;gap:16px;font-weight:800;font-size:30px;letter-spacing:1.5px}
+.brand img{width:58px;height:58px}
+.brand .v{width:40px;height:40px;margin-left:-4px}
+.h{position:absolute;left:84px;top:165px;font-weight:900;font-size:96px;letter-spacing:-.045em;line-height:.98;white-space:nowrap}
+.blue{background:linear-gradient(90deg,#9FE0FF,#2AABEE 55%,#8A7CFF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gold{background:linear-gradient(90deg,#FFE08A,#F7B500 55%,#FF9F1C);-webkit-background-clip:text;background-clip:text;color:transparent}
+.p{position:absolute;left:84px;top:470px;font-size:32px;font-weight:500;color:rgba(255,255,255,.7);width:720px;line-height:1.35}
+.glass{background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.04));border:1.5px solid rgba(255,255,255,.18);backdrop-filter:blur(24px) saturate(160%);box-shadow:0 20px 50px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.25)}
+.chips{position:absolute;left:84px;top:582px;display:flex;gap:16px}
+.chip{display:flex;align-items:center;gap:14px;border-radius:28px;padding:12px 24px 12px 12px}
+.chip .t{font-size:20px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:1px}
+.chip .v{font-size:34px;font-weight:900;letter-spacing:-.02em;white-space:nowrap}.chip .v small{font-size:20px;opacity:.6;margin-left:4px;font-weight:700}
+.cta{position:absolute;left:84px;top:732px;height:96px;border-radius:48px;display:flex;align-items:center;gap:18px;padding:0 44px 0 14px;font-size:38px;font-weight:900;background:#2AABEE;box-shadow:0 18px 50px rgba(42,171,238,.45)}
+.cta span{font-size:24px;font-weight:700;opacity:.85;margin-left:6px}
+.ic{position:absolute;filter:drop-shadow(0 28px 44px rgba(0,0,0,.5))}
+.in{position:relative;flex:none;filter:drop-shadow(0 8px 14px rgba(0,0,0,.35))}
+.tile{border-radius:30%;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 0 rgba(255,255,255,.35),inset 0 -6px 14px rgba(0,0,0,.18)}
+.big{position:absolute;border-radius:28%;display:flex;align-items:center;justify-content:center;box-shadow:0 30px 60px rgba(0,0,0,.45),inset 0 3px 0 rgba(255,255,255,.4),inset 0 -14px 30px rgba(0,0,0,.2)}
+.big::after{content:"";position:absolute;inset:0;border-radius:inherit;border:1.5px solid rgba(255,255,255,.35)}
+.wl{position:absolute;filter:drop-shadow(0 0 18px rgba(255,255,255,.35))}
+.ring{position:absolute;border-radius:50%;border:1.5px solid rgba(255,255,255,.08)}
+</style></head><body><div class="s">
+ <div class="glow" style="width:900px;height:900px;left:-380px;top:-420px;background:#1F6FD6;opacity:.5"></div>
+ <div class="glow" style="width:820px;height:820px;right:-160px;top:-120px;background:#7B3FE4;opacity:.45"></div>
+ <div class="glow" style="width:620px;height:620px;right:240px;bottom:-360px;background:#F7B500;opacity:.25"></div>
+ <div class="grid"></div><div class="grain"></div>
+ <div class="ring" style="width:760px;height:760px;left:900px;top:70px"></div>
+ <div class="ring" style="width:520px;height:520px;left:1020px;top:190px"></div>
+
+ <div class="brand"><img src="../../brand/logo_white.png"><span>STARSFUEL</span></div>
+ <div class="h">Telegram uchun<br><span class="blue">hammasi</span> —<br><span class="gold">bitta botda.</span></div>
+ <div class="p">Stars, Premium, Gift, NFT va Telegram raqamlar — karta bilan, tez va qulay.</div>
+ <div class="chips">
+  <div class="chip glass"><div class="tile in" style="width:64px;height:64px;background:linear-gradient(145deg,#FFC93C,#F28C00)"><div class="in" data-ic="android/002" style="width:44px;height:44px"></div></div><div><div class="t">100 STARS</div><div class="v">22 000<small>so'm</small></div></div></div>
+  <div class="chip glass"><div class="tile in" style="width:64px;height:64px;background:linear-gradient(145deg,#B47BFF,#6A3BE4)"><div class="in" data-ic="android/514" style="width:46px;height:46px"></div></div><div><div class="t">PREMIUM 1 OY</div><div class="v">45 000<small>so'm</small></div></div></div>
+  <div class="chip glass"><div class="tile in" style="width:64px;height:64px;background:linear-gradient(145deg,#4BE3C4,#14A88C)"><div class="in" data-ic="android/243" style="width:42px;height:42px"></div></div><div><div class="t">RAQAM</div><div class="v">10 000<small>so'm</small></div></div></div>
+ </div>
+ <div class="cta"><div class="tile in" style="width:70px;height:70px;background:rgba(255,255,255,.2)"><div class="in" data-ic="android/001" style="width:46px;height:46px"></div></div>@StarsFuelBot<span>→</span></div>
+
+ <div class="wl" data-ic="android/007" style="width:120px;height:120px;left:1000px;top:700px;transform:rotate(-10deg);opacity:0.45"></div>
+ <div class="wl" data-ic="android/441" style="width:110px;height:110px;left:1460px;top:330px;transform:rotate(12deg);opacity:0.4"></div>
+ <div class="wl" data-ic="android/446" style="width:90px;height:90px;left:1290px;top:770px;transform:rotate(-8deg);opacity:0.4"></div>
+ <div class="wl" data-ic="android/434" style="width:96px;height:96px;left:1300px;top:40px;transform:rotate(8deg);opacity:0.35"></div>
+ <div class="big" style="width:320px;height:320px;left:1110px;top:140px;background:linear-gradient(145deg,#FFC93C,#F28C00);transform:rotate(8deg)"><div class="in" data-ic="android/002" style="width:211px;height:211px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.25))"></div></div>
+ <div class="big" style="width:210px;height:210px;left:930px;top:380px;background:linear-gradient(145deg,#B47BFF,#6A3BE4);transform:rotate(-10deg)"><div class="in" data-ic="android/444" style="width:138px;height:138px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.25))"></div></div>
+ <div class="big" style="width:180px;height:180px;left:1380px;top:450px;background:linear-gradient(145deg,#4BE3C4,#14A88C);transform:rotate(12deg)"><div class="in" data-ic="android/009" style="width:118px;height:118px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.25))"></div></div>
+ <div class="big" style="width:150px;height:150px;left:1175px;top:575px;background:linear-gradient(145deg,#5CC8FF,#1E7FE0);transform:rotate(-7deg)"><div class="in" data-ic="android/442" style="width:99px;height:99px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.25))"></div></div>
+ <div class="big" style="width:118px;height:118px;left:1010px;top:165px;background:linear-gradient(145deg,#FF8FB8,#E0457B);transform:rotate(-14deg)"><div class="in" data-ic="android/243" style="width:70px;height:70px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.25))"></div></div>
+ <div class="ic" data-ic="status/031" style="width:110px;height:110px;left:1450px;top:110px"></div>
+ <div class="ic" data-ic="duck/016" data-pos=".5" style="width:190px;height:190px;left:1385px;top:665px"></div>
+</div>
+<script>
+const els=[...document.querySelectorAll('[data-ic]')];let left=els.length;window.ready=false;
+els.forEach(el=>{const [pk,n]=el.dataset.ic.split('/');const a=lottie.loadAnimation({container:el,renderer:'svg',loop:false,autoplay:false,path:`../tg_icons/${pk}/json/${n}.json`});
+ a.addEventListener('DOMLoaded',()=>{const pos=+(el.dataset.pos||1);a.goToAndStop(Math.floor((a.totalFrames-1)*pos),true);if(--left===0)window.ready=true;});});
+</script></body></html>
