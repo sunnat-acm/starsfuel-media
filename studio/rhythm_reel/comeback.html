@@ -1,0 +1,187 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:I;font-weight:500;src:url(../slides/inter-latin-500-normal.woff2)}
+@font-face{font-family:I;font-weight:600;src:url(../slides/inter-latin-600-normal.woff2)}
+@font-face{font-family:I;font-weight:700;src:url(../slides/inter-latin-700-normal.woff2)}
+@font-face{font-family:I;font-weight:800;src:url(../slides/inter-latin-800-normal.woff2)}
+@font-face{font-family:I;font-weight:900;src:url(../slides/inter-latin-900-normal.woff2)}
+@font-face{font-family:M;font-weight:400;src:url(../poster/space-mono-latin-400-normal.woff2)}
+html,body{margin:0;background:#000}*{box-sizing:border-box}
+#v{position:relative;width:1080px;height:1920px;background:#000;overflow:hidden;font-family:I;color:#111}
+.wm{position:absolute;top:150px;font:600 22px I;color:#8a8a8a;letter-spacing:.2px}
+#hdr{position:absolute;left:0;right:0;top:500px;text-align:center;font-weight:800;font-size:52px;line-height:1.16;letter-spacing:-.5px}
+#hdr .r{color:#FF3B30}#hdr .w{color:#fff}
+#card{position:absolute;left:30px;top:672px;width:1020px;height:574px;border-radius:28px;background:#fff;overflow:hidden}
+.ab{position:absolute}
+.cap{position:absolute;left:0;right:0;top:34px;text-align:center;font-weight:600;font-size:30px;letter-spacing:-.4px}
+.term{background:#1c1c1e;border-radius:18px;color:#e9e9ea;font-family:M;box-shadow:0 18px 40px rgba(0,0,0,.18)}
+.term .bar{height:34px;display:flex;align-items:center;gap:8px;padding-left:16px}
+.term .bar i{width:11px;height:11px;border-radius:50%;display:block}
+.pill{border-radius:999px;display:inline-flex;align-items:center;gap:10px}
+img.i{position:absolute;display:block}
+.num{font-weight:800;letter-spacing:-2px}
+.chk{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+</style></head><body>
+<div id="v">
+ <div class="wm" style="left:40px">starsfuelapp</div><div class="wm" id="tm" style="right:40px">0:18</div>
+ <div id="hdr"><div class="r">COMEBACK.</div><div class="w">StarsFuel qaytdi — hammasi faol.</div></div>
+ <div id="card"></div>
+ <div id="intro" style="position:absolute;inset:0;overflow:hidden"></div>
+</div>
+<script>
+
+const D=18.7;
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const eo=x=>x>=1?1:1-Math.pow(2,-10*x);          // expo out
+const e3=x=>1-Math.pow(1-x,3);
+const io=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const L=(a,b,x)=>a+(b-a)*x;
+const fmt=n=>Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+const IMG=n=>`icons/${n}.png`;
+const ic=(n,x,y,s,extra='')=>`<img class="i" src="${IMG(n)}" style="left:${x}px;top:${y}px;width:${s}px;height:${s}px;${extra}">`;
+// caption with grey->ink word reveal
+function cap(text,t,t0,dur=.5,top=34,size=30){const w=text.split(' ');const n=w.length;
+ return `<div class="cap" style="top:${top}px;font-size:${size}px">`+w.map((x,i)=>{const k=eo(P(t,t0+i*dur/n,t0+i*dur/n+.18));const c=Math.round(L(205,17,k));return `<span style="color:rgb(${c},${c},${c});opacity:${L(.0,1,cl(k*3))}">${x}</span>`}).join(' ')+'</div>'}
+function rng(s){return()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const ALL=['ios_093','ios_077','ios_070','ios_094','ios_044','ios_086','ios_092','ios_042','ios_005','ios_100','ios_071','ios_064','ios_006','ios_090','ios_058','ios_061','ios_078','ios_079','ios_003','status_031','android_002','android_009','android_441','android_514','android_444','android_434','android_435','android_243','android_320'];
+const COLOR=ALL.filter(x=>x.startsWith('ios')||x.startsWith('status'));
+const LOGO='../../brand/logo_terracotta.svg';
+
+
+const GAME='<div style="width:100%;height:100%;border-radius:22%;background:linear-gradient(145deg,#2b2d42,#0d0e16);display:flex;align-items:center;justify-content:center;color:#FFC93C;font:900 0.36em I;letter-spacing:-1px">UC</div>';
+const tile=(n,s)=>n==='game'?`<div style="width:${s}px;height:${s}px;font-size:${s}px">${GAME}</div>`:`<img src="${IMG(n)}" style="width:${s}px;height:${s}px;display:block">`;
+function intro(t){
+ // COME on beat 0.07, BACK on 0.70, QAYTDIK at 1.0, exit 1.2-1.35
+ const sh=(t0,d)=>{const k=P(t,t0,t0+d);if(k<=0||k>=1)return[0,0];const a=(1-k)*26;return[a*Math.sin(t*170),a*Math.cos(t*130)]};
+ const s1=eo(P(t,0.07,0.22)),s2=eo(P(t,0.70,0.85));
+ const [x1,y1]=sh(0.70,0.35);
+ const flash=t>=0.70&&t<0.77?1-(t-0.70)/0.07:0;
+ const q=eo(P(t,1.0,1.15));
+ const out=io(P(t,1.2,1.35));
+ const glow=0.35+0.4*eo(P(t,0.70,0.9))-0.25*P(t,0.9,1.3);
+ const word=(w,top,k,c)=>`<div style="position:absolute;left:0;right:0;top:${top}px;text-align:center;font:900 300px I;letter-spacing:-16px;line-height:1;opacity:${k>0?1:0};transform:scale(${L(1.9,1,k)});filter:blur(${L(18,0,k)}px)">
+   <span style="position:absolute;left:0;right:0;color:#FF3B30;transform:translate(${L(26,6,k)}px,0);opacity:.85;mix-blend-mode:screen">${w}</span>
+   <span style="position:absolute;left:0;right:0;color:#2AABEE;transform:translate(${L(-26,-6,k)}px,0);opacity:.7;mix-blend-mode:screen">${w}</span>
+   <span style="position:relative;color:${c}">${w}</span></div>`;
+ return `<div style="position:absolute;inset:0;background:radial-gradient(70% 45% at 50% 48%,rgba(255,59,48,${glow}),#000 70%)"></div>
+  <div style="position:absolute;inset:0;transform:translate(${x1}px,${y1}px) scale(${L(1,1.6,out)});opacity:${1-out};filter:blur(${out*20}px)">
+   ${word('COME',560,s1,'#fff')}${word('BACK',860,s2,'#fff')}
+   <div style="position:absolute;left:0;right:0;top:1230px;text-align:center;opacity:${q};transform:translateY(${L(30,0,q)}px)"><span style="display:inline-block;background:#FF3B30;color:#fff;font:900 64px I;padding:14px 40px;border-radius:999px;letter-spacing:2px">QAYTDIK!</span></div>
+   <div style="position:absolute;left:0;right:0;top:1390px;text-align:center;font:700 34px I;color:#bbb;opacity:${q}">@StarsFuelApp</div>
+  </div>
+  <div style="position:absolute;inset:0;background:#fff;opacity:${flash}"></div>`;
+}
+const S=[
+// A: 10-day pause -> over
+[1.35,2.62,(t,s)=>{let h='';const k=eo(P(t,s,s+.3));
+ for(let i=0;i<10;i++){const x=150+(i%5)*150,y=125+Math.floor(i/5)*150;const cr=eo(P(t,s+.15+i*.05,s+.3+i*.05));
+  h+=`<div class="ab" style="left:${x}px;top:${y}px;width:120px;height:120px;border-radius:22px;background:#f4f4f6;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:${k}">
+   <div style="font:600 16px I;color:#999">kun</div><div style="font:800 46px I;color:#222">${i+1}</div>
+   <svg style="position:absolute;inset:0" width="120" height="120"><path d="M20 20 L100 100" stroke="#FF3B30" stroke-width="7" stroke-linecap="round" stroke-dasharray="120" stroke-dashoffset="${120*(1-cr)}"/></svg></div>`}
+ const ok=eo(P(t,s+.85,s+1.05));
+ return cap("10 kunlik tanaffus...",t,s,.35)+h+`<div class="ab pill" style="left:50%;top:${L(470,455,ok)}px;transform:translateX(-50%);background:#22b35a;color:#fff;font:800 30px I;padding:12px 30px;opacity:${ok}">tugadi. ✓</div>`}],
+// B: 2 000 000+ Stars BOOM
+[2.62,3.9,(t,s)=>{const c=eo(P(t,s+.1,s+.75));const b=eo(P(t,s+.75,s+.9));const pump=t>=s+.75&&t<s+.95?L(1.05,1,eo(P(t,s+.75,s+.95))):1;
+ let burst='';for(let i=0;i<8;i++){const a=i/8*Math.PI*2+.3;const r=L(170,340,b);burst+=ic(i%2?'ios_093':'status_031',470+Math.cos(a)*r*1.4,215+Math.sin(a)*r*.62,80,`opacity:${b>0?L(1,.0,P(t,s+.9,s+1.25)):0};transform:rotate(${a*57}deg)`)}
+ return `<div class="ab" style="inset:0;background:radial-gradient(70% 80% at 50% 55%,#FFF4D6,#fff 70%);transform:scale(${pump})"></div>`+cap("Natijamiz:",t,s,.2)+burst+
+ `<div class="ab num" style="left:0;right:0;top:165px;text-align:center;font-size:138px;letter-spacing:-6px;background:linear-gradient(90deg,#FFB800,#FF6A00);-webkit-background-clip:text;background-clip:text;color:transparent;transform:scale(${pump})">${fmt(2000000*c)}${c>=1?'+':''}</div>
+  <div class="ab" style="left:0;right:0;top:350px;text-align:center;font:800 40px I">Stars sotildi</div>
+  <div class="ab pill" style="left:50%;top:420px;transform:translateX(-50%) scale(${L(1.6,1,b)});background:#111;color:#FFC93C;font:900 30px I;padding:10px 28px;opacity:${b};letter-spacing:3px">BOOM!</div>`}],
+// C: services all active
+[3.9,5.2,(t,s)=>{const R=[['ios_093','Stars'],['ios_077','Premium'],['ios_070','Gift'],['ios_094','NFT'],['ios_044','Telegram raqam'],['game',"O'yinlarga donat"]];
+ return cap("Hammasi yana faol.",t,s,.3)+R.map(([n,l],i)=>{const col=i%2,row=Math.floor(i/2);const k=eo(P(t,s+.1+i*.06,s+.4+i*.06));const on=P(t,s+.45+i*.11,s+.6+i*.11);
+  return `<div class="ab" style="left:${70+col*450}px;top:${120+row*130}px;width:430px;height:110px;border-radius:20px;background:#f6f6f8;display:flex;align-items:center;gap:18px;padding:0 22px;opacity:${k};transform:translateY(${L(16,0,k)}px)">
+   ${tile(n,64)}<div style="flex:1;font:700 26px I">${l}</div>
+   <div style="width:76px;height:44px;border-radius:22px;background:${on>0?'#34c759':'#d9d9de'};position:relative"><i style="position:absolute;top:4px;left:${L(4,36,io(on))}px;width:36px;height:36px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.2)"></i></div>
+   <div style="width:50px;font:700 16px I;color:${on>0?'#22a35a':'#bbb'}">${on>0?'faol':'—'}</div></div>`}).join('')}],
+// D: Stars price
+[5.2,6.45,(t,s)=>{const a=eo(P(t,s+.15,s+.45));const c=eo(P(t,s+.25,s+.85));const p=eo(P(t,s+.65,s+.9));
+ return cap("Stars — darhol.",t,s,.3)+`<div class="ab" style="left:110px;top:${L(150,130,a)}px;width:400px;height:300px;border-radius:24px;background:linear-gradient(140deg,#FFC93C,#F28C00);opacity:${a};overflow:hidden">${ic('ios_093',100,40,220,'filter:drop-shadow(0 16px 24px rgba(0,0,0,.25))')}</div>
+ <div class="ab" style="left:560px;top:160px;opacity:${a}"><div class="num" style="font-size:120px;line-height:1">${fmt(100*c)}<span style="font-size:38px;font-weight:700;letter-spacing:0;margin-left:10px">Stars</span></div>
+ <div style="font:600 22px I;color:#888;margin-top:6px">Telegram Stars</div>
+ <div class="pill" style="margin-top:24px;background:#FF6A00;color:#fff;font:800 30px I;padding:12px 24px;opacity:${p};transform:translateY(${L(14,0,p)}px)">22 000 so'm</div></div>`}],
+// E: Premium bars
+[6.45,7.95,(t,s)=>{const B=[['1 oy',45000],['3 oy',190000],['6 oy',250000],['12 oy',400000]];let h='';
+ B.forEach(([l,v],i)=>{const k=eo(P(t,s+.12+i*.1,s+.75+i*.1));const H=330*v/400000*k;const hot=i==0;
+  h+=`<div class="ab" style="left:${120+i*210}px;top:130px;width:160px;height:380px">
+   <div style="position:absolute;bottom:40px;left:20px;width:120px;height:${H}px;border-radius:10px 10px 4px 4px;background:${hot?'#8A5CFF':'#e6e6ea'}"></div>
+   <div class="num" style="position:absolute;bottom:${48+H}px;width:160px;text-align:center;font-size:34px;letter-spacing:-1px;color:${hot?'#111':'#555'}">${fmt(v*k/1000)}K</div>
+   <div style="position:absolute;bottom:0;width:160px;text-align:center;font:700 22px I;color:#555">${l}</div></div>`});
+ const tag=eo(P(t,s+.9,s+1.1));
+ return cap("Premium — 1 oydan 12 oygacha.",t,s,.35)+h+`<div class="ab pill" style="left:96px;top:${L(150,140,tag)}px;background:#111;color:#fff;font:700 18px I;padding:8px 16px;opacity:${tag}">1 oy — admin orqali</div>`}],
+// F: gifts / nft
+[7.95,9.2,(t,s)=>{let h='';const r=rng(21);const G=['ios_070','ios_071','android_009','android_320','ios_094','android_441','android_442','ios_064','duck_017','ios_005'];
+ const pick=eo(P(t,s+.3,s+.65));
+ for(let i=0;i<40;i++){const x=40+(i%10)*95,y=100+Math.floor(i/10)*105;const n=G[Math.floor(r()*G.length)];const dark=n.startsWith('android');
+  h+=`<div class="ab" style="left:${x}px;top:${y}px;width:80px;height:80px;border-radius:18px;background:${dark?'#1c1c1e':'#f4f4f6'};opacity:${L(1,.18,pick)}"><img src="${IMG(n)}" style="width:${dark?54:80}px;margin:${dark?13:0}px"></div>`}
+ return cap("Gift va NFT sovg'alar.",t,s,.3)+h+`<div class="ab" style="left:300px;top:${L(240,175,pick)}px;width:420px;height:250px;border-radius:24px;background:#fff;box-shadow:0 24px 60px rgba(0,0,0,.18);opacity:${pick};transform:scale(${L(.9,1,pick)});padding:26px;display:flex;gap:22px;align-items:center">
+  <img src="${IMG('ios_071')}" style="width:130px"><div><div style="font:800 34px I">Gift · NFT</div><div style="font:500 20px I;color:#888;margin-top:6px">O'zingizga yoki<br>do'stingizga</div></div></div>`}],
+// G: telegram number
+[9.2,10.45,(t,s)=>{const a=eo(P(t,s+.05,s+.3));const W=["Yangi","akkaunt","uchun","raqam"];
+ const w=W.map((x,i)=>{const k=eo(P(t,s+.2+i*.12,s+.4+i*.12));return `<span style="opacity:${k};display:inline-block;transform:translateY(${L(10,0,k)}px);margin-right:14px">${x}</span>`}).join('');
+ const p=eo(P(t,s+.7,s+.9));
+ return cap("Telegram raqam ham bor.",t,s,.3)+`<div class="ab" style="left:90px;top:125px;width:300px;height:360px;border-radius:24px;background:linear-gradient(150deg,#4BE3C4,#14A88C);opacity:${a}">${ic('ios_044',60,90,180)}</div>
+ <div class="ab" style="left:450px;top:180px;width:520px;font:800 50px I;letter-spacing:-1px;line-height:1.15">${w}</div>
+ <div class="ab num" style="left:450px;top:330px;font-size:90px;opacity:${p}">10 000<span style="font-size:32px;font-weight:700;letter-spacing:0;margin-left:10px;color:#888">so'm</span></div>`}],
+// H: games
+[10.45,11.7,(t,s)=>{const C=[['PUBG Mobile','UC','linear-gradient(145deg,#3a3f5c,#12131c)','#FFC93C'],['Free Fire','olmos','linear-gradient(145deg,#ff8a3d,#c2410c)','#fff']];
+ return cap("O'yinlarga donat ham faol.",t,s,.35)+C.map(([g,u,bg,fc],i)=>{const k=eo(P(t,s+.15+i*.15,s+.5+i*.15));
+  return `<div class="ab" style="left:${110+i*430}px;top:${L(170,125,k)}px;width:380px;height:370px;border-radius:26px;background:${bg};opacity:${k};overflow:hidden;padding:30px;color:#fff">
+   <div style="font:700 24px I;opacity:.75">${g}</div>
+   <div style="margin-top:40px;height:150px;display:flex;align-items:center;justify-content:center">${i?`<img src="${IMG('android_441')}" style="width:140px">`:`<div style="font:900 130px I;color:${fc};letter-spacing:-6px">UC</div>`}</div>
+   <div style="margin-top:28px;display:flex;justify-content:space-between;align-items:center"><span style="font:800 30px I">${u}</span><span class="pill" style="background:#34c759;font:700 18px I;padding:6px 14px">faol</span></div></div>`}).join('')}],
+// I: new card connected
+[11.7,13.6,(t,s)=>{const R=[['android_434','Yangi karta','ulandi'],['ios_092',"Aniq summa","bot ko'rsatadi"],['ios_042','Avtomatik tekshiruv','bot o\'zi aniqlaydi']];let h='';
+ R.forEach(([n,a,b],i)=>{const k=eo(P(t,s+.2+i*.08,s+.5+i*.08));const g=P(t,s+.6+i*.3,s+.75+i*.3);const dark=n.startsWith('android');
+  h+=`<div class="ab" style="left:440px;top:${125+i*120}px;width:520px;height:96px;opacity:${k};transform:translateX(${L(20,0,k)}px);display:flex;align-items:center;gap:18px;border-bottom:1px solid #eee">
+   <div style="width:56px;height:56px;border-radius:14px;background:${dark?'#1c1c1e':'transparent'};flex:none"><img src="${IMG(n)}" style="width:${dark?38:56}px;margin:${dark?9:0}px"></div>
+   <div style="flex:1"><div style="font:700 24px I">${a}</div><div style="font:500 17px I;color:#999;margin-top:2px">${b}</div></div>
+   <div class="chk" style="background:${g>0?'#22b35a':'#e8e8ea'};transform:scale(${g>0?L(1.3,1,eo(g)):1})"><span style="color:#fff;font:900 17px I">✓</span></div></div>`;
+  const lk=eo(P(t,s+.6+i*.3,s+.85+i*.3));
+  h+=`<svg class="ab" style="left:300px;top:170px" width="140" height="300"><path d="M0 110 C 70 110, 70 ${8+i*120}, 140 ${8+i*120}" stroke="${g>0?'#22b35a':'#ddd'}" stroke-width="2.5" fill="none" stroke-dasharray="200" stroke-dashoffset="${200*(1-lk)}"/></svg>`});
+ return cap("To'lov yana ishlayapti.",t,s,.35)+`<div class="ab term pill" style="left:70px;top:255px;padding:14px 24px;font:700 22px I;color:#fff"><img src="${LOGO}" style="width:30px;filter:brightness(0) invert(1)">StarsFuel</div>`+h}],
+// J: typing
+[13.6,14.6,(t,s)=>{const q="Biz qaytdik. Siz tayyormisiz?";const n=Math.floor(cl((t-s-.12)/.6)*q.length);const a=eo(P(t,s,s+.2));
+ return `<div class="ab term" style="left:90px;top:190px;width:840px;height:${L(60,190,a)}px"><div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
+ <div style="padding:22px 28px;font:400 30px M">› ${q.slice(0,n)}<span style="opacity:${Math.floor(t*4)%2}">▍</span></div></div>`}],
+// K: thanks
+[14.6,15.85,(t,s)=>{const a=eo(P(t,s+.05,s+.35));const W="Kutganingiz uchun rahmat.".split(' ');
+ return ic('duck_017',90,L(150,110,a),330,`opacity:${a};transform:rotate(${L(-8,0,a)}deg)`)+
+ `<div class="ab" style="left:470px;top:170px;width:480px;font:800 58px I;letter-spacing:-1.5px;line-height:1.1">${W.map((x,i)=>{const k=eo(P(t,s+.2+i*.12,s+.4+i*.12));return `<span style="opacity:${k};display:inline-block;margin-right:14px;transform:translateY(${L(12,0,k)}px)">${x}</span>`}).join('')}</div>
+ <div class="ab" style="left:470px;top:390px;font:600 24px I;color:#888;opacity:${eo(P(t,s+.75,s+.95))}">Endi yana birga davom etamiz.</div>`}],
+// L: all active cards
+[15.85,17.05,(t,s)=>{const C=[['ios_093','Stars','#FFF4DC'],['ios_077','Premium','#F1E9FF'],['ios_070','Gift','#E3FAF4'],['ios_044','Raqam','#E4F3FF'],['game','Donat','#ECEDF3']];
+ return cap("Hammasi faol.",t,s,.25)+C.map(([n,l,bg],i)=>{const k=eo(P(t,s+.08+i*.08,s+.4+i*.08));const g=P(t,s+.5+i*.1,s+.6+i*.1);
+  return `<div class="ab" style="left:${40+i*190}px;top:${L(200,125,k)}px;width:175px;height:300px;border-radius:20px;background:#fff;border:1px solid #eee;box-shadow:0 14px 30px rgba(0,0,0,.08);opacity:${k};overflow:hidden">
+   <div style="height:185px;background:${bg};display:flex;align-items:center;justify-content:center">${tile(n,110)}</div>
+   <div style="padding:14px 14px 4px;font:800 22px I">${l}</div><div style="padding:0 14px;font:700 16px I;color:${g>0?'#22b35a':'#bbb'}">${g>0?'● faol':'…'}</div></div>`}).join('')}],
+// M: flash
+[17.05,17.45,(t,s)=>{const k=eo(P(t,s,s+.4));
+ return `<div class="ab" style="inset:0;background:radial-gradient(80% 90% at 50% 60%,#FF6B5E,#FF3B30 55%,#9E1209)"></div>
+ <div class="ab" style="left:0;right:0;top:${L(220,200,k)}px;text-align:center;font:900 130px I;letter-spacing:-5px;color:#fff;transform:scale(${L(1.15,1,k)})">QAYTDIK.</div>`}],
+// N: end
+[17.45,D,(t,s)=>{const k=eo(P(t,s,s+.35));const ic2=['ios_093','ios_077','ios_070','ios_094','ios_044'];const b=eo(P(t,s+.3,s+.55));
+ return `<div class="ab" style="left:0;right:0;top:110px;text-align:center;opacity:${k}"><img src="${LOGO}" style="width:52px"></div>
+ <div class="ab" style="left:0;right:0;top:170px;text-align:center;font:900 170px I;letter-spacing:-9px;line-height:1;transform:scale(${L(1.08,1,k)});
+  background:linear-gradient(${100+t*60}deg,#FFB800,#FF6A00 35%,#B44BFF 70%,#2AABEE);-webkit-background-clip:text;background-clip:text;color:transparent">StarsFuel</div>
+ <div class="ab" style="left:0;right:0;top:370px;text-align:center;font:600 26px I;color:#333;opacity:${b}">hammasi faol: ${ic2.map(n=>`<img src="${IMG(n)}" style="width:36px;vertical-align:-10px;margin:0 3px">`).join('')}</div>
+ <div class="ab pill" style="left:50%;top:440px;transform:translateX(-50%) translateY(${L(12,0,b)}px);opacity:${b};background:#111;color:#fff;font:800 26px I;padding:14px 30px">@StarsFuelApp →</div>`}],
+];
+window.seek=t=>{
+ const card=document.getElementById('card'),hdr=document.getElementById('hdr'),it=document.getElementById('intro');
+ const inK=eo(P(t,1.3,1.5));
+ it.innerHTML=t<1.36?intro(t):'';
+ let sc=S.find(x=>t>=x[0]&&t<x[1]);
+ card.innerHTML=sc?sc[2](t,sc[0]):'';
+ const blur=P(t,18.45,18.7);
+ card.style.opacity=t<1.32?0:1;
+ card.style.transform=`scale(${L(.94,1,inK)})`;
+ card.style.filter=blur>0?`blur(${blur*14}px)`:'none';
+ hdr.style.opacity=t<1.3?0:inK*(1-blur);hdr.style.transform=`translateY(${L(-30,0,inK)}px)`;
+ document.querySelectorAll('.wm').forEach(e=>e.style.opacity=t<1.3?0:1);
+ document.getElementById('tm').textContent='0:'+String(Math.max(1,Math.ceil(D-t))).padStart(2,'0');
+};
+const imgs=[...new Set([...ALL,'ios_071','duck_017','ios_042','ios_092','ios_086','ios_003','ios_006','android_009','android_320','android_442','ios_064','android_441','status_031'])];
+Promise.all([document.fonts.ready,...imgs.map(n=>new Promise(r=>{const im=new Image();im.onload=im.onerror=r;im.src=IMG(n)}))]).then(()=>{seek(0);window.ready=true});
+</script></body></html>
