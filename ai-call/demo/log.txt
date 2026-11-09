@@ -1,0 +1,12 @@
+2026-11-09 07:35:04,924 call INFO turn {'speech_ms': 770, 'stt': 702, 'llm_first': 1071, 'first_audio': 2168, 'total': 3890}
+2026-11-09 07:35:19,551 call INFO turn {'speech_ms': 5218, 'stt': 316, 'llm_first': 1112, 'first_audio': 2196, 'total': 2878}
+2026-11-09 07:35:30,572 call INFO turn {'speech_ms': 706, 'stt': 697, 'llm_first': 887, 'first_audio': 2589, 'total': 3359}
+2026-11-09 07:35:43,318 call INFO turn {'speech_ms': 1154, 'stt': 682, 'llm_first': 941, 'first_audio': 2540, 'total': 4418}
+2026-11-09 07:35:58,365 call INFO turn {'speech_ms': 1506, 'stt': 711, 'llm_first': 823, 'first_audio': 2700, 'total': 3417}
+2026-11-09 07:35:58,524 call INFO turn {'speech_ms': 758, 'stt': 744, 'llm_first': 644, 'total': 2399}
+2026-11-09 07:36:10,871 call INFO turn {'speech_ms': 962, 'stt': 687, 'llm_first': 816, 'first_audio': 2152, 'total': 3079}
+2026-11-09 07:36:22,288 call INFO turn {'speech_ms': 802, 'stt': 738, 'llm_first': 1107, 'first_audio': 2595, 'total': 3285}
+2026-11-09 07:36:30,114 call INFO turn {'speech_ms': 1538, 'stt': 723, 'llm_first': 729, 'first_audio': 2089, 'total': 2762}
+2026-11-09 07:36:44,044 call INFO turn {'speech_ms': 2210, 'stt': 217, 'llm_first': 1025, 'first_audio': 1921, 'total': 2669}
+2026-11-09 07:37:32,680 call INFO turn {'speech_ms': 1570, 'stt': 668, 'llm_first': 874, 'first_audio': 2275, 'total': 3725}
+2026-11-09 07:37:41,711 call INFO turn {'speech_ms': 1954, 'stt': 694, 'llm_first': 996, 'first_audio': 2170, 'total': 2964}
