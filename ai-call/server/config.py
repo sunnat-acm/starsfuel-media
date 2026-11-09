@@ -50,6 +50,6 @@ SILENCE_HANGUP_SEC = int(E("SILENCE_HANGUP_SEC", "45"))
 SUPPORT_NAME = E("SUPPORT_NAME", "StarsFuel Support")
 OPERATOR_NAME = E("OPERATOR_NAME", "Madina")
 MENU_WAIT_SEC = float(E("MENU_WAIT_SEC", "4"))
-OPERATOR_CONTACT = E("OPERATOR_CONTACT", "@StarsFuelBot")      # where to send people when a human is needed
+OPERATOR_CONTACT = E("OPERATOR_CONTACT", "@StarsFuelHelp")      # where to send people when a human is needed
 ALLOW_NO_AUTH = E("ALLOW_NO_AUTH", "0") == "1"                 # dev only: allow opening outside Telegram
 MODEL_DIR = E("MODEL_DIR", os.path.join(os.path.dirname(__file__), "..", "models"))

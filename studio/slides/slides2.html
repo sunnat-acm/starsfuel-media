@@ -64,7 +64,7 @@ const S={
  <div class="h" style="top:180px;font-size:112px">Premium<br><span class="grad">StarsFuel'da.</span></div>
  ${[["3 oy","190 000 so'm"],["6 oy","250 000 so'm"],["12 oy","400 000 so'm"]].map((x,i)=>`<div class="price glass" style="top:${470+i*160}px${i==2?';border-color:#FFB86B;box-shadow:0 0 0 6px rgba(255,184,107,.25)':''}"><span>${x[0]}${i==2?' <span style="font-size:26px;padding:8px 16px;border-radius:20px;background:#FFB86B;color:#2a1405;margin-left:12px;vertical-align:middle">eng foydali</span>':''}</span><b>${x[1]}</b></div>`).join('')}
  <div class="p" style="top:960px;width:900px;font-size:30px">O'zingizga yoki do'stingizga — username yozasiz, xolos.</div>
- <div style="position:absolute;left:72px;top:1090px;height:96px;border-radius:48px;background:#B06750;padding:0 40px;display:flex;align-items:center;gap:18px;font-weight:900;font-size:40px;box-shadow:0 20px 50px rgba(176,103,80,.5)"><i class="fas fa-magnifying-glass"></i>@StarsFuelBot</div>
+ <div style="position:absolute;left:72px;top:1090px;height:96px;border-radius:48px;background:#B06750;padding:0 40px;display:flex;align-items:center;gap:18px;font-weight:900;font-size:40px;box-shadow:0 20px 50px rgba(176,103,80,.5)"><i class="fas fa-magnifying-glass"></i>@StarsFuelApp</div>
  ${swipe(5,true)}`
 };
 const n=+new URLSearchParams(location.search).get('s')||1;

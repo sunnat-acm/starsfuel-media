@@ -9,7 +9,7 @@ from .. import config as C
 
 STT_SR = 16000
 LANGS = {"uzbek": "uz", "russian": "ru", "uz": "uz", "ru": "ru"}
-PROMPT = "Assalomu alaykum. StarsFuelBot, Telegram Stars, Premium, Gift, PUBG UC. Здравствуйте."
+PROMPT = "Assalomu alaykum. StarsFuelApp, StarsFuelBot, Telegram Stars, Premium, Gift, PUBG UC. Здравствуйте."
 
 
 def _wav(pcm: bytes):
@@ -19,8 +19,8 @@ def _wav(pcm: bytes):
     return b.getvalue()
 
 
-PROMPTS = {"uz": "Assalomu alaykum. StarsFuelBot orqali Telegram Stars, Premium, Gift, PUBG UC sotib olish. Narxi necha pul?",
-           "ru": "Здравствуйте. Как купить Telegram Stars, Premium, подарки через StarsFuelBot? Сколько стоит?"}
+PROMPTS = {"uz": "Assalomu alaykum. StarsFuelApp orqali Telegram Stars, Premium, Gift, PUBG UC sotib olish. Narxi necha pul?",
+           "ru": "Здравствуйте. Как купить Telegram Stars, Premium, подарки через StarsFuelApp? Сколько стоит?"}
 _http = None
 HALLU = ("продолжение следует", "субтитры", "спасибо за просмотр", "подписывайтесь", "redactor", "amara.org",
          "obuna bo'ling", "thanks for watching", "dimatorzok")

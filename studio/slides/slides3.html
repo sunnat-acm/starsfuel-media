@@ -49,7 +49,7 @@ const dots=n=>`<div class="dots">${[1,2,3,4,5].map(i=>`<i class="${i===n?'on':''
 const bg=(a,b,c)=>`<div class="glow" style="width:980px;height:980px;left:-340px;top:-360px;background:${a};opacity:.55"></div><div class="glow" style="width:860px;height:860px;right:-340px;bottom:-300px;background:${b};opacity:.42"></div><div class="glow" style="width:520px;height:520px;right:60px;top:300px;background:${c};opacity:.2"></div><div class="grid"></div><div class="grain"></div>`;
 const row=(top,id,title,sub,val,unit,extra='',c=0)=>`<div class="row glass${c?' c':''}" style="top:${top}px;${extra}">${ICI(id,c?90:112)}<div class="t"><div>${title}</div><span>${sub}</span></div><div class="v">${val}<small>${unit}</small></div></div>`;
 const S={
-1:`${bg('#1F6FD6','#7B3FE4','#F7B500')}${brand}<div class="tag">@StarsFuelBot</div>
+1:`${bg('#1F6FD6','#7B3FE4','#F7B500')}${brand}<div class="tag">@StarsFuelApp</div>
  ${IC('093',260,640,170,10)}${IC('077',190,420,330,-12)}${IC('070',170,870,410,14)}
  ${IC('094',140,720,470,-8)}${IC('044',130,250,200,-10)}${IC('086',110,120,330,-14,'opacity:.95')}
  <div class="h" style="top:690px;font-size:120px">Telegram uchun<br><span class="blue">hammasi</span> —<br>bitta botda.</div>
@@ -89,8 +89,8 @@ const S={
  <div class="k" style="top:200px;color:#9FE0FF">4 QADAM</div>
  <div class="h" style="top:250px;font-size:120px">Xarid qilish<br><span class="blue">juda oson.</span></div>
  <div class="line" style="top:620px;height:380px"></div>
- ${[['086','Botga kiring','@StarsFuelBot — /start'],['005','Xizmatni tanlang','Stars, Premium, Gift, NFT, raqam'],['092',"Karta bilan to'lang",'Aynan ko\'rsatilgan summani o\'tkazing'],['042','Tayyor','Bot to\'lovni avtomatik aniqlaydi']].map((x,i)=>`<div style="position:absolute;left:72px;top:${560+i*135}px;display:flex;align-items:center;gap:30px">${ICI(x[0],120)}<div><div style="font-size:44px;font-weight:900;letter-spacing:-.02em">${x[1]}</div><div style="font-size:27px;font-weight:600;color:rgba(255,255,255,.6);margin-top:2px">${x[2]}</div></div></div>`).join('')}
- <div class="pill glass" style="top:1140px;background:#2AABEE;border-color:rgba(255,255,255,.35)">${ICI('086',76)}@StarsFuelBot</div>
+ ${[['086','Botga kiring','@StarsFuelApp — /start'],['005','Xizmatni tanlang','Stars, Premium, Gift, NFT, raqam'],['092',"Karta bilan to'lang",'Aynan ko\'rsatilgan summani o\'tkazing'],['042','Tayyor','Bot to\'lovni avtomatik aniqlaydi']].map((x,i)=>`<div style="position:absolute;left:72px;top:${560+i*135}px;display:flex;align-items:center;gap:30px">${ICI(x[0],120)}<div><div style="font-size:44px;font-weight:900;letter-spacing:-.02em">${x[1]}</div><div style="font-size:27px;font-weight:600;color:rgba(255,255,255,.6);margin-top:2px">${x[2]}</div></div></div>`).join('')}
+ <div class="pill glass" style="top:1140px;background:#2AABEE;border-color:rgba(255,255,255,.35)">${ICI('086',76)}@StarsFuelApp</div>
  `
 };
 document.getElementById('root').innerHTML=`<div class="s">${S[N]}</div>`;

@@ -13,3 +13,8 @@
 
 Ranglar: terrakota #B06750, krem #FBF4EE, to'q #3A1F16, oltin aksent #F2B544.
 Videolarda va slaydlarda shu logodan foydalaning (eski paths.js BADGE_D/STAR_D o'rniga).
+
+## Username'lar (2026-11-09)
+- Bot: **@StarsFuelApp** (asosiy, reklamada shuni yozing; havola `https://t.me/StarsFuelApp`). Eski @StarsFuelBot ham ishlaydi.
+- Support: @StarsFuelHelp · Kanal: @StarsFuel · Instagram: starsfuelapp
+- Bot statistikasi (Telegram profili, 2026-11-09): 7 794 oylik foydalanuvchi.
