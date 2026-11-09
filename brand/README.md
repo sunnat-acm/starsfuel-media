@@ -1,10 +1,9 @@
 # StarsFuel brend
 
-**Asosiy (vektor):**
+**Asosiy (vektor):** logo har doim statik ishlatiladi (animatsiya qilinmaydi).
 - `logo.json` — ASL logo, Lottie/TGS formatida (foydalanuvchi bergan, 512x512, statik).
 - `logo.svg` — o'sha logo toza SVG (oq, yulduz o'yig'i shaffof, fill-rule evenodd). Slayd/bannerda shuni ishlating.
 - `logo_terracotta.svg` — terrakota rangda (#B06750), och fonda.
-- `logo_anim.json` — animatsiyali logo (Lottie, 60 fps, 90 kadr = 1.5 s): nishon aylanib "pop" bo'ladi (0-46), yulduz o'yig'i markazdan ochiladi (22-62), 70-90 yengil "puls". Video boshi/oxiri uchun: `a.goToAndStop(frame, true)`.
 
 **PNG (eski, hali ishlaydi):**
 
