@@ -43,7 +43,7 @@ html,body{margin:0;background:#000}*{box-sizing:border-box}
 const Q=new URLSearchParams(location.search), N=+(Q.get('s')||1);
 const IC=(id,sz,x,y,rot=0,extra='')=>`<div class="ic" data-ic="${id}" style="width:${sz}px;height:${sz}px;left:${x}px;top:${y}px;transform:rotate(${rot}deg);${extra}"></div>`;
 const ICI=(id,sz)=>`<div class="ic in" data-ic="${id}" style="width:${sz}px;height:${sz}px"></div>`;
-const brand=`<div class="brand"><img src="../../brand/logo_white.png"><span>STARSFUEL</span></div>`;
+const brand=`<div class="brand"><img src="../../brand/logo.svg"><span>STARSFUEL</span></div>`;
 const swipe=(n,last)=>`<div class="swipe glass"><div class="n">${n}<span>/5</span></div><div>${last?"Botga kiring":"Suring"}</div><div class="ar">${last?'↗':'→'}</div></div>`;
 const dots=n=>`<div class="dots">${[1,2,3,4,5].map(i=>`<i class="${i===n?'on':''}"></i>`).join('')}</div>`;
 const bg=(a,b,c)=>`<div class="glow" style="width:980px;height:980px;left:-340px;top:-360px;background:${a};opacity:.55"></div><div class="glow" style="width:860px;height:860px;right:-340px;bottom:-300px;background:${b};opacity:.42"></div><div class="glow" style="width:520px;height:520px;right:60px;top:300px;background:${c};opacity:.2"></div><div class="grid"></div><div class="grain"></div>`;
