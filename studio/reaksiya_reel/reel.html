@@ -1,0 +1,180 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:I;font-weight:500;src:url(../slides/inter-latin-500-normal.woff2)}
+@font-face{font-family:I;font-weight:600;src:url(../slides/inter-latin-600-normal.woff2)}
+@font-face{font-family:I;font-weight:700;src:url(../slides/inter-latin-700-normal.woff2)}
+@font-face{font-family:I;font-weight:800;src:url(../slides/inter-latin-800-normal.woff2)}
+@font-face{font-family:I;font-weight:900;src:url(../slides/inter-latin-900-normal.woff2)}
+@font-face{font-family:M;font-weight:400;src:url(../poster/space-mono-latin-400-normal.woff2)}
+html,body{margin:0;background:#000}*{box-sizing:border-box}
+#v{position:relative;width:1080px;height:1920px;background:#000;overflow:hidden;font-family:I;color:#111}
+.wm{position:absolute;top:150px;font:600 22px I;color:#8a8a8a;letter-spacing:.2px}
+#hdr{position:absolute;left:0;right:0;top:500px;text-align:center;font-weight:800;font-size:52px;line-height:1.16;letter-spacing:-.5px}
+#hdr .r{color:#FF3B30}#hdr .w{color:#fff}
+#card{position:absolute;left:30px;top:672px;width:1020px;height:574px;border-radius:28px;background:#fff;overflow:hidden}
+.ab{position:absolute}
+.cap{position:absolute;left:0;right:0;top:34px;text-align:center;font-weight:600;font-size:30px;letter-spacing:-.4px}
+.term{background:#1c1c1e;border-radius:18px;color:#e9e9ea;font-family:M;box-shadow:0 18px 40px rgba(0,0,0,.18)}
+.term .bar{height:34px;display:flex;align-items:center;gap:8px;padding-left:16px}
+.term .bar i{width:11px;height:11px;border-radius:50%;display:block}
+.pill{border-radius:999px;display:inline-flex;align-items:center;gap:10px}
+img.i{position:absolute;display:block}
+.num{font-weight:800;letter-spacing:-2px}
+.chk{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+</style></head><body>
+<div id="v">
+ <div class="wm" style="left:40px">reaksiyaapp</div><div class="wm" id="tm" style="right:40px">0:18</div>
+ <div id="hdr"><div class="r" style="color:#FF4D6D">Kanalingiz jim turibdimi?</div><div class="w">8 ta bot — 8 ta reaksiya. <span style="color:#4BE38A">Tekin.</span></div></div>
+ <div id="card"></div>
+ <div id="intro" style="position:absolute;inset:0;overflow:hidden"></div>
+</div>
+<script>
+
+const D=18.7;
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const eo=x=>x>=1?1:1-Math.pow(2,-10*x);          // expo out
+const e3=x=>1-Math.pow(1-x,3);
+const io=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const L=(a,b,x)=>a+(b-a)*x;
+const fmt=n=>Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+const IMG=n=>`icons/${n}.png`;
+const ic=(n,x,y,s,extra='')=>`<img class="i" src="${IMG(n)}" style="left:${x}px;top:${y}px;width:${s}px;height:${s}px;${extra}">`;
+// caption with grey->ink word reveal
+function cap(text,t,t0,dur=.5,top=34,size=30){const w=text.split(' ');const n=w.length;
+ return `<div class="cap" style="top:${top}px;font-size:${size}px">`+w.map((x,i)=>{const k=eo(P(t,t0+i*dur/n,t0+i*dur/n+.18));const c=Math.round(L(205,17,k));return `<span style="color:rgb(${c},${c},${c});opacity:${L(.0,1,cl(k*3))}">${x}</span>`}).join(' ')+'</div>'}
+function rng(s){return()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const ALL=['ios_093','ios_077','ios_070','ios_094','ios_044','ios_086','ios_092','ios_042','ios_005','ios_100','ios_071','ios_064','ios_006','ios_090','ios_058','ios_061','ios_078','ios_079','ios_003','status_031','android_002','android_009','android_441','android_514','android_444','android_434','android_435','android_243','android_320'];
+const COLOR=ALL.filter(x=>x.startsWith('ios')||x.startsWith('status'));
+const LOGO='../../brand/logo_terracotta.svg';
+
+
+const B='../../reaksiya/brand/';
+const AV=(main,s)=>`<img src="${B}${main?'avatar_main':'avatar_helper'}.svg" style="width:${s}px;height:${s}px;display:block">`;
+const EM=['❤️','🔥','👍','🎉','😍','👏','🤩','⚡'];
+const EK=e=>[...e].filter(c=>c.codePointAt(0)!==0xfe0f).map(c=>c.codePointAt(0).toString(16)).join('-');
+const E=(e,s)=>`<img src="emoji/${EK(e)}.png" style="width:${s}px;height:${s}px;vertical-align:middle;display:inline-block">`;
+const PINK='#FF4D6D';
+// channel post mock
+function post(x,y,w,reacts,opts={}){
+ return `<div class="ab" style="left:${x}px;top:${y}px;width:${w}px;border-radius:22px;background:#fff;border:1px solid #eee;box-shadow:0 18px 40px rgba(0,0,0,.10);padding:20px 22px">
+  <div style="display:flex;align-items:center;gap:12px"><div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(145deg,#5CC8FF,#1E6FE0)"></div>
+   <div><div style="font:800 20px I">${opts.name||'Kanalingiz'}</div><div style="font:500 14px I;color:#999">${opts.sub||'12 400 obunachi'}</div></div></div>
+  <div style="margin-top:14px;height:${opts.img||120}px;border-radius:14px;background:linear-gradient(135deg,#eef1f6,#e2e7ef)"></div>
+  <div style="margin-top:12px;height:12px;width:80%;border-radius:6px;background:#eceef2"></div>
+  <div style="margin-top:8px;height:12px;width:55%;border-radius:6px;background:#eceef2"></div>
+  <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;min-height:44px">${reacts}</div></div>`}
+const chip=(e,n,k=1,hot=false)=>`<div style="display:flex;align-items:center;gap:6px;height:42px;padding:0 14px 0 10px;border-radius:21px;background:${hot?'#FFE3E8':'#f1f3f6'};border:1.5px solid ${hot?PINK:'transparent'};opacity:${k};transform:scale(${L(.4,1,k)})">${E(e,24)}<span style="font:800 18px I;color:#333">${n}</span></div>`;
+function intro(t){
+ const s1=eo(P(t,0.07,0.22)),s2=eo(P(t,0.70,0.85));
+ const k=P(t,0.70,1.05);const a=(1-k)*24;const [x1,y1]=k>0&&k<1?[a*Math.sin(t*170),a*Math.cos(t*130)]:[0,0];
+ const flash=t>=0.70&&t<0.77?1-(t-0.70)/0.07:0;const q=eo(P(t,1.0,1.15));const out=io(P(t,1.2,1.35));
+ const glow=0.3+0.4*eo(P(t,0.70,0.9))-0.25*P(t,0.9,1.3);
+ let rain='';if(t>=0.70){const r=rng(5);for(let i=0;i<26;i++){const x=r()*1080,sp=900+r()*700,y0=-150-r()*600,rot=(r()-.5)*80;rain+=`<div style="position:absolute;left:${x}px;top:${y0+(t-0.70)*sp}px;transform:rotate(${rot}deg);opacity:.9">${E(EM[i%8],60+r()*60)}</div>`}}
+ const word=(w,top,size,k,c)=>`<div style="position:absolute;left:0;right:0;top:${top}px;text-align:center;font:900 ${size}px I;letter-spacing:-${size*.05}px;line-height:1;opacity:${k>0?1:0};transform:scale(${L(1.9,1,k)});filter:blur(${L(18,0,k)}px)">
+   <span style="position:absolute;left:0;right:0;color:${PINK};transform:translate(${L(24,5,k)}px,0);opacity:.85;mix-blend-mode:screen">${w}</span>
+   <span style="position:absolute;left:0;right:0;color:#4BE38A;transform:translate(${L(-24,-5,k)}px,0);opacity:.6;mix-blend-mode:screen">${w}</span>
+   <span style="position:relative;color:${c}">${w}</span></div>`;
+ return `<div style="position:absolute;inset:0;background:radial-gradient(70% 45% at 50% 48%,rgba(255,77,109,${glow}),#000 70%)"></div>${rain}
+  <div style="position:absolute;inset:0;transform:translate(${x1}px,${y1}px) scale(${L(1,1.6,out)});opacity:${1-out};filter:blur(${out*20}px)">
+   ${word('0 TA',520,320,s1,'#fff')}${word('REAKSIYA?',875,160,s2,'#fff')}
+   <div style="position:absolute;left:0;right:0;top:1180px;text-align:center;opacity:${q};transform:translateY(${L(30,0,q)}px)"><span style="display:inline-flex;align-items:center;gap:16px;background:${PINK};color:#fff;font:900 56px I;padding:12px 40px 12px 14px;border-radius:999px">${AV(1,76)}Tekin hal qilamiz!</span></div>
+  </div><div style="position:absolute;inset:0;background:#fff;opacity:${flash}"></div>`;
+}
+const S=[
+// A post gets reactions
+[1.35,2.62,(t,s)=>{const C=[[0,1],[1,1],[2,1],[3,1],[4,1],[5,1],[6,1],[7,1]];
+ const ch=C.map(([i,n],j)=>{const k=eo(P(t,s+.25+j*.08,s+.4+j*.08));return chip(EM[i],fmt(n*eo(P(t,s+.25+j*.08,s+.9))),k,j==0)}).join('');
+ return cap("Har bir postga — avtomatik reaksiya.",t,s,.4)+post(200,100,620,ch,{img:150})}],
+// B users
+[2.62,3.9,(t,s)=>{const c=eo(P(t,s+.1,s+.9));const R=[['👤','Foydalanuvchilar',215098],['👥','Guruhlar',17164],['📢','Kanallar',148522]];
+ return cap("Har oy 30 000+ yangi foydalanuvchi.",t,s,.4)+`<div class="ab term" style="left:60px;top:120px;width:420px;height:330px;padding:28px">
+  <div style="font:400 18px M;color:#9a9a9a">jami auditoriya</div><div class="num" style="font:800 80px I;color:#fff;margin-top:34px;letter-spacing:-3px;white-space:nowrap">${fmt(380784*c)}</div>
+  <div style="font:400 18px M;color:#4BE38A;margin-top:22px">● bot statistikasi</div></div>`+
+  R.map(([e,l,v],i)=>{const k=eo(P(t,s+.2+i*.1,s+.5+i*.1));return `<div class="ab" style="left:510px;top:${125+i*110}px;width:470px;height:94px;border-radius:18px;background:#f6f6f8;display:flex;align-items:center;gap:16px;padding:0 22px;opacity:${k};transform:translateX(${L(20,0,k)}px)">
+   <div style="width:44px;text-align:center">${E(e,40)}</div><div style="flex:1;font:600 20px I;color:#555">${l}</div><div class="num" style="font-size:34px;letter-spacing:-1px;white-space:nowrap">${fmt(v*eo(P(t,s+.2+i*.1,s+.95)))}</div></div>`}).join('')}],
+// C step 1: 8 bots admin
+[3.9,5.2,(t,s)=>{let h='';for(let i=0;i<8;i++){const col=i%2,row=Math.floor(i/2);const k=eo(P(t,s+.08+i*.04,s+.35+i*.04));const on=P(t,s+.4+i*.09,s+.5+i*.09);
+  h+=`<div class="ab" style="left:${80+col*440}px;top:${105+row*108}px;width:420px;height:92px;border-radius:18px;background:#f6f6f8;display:flex;align-items:center;gap:14px;padding:0 16px;opacity:${k}">
+   ${AV(i==0,60)}<div style="flex:1;font:700 22px I">@REAKE0${i+1}BOT${i==0?' <span style="font:700 14px I;color:'+PINK+'">asosiy</span>':''}</div>
+   <div style="font:700 17px I;color:${on>0?'#22a35a':'#bbb'}">${on>0?'admin ✓':'—'}</div></div>`}
+ return cap("1-qadam: 8 ta botni admin qiling.",t,s,.4)+h}],
+// D step 2: permission
+[5.2,6.45,(t,s)=>{const R=['Xabarlarni joylash','Xabarlarni boshqarish','Xabarlarni o\'chirish','Hikoyalarni joylash'];const a=eo(P(t,s,s+.25));
+ return cap("2-qadam: ruxsatni yoqing.",t,s,.35)+`<div class="ab" style="left:220px;top:${L(120,100,a)}px;width:580px;border-radius:22px;background:#fff;border:1px solid #eee;box-shadow:0 18px 40px rgba(0,0,0,.08);padding:16px 26px;opacity:${a}">
+  <div style="display:flex;align-items:center;gap:12px;padding:8px 0 14px;border-bottom:1px solid #f0f0f0">${AV(1,44)}<div style="font:800 21px I">Admin huquqlari</div></div>
+  ${R.map((l,i)=>{const hot=i==1;const on=hot?io(P(t,s+.45,s+.65)):(i==0?1:0);return `<div style="display:flex;align-items:center;justify-content:space-between;padding:16px 4px;border-bottom:1px solid #f4f4f4;${hot?'background:#FFF1F4;margin:0 -14px;padding:16px 18px;border-radius:12px':''}">
+   <span style="font:${hot?800:600} 22px I;color:${hot?'#111':'#666'}">${l}</span>
+   <div style="width:64px;height:38px;border-radius:19px;background:${on>.5?'#34c759':'#d9d9de'};position:relative"><i style="position:absolute;top:4px;left:${L(4,30,on)}px;width:30px;height:30px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.2)"></i></div></div>`}).join('')}</div>`}],
+// E step 3: positive reactions
+[6.45,7.95,(t,s)=>{const L2=['👍','❤️','🔥','🥰','👏','😁','🎉','🤩','🙏','👌','😍','⚡','💯','🤝','🏆','😎'];
+ return cap("3-qadam: ijobiy reaksiyalarni yoqing.",t,s,.4)+`<div class="ab" style="left:150px;top:110px;width:720px;display:flex;flex-wrap:wrap;gap:16px;justify-content:center">`+L2.map((e,i)=>{const on=eo(P(t,s+.35+i*.04,s+.5+i*.04));
+  return `<div style="width:96px;height:96px;border-radius:22px;background:${on>.5?'#FFF1F4':'#f4f4f6'};border:2px solid ${on>.5?PINK:'transparent'};display:flex;align-items:center;justify-content:center;position:relative;transform:scale(${L(.85,1,on)})">${E(e,50)}
+   ${on>.5?`<div style="position:absolute;right:-8px;top:-8px;width:26px;height:26px;border-radius:50%;background:${PINK};color:#fff;font:900 14px I;display:flex;align-items:center;justify-content:center">✓</div>`:''}</div>`}).join('')+'</div>'}],
+// F math
+[7.95,9.2,(t,s)=>{const a=eo(P(t,s+.05,s+.3)),b=eo(P(t,s+.5,s+.75));
+ return `<div class="ab" style="left:0;right:0;top:${L(150,120,a)}px;text-align:center;opacity:${a};font:800 54px I;color:#888">1 bot = 1 reaksiya</div>
+  <div class="ab" style="left:0;right:0;top:${L(260,230,b)}px;text-align:center;opacity:${b};font:900 130px I;letter-spacing:-5px;transform:scale(${L(1.2,1,b)})"><span style="color:${PINK}">8</span> bot = <span style="color:${PINK}">8</span> ${E('❤️',100)}</div>
+  <div class="ab" style="left:0;right:0;top:430px;text-align:center;font:600 24px I;color:#999;opacity:${eo(P(t,s+.8,s+1))}">Shuning uchun 8 tasini ham admin qiling.</div>`}],
+// G old posts via link
+[9.2,10.45,(t,s)=>{const u=eo(P(t,s+.15,s+.35)),r=eo(P(t,s+.6,s+.8));
+ return cap("Eski postlarga ham.",t,s,.3)+`<div class="ab" style="left:200px;top:100px;width:620px;height:430px;border-radius:22px;background:#EEF3F8;overflow:hidden">
+  <div style="height:70px;background:#fff;display:flex;align-items:center;gap:14px;padding:0 20px;border-bottom:1px solid #e8e8e8">${AV(1,46)}<div><div style="font:800 20px I">Reaksiya bot</div><div style="font:500 14px I;color:#999">@REAKE01BOT</div></div></div>
+  <div style="position:absolute;right:20px;top:110px;max-width:420px;background:#E1FEC6;border-radius:18px 18px 4px 18px;padding:14px 18px;font:600 22px I;color:#2a6db0;opacity:${u};transform:translateY(${L(20,0,u)}px)">t.me/kanalingiz/951</div>
+  <div style="position:absolute;left:20px;top:200px;max-width:460px;background:#fff;border-radius:18px 18px 18px 4px;padding:14px 18px;font:600 22px I;opacity:${r};transform:translateY(${L(20,0,r)}px)">${E('✅',26)} Reaksiyalar qo'shildi<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;max-width:440px">${[0,1,2,3,4,5,6,7].map(i=>chip(EM[i],1,1)).join('')}</div></div></div>`}],
+// H change reactions
+[10.45,11.7,(t,s)=>{const sw=io(P(t,s+.45,s+.75));const A=[0,1,3,4,5,6,2,7],Bn=[1,6,7,2,0,3,4,5];
+ const ch=A.map((i,j)=>{const e=sw<.5?EM[i]:EM[Bn[j]];return `<div style="transform:rotateX(${sw<.5?sw*180:(1-sw)*180}deg)">${chip(e,1,1,j==0)}</div>`}).join('');
+ return cap("Reaksiyani o'zgartirish ham mumkin.",t,s,.4)+post(200,100,620,ch,{img:150})+`<div class="ab pill" style="left:620px;top:120px;background:#111;color:#fff;font:700 18px I;padding:8px 16px;opacity:${eo(P(t,s+.3,s+.45))}">${E('🔄',20)} yangilandi</div>`}],
+// I premium emoji
+[11.7,13.6,(t,s)=>{const u=eo(P(t,s+.15,s+.35)),u2=eo(P(t,s+.55,s+.75)),r=eo(P(t,s+1.0,s+1.2));
+ return cap("Premium emoji ham ishlaydi.",t,s,.35)+`<div class="ab" style="left:200px;top:100px;width:620px;height:430px;border-radius:22px;background:#EEF3F8;overflow:hidden">
+  <div style="height:70px;background:#fff;display:flex;align-items:center;gap:14px;padding:0 20px;border-bottom:1px solid #e8e8e8">${AV(1,46)}<div><div style="font:800 20px I">Reaksiya bot</div><div style="font:500 14px I;color:#999">@REAKE01BOT</div></div></div>
+  <div style="position:absolute;right:20px;top:100px;background:#E1FEC6;border-radius:18px 18px 4px 18px;padding:14px 18px;font:600 22px I;color:#2a6db0;opacity:${u}">t.me/kanalingiz/952</div>
+  <div style="position:absolute;right:20px;top:175px;background:#E1FEC6;border-radius:18px 18px 4px 18px;padding:10px 18px;opacity:${u2};transform:scale(${L(.6,1,u2)})">${E('🌟',64)}</div>
+  <div style="position:absolute;left:20px;top:290px;background:#fff;border-radius:18px 18px 18px 4px;padding:14px 18px;font:600 22px I;opacity:${r}">${E('✅',26)} Shu emoji bilan reaksiya qo'yiladi</div></div>`}],
+// J #reaksiya
+[13.6,14.6,(t,s)=>{const q="#reaksiya";const n=Math.floor(cl((t-s-.15)/.35)*q.length);const a=eo(P(t,s,s+.2));const sent=eo(P(t,s+.6,s+.75));
+ return `<div class="ab" style="left:0;right:0;top:120px;text-align:center;font:700 26px I;color:#888">Yoki kanalga shunchaki yozing:</div>
+ <div class="ab" style="left:160px;top:200px;width:700px;height:110px;border-radius:55px;background:#f1f3f6;display:flex;align-items:center;padding:0 20px 0 40px;opacity:${a}">
+  <div style="flex:1;font:800 54px I;color:${PINK}">${q.slice(0,n)}<span style="color:#111;opacity:${sent>0?0:Math.floor(t*4)%2}">▍</span></div>
+  <div style="width:76px;height:76px;border-radius:50%;background:${sent>0?'#2AABEE':'#cfd6de'};display:flex;align-items:center;justify-content:center;color:#fff;font:900 34px I;transform:scale(${L(1,1.15,sent)})">➤</div></div>
+ <div class="ab" style="left:0;right:0;top:360px;text-align:center;font:700 28px I;color:#22a35a;opacity:${sent}">✓ tizim ishga tushdi</div>`}],
+// K 8 bots list
+[14.6,15.85,(t,s)=>{let h='';for(let i=0;i<8;i++){const k=eo(P(t,s+.05+i*.06,s+.35+i*.06));
+  h+=`<div class="ab" style="left:${60+(i%4)*230}px;top:${L(130,110,k)+Math.floor(i/4)*200}px;width:210px;text-align:center;opacity:${k}"><div style="display:inline-block">${AV(i==0,100)}</div><div style="font:700 19px I;margin-top:10px">@REAKE0${i+1}BOT</div>${i==0?`<div style="font:600 14px I;color:${PINK}">@ReaksiyaApp</div>`:''}</div>`}
+ return cap("Faol botlar (rasmiy):",t,s,.25)+h}],
+// L all admin
+[15.85,17.05,(t,s)=>{let h='';for(let i=0;i<8;i++){const g=P(t,s+.2+i*.07,s+.3+i*.07);
+  h+=`<div class="ab" style="left:${105+i*105}px;top:200px;position:absolute">${AV(i==0,88)}<div style="position:absolute;right:-6px;bottom:-6px;width:34px;height:34px;border-radius:50%;background:${g>0?'#22b35a':'#d9d9de'};border:3px solid #fff;color:#fff;font:900 16px I;display:flex;align-items:center;justify-content:center;transform:scale(${g>0?L(1.4,1,eo(g)):1})">✓</div></div>`}
+ const d=eo(P(t,s+.8,s+1.0));
+ return cap("Muhim: 8 tasi ham admin bo'lsin.",t,s,.4)+h+`<div class="ab" style="left:0;right:0;top:360px;text-align:center;font:800 40px I;opacity:${d}">Maksimal natija — <span style="color:${PINK}">8 reaksiya</span></div>`}],
+// M flash
+[17.05,17.45,(t,s)=>{const k=eo(P(t,s,s+.4));
+ return `<div class="ab" style="inset:0;background:radial-gradient(80% 90% at 50% 60%,#FF8DA1,#FF4D6D 55%,#A61E3A)"></div>
+ <div class="ab" style="left:0;right:0;top:${L(150,130,k)}px;text-align:center;font:900 230px I;letter-spacing:-10px;color:#fff;transform:scale(${L(1.3,1,k)})">TEKIN!</div>
+ <div class="ab" style="left:0;right:0;top:400px;text-align:center;font:800 40px I;color:#fff;opacity:.9">8 bot · 8 reaksiya · 0 so'm</div>`}],
+// N end
+[17.45,D,(t,s)=>{const k=eo(P(t,s,s+.35));const b=eo(P(t,s+.3,s+.55));
+ return `<div class="ab" style="left:0;right:0;top:70px;text-align:center;opacity:${k}"><div style="display:inline-block">${AV(1,110)}</div></div>
+ <div class="ab" style="left:0;right:0;top:200px;text-align:center;font:900 140px I;letter-spacing:-7px;line-height:1;transform:scale(${L(1.08,1,k)});
+  background:linear-gradient(${100+t*60}deg,#FF4D6D,#FF8A3D 40%,#4BE38A 75%,#22C7A9);-webkit-background-clip:text;background-clip:text;color:transparent">Reaksiya bot</div>
+ <div class="ab" style="left:0;right:0;top:360px;text-align:center;font:600 24px I;color:#555;opacity:${b}">380 784 auditoriya · <b style="color:#22a35a">TEKIN</b></div>
+ <div class="ab pill" style="left:50%;top:430px;transform:translateX(-50%) translateY(${L(12,0,b)}px);opacity:${b};background:#111;color:#fff;font:800 28px I;padding:14px 32px">@ReaksiyaApp →</div>`}],
+];
+window.seek=t=>{
+ const card=document.getElementById('card'),hdr=document.getElementById('hdr'),it=document.getElementById('intro');
+ const inK=eo(P(t,1.3,1.5));
+ it.innerHTML=t<1.36?intro(t):'';
+ let sc=S.find(x=>t>=x[0]&&t<x[1]);
+ card.innerHTML=sc?sc[2](t,sc[0]):'';
+ const blur=P(t,18.45,18.7);
+ card.style.opacity=t<1.32?0:1;card.style.transform=`scale(${L(.94,1,inK)})`;card.style.filter=blur>0?`blur(${blur*14}px)`:'none';
+ hdr.style.opacity=t<1.3?0:inK*(1-blur);hdr.style.transform=`translateY(${L(-30,0,inK)}px)`;
+ document.querySelectorAll('.wm').forEach(e=>e.style.opacity=t<1.3?0:1);
+ document.getElementById('tm').textContent='0:'+String(Math.max(1,Math.ceil(D-t))).padStart(2,'0');
+};
+const imgs=[B+'avatar_main.svg',B+'avatar_helper.svg'];
+const EMS='❤️ 🔥 👍 🎉 😍 👏 🤩 ⚡ 🥰 😁 🙏 👌 💯 🤝 🏆 😎 🌟'.split(' ').map(e=>'emoji/'+EK(e)+'.png');
+Promise.all([document.fonts.ready,...[...imgs,...EMS].map(n=>new Promise(r=>{const im=new Image();im.onload=im.onerror=r;im.src=n}))]).then(()=>{seek(0);window.ready=true});
+</script></body></html>
