@@ -57,7 +57,16 @@ def send(p):
             p = dict(p, **p["fallback"]); media = p.get("media", []); markup = kb(p.get("buttons"))
     if p["type"] == "widget":
         html = open(p["html_file"], encoding="utf-8").read()
-        r = call("sendWidget", {"chat_id": p.get("chat_id", CHAT), "html": html})
+        cid = p.get("chat_id", CHAT)
+        if isinstance(cid, str) and cid.startswith("@"):
+            want = cid[1:].lower(); found = None
+            for u in call("getUpdates", {"limit": 100, "allowed_updates": ["message"]}):
+                fr = (u.get("message") or {}).get("from") or {}
+                if (fr.get("username") or "").lower() == want: found = fr["id"]
+            if not found:
+                raise RuntimeError(f"{cid} topilmadi: u botga /start yuborishi kerak")
+            print("topildi:", cid, "->", found); cid = found
+        r = call("sendWidget", {"chat_id": cid, "html": html})
         print("widget yuborildi, message_id:", r.get("message_id"), "widget:", json.dumps(r.get("widget", {}))[:200])
         return
     if p["type"] == "album":
