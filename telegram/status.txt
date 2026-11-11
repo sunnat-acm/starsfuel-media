@@ -1,3 +1,4 @@
-2026-11-11T02:50:24.649408+00:00
+2026-11-11T04:26:45.215415+00:00
 yuborildi: 0
-xato yo'q
+XATO:
+telegram/queue/2026-11-11_0926_widget_sunnat_ac.json: getUpdates: {'ok': False, 'error_code': 409, 'description': "Conflict: can't use getUpdates method while webhook is active; use deleteWebhook to delete the webhook first"}
