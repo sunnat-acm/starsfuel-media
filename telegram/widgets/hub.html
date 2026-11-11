@@ -1,0 +1,45 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box;margin:0}body{font:14px -apple-system,system-ui,sans-serif;background:#120e16;color:#fff;padding:12px;overflow:hidden}
+.h{display:flex;align-items:center;gap:9px}.lg{width:34px;height:34px;border-radius:10px;background:linear-gradient(145deg,#c97a60,#8e4a37);display:flex;align-items:center;justify-content:center}
+.h b{font-size:16px;font-weight:800}.h small{display:block;font-size:11px;color:#998fa3}
+.on{margin-left:auto;font-size:10px;font-weight:800;color:#34c759;background:#34c75922;border:1px solid #34c75966;border-radius:9px;padding:4px 8px}
+.on:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#34c759;margin-right:5px;animation:p 1.4s infinite}
+@keyframes p{50%{opacity:.2}}@keyframes u{from{opacity:0;transform:translateY(8px) scale(.9)}}
+.g{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:12px 0}
+.t{background:#1e1824;border-radius:14px;padding:10px 4px 8px;text-align:center;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid transparent;animation:u .4s both}
+.t.a{border-color:#EC5A9A;background:#2a1b26}
+.i{width:38px;height:38px;border-radius:11px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 0 #fff4,0 6px 12px #0006}
+.i svg{width:22px;height:22px;fill:#fff}
+.p{background:#1b1520;border-radius:16px;padding:13px;animation:u .3s both}
+.big{font-size:27px;font-weight:800;letter-spacing:-1px}.s{font-size:11.5px;color:#9a91a4;margin-top:2px}
+input{width:100%;margin:10px 0 2px;accent-color:#F7A600}
+.r{display:flex;gap:5px;margin-top:8px}.r b{flex:1;text-align:center;font-size:12px;padding:7px 0;border-radius:9px;background:#2a2330;cursor:pointer}.r b.a{background:#EC5A9A}
+.sm{margin-top:11px;display:flex;justify-content:space-between;align-items:baseline;border-top:1px dashed #3a3240;padding-top:9px}.sm .big{color:#5BE584}
+.f{margin-top:9px;font-size:11px;color:#8a8392;text-align:center}
+</style></head><body>
+<div class="h"><div class="lg"><svg viewBox="0 0 512 512" width="24" height="24"><path fill="#fff" fill-rule="evenodd" d="M249 331C249 331 198 362 198 362C193 366 186 364 183 359C181 356 181 353 181 350C181 350 189 319 189 319C192 307 200 298 210 293C210 293 266 266 266 266C269 265 270 262 269 259C268 257 265 256 263 256C263 256 201 267 201 267C188 269 175 266 165 258C165 258 146 241 146 241C141 237 140 230 144 225C146 223 149 221 152 221C152 221 212 216 212 216C216 216 220 213 222 209C222 209 245 154 245 154C247 148 254 145 260 147C262 149 265 151 266 154C266 154 289 209 289 209C291 213 294 216 299 216C299 216 359 221 359 221C365 222 370 227 369 233C369 236 368 239 365 241C365 241 319 280 319 280C316 283 315 287 316 292C316 292 330 350 330 350C331 356 328 362 321 364C319 365 315 364 313 363C313 363 261 331 261 331C258 329 253 329 249 331C249 331 249 331 249 331Z M284 29C268 13 243 13 227 29C227 29 194 65 194 65C186 73 176 78 165 77C165 77 116 76 116 76C93 75 75 93 76 115C76 115 78 165 78 165C78 176 73 186 65 194C65 194 30 227 30 227C13 243 13 268 30 284C30 284 65 317 65 317C73 325 78 335 78 346C78 346 76 395 76 395C75 418 93 436 116 435C116 435 165 433 165 433C176 433 186 437 194 446C194 446 227 481 227 481C243 498 268 498 284 481C284 481 317 446 317 446C325 437 335 433 346 433C346 433 395 435 395 435C418 436 436 418 435 395C435 395 433 346 433 346C433 335 438 325 446 317C446 317 481 284 481 284C498 268 498 243 481 227C481 227 446 194 446 194C438 186 433 176 433 165C433 165 435 115 435 115C436 93 418 75 395 76C395 76 346 77 346 77C335 78 325 73 317 65C317 65 284 29 284 29C284 29 284 29 284 29Z"/></svg></div><div><b>StarsFuel</b><small>@StarsFuelApp</small></div><span class="on">FAOL</span></div>
+<div class="g" id="g"></div><div class="p" id="p"></div><div class="f">Buyurtma berish: @StarsFuelApp</div>
+<script>
+var I={s:'M12 2l3 7 7 .6-5.4 4.6 1.7 7.3L12 17.8 5.7 21.5l1.7-7.3L2 9.6 9 9z',
+p:'M3 18h18l1-11-5 4-5-8-5 8-5-4z',
+g:'M3 10h18v4H3zM5 14h14v8H5zM11 10h2v12h-2zM12 10C9 3 4 6 7 9M12 10c3-7 8-4 5-1',
+n:'M6 3h12l4 6-10 13L2 9zM2 9h20M9 3l3 6 3-6M12 9v13',
+r:'M7 2h10a2 2 0 012 2v16a2 2 0 01-2 2H7a2 2 0 01-2-2V4a2 2 0 012-2zm3 17h4',
+d:'M7 8h10a5 5 0 014.8 6.4l-1 3.2a2.5 2.5 0 01-4.3.8L14 16h-4l-2.5 2.4a2.5 2.5 0 01-4.3-.8l-1-3.2A5 5 0 017 8z'};
+var C={s:'#FFC93C,#F28C00',p:'#B47BFF,#6A3BE4',g:'#4BE3C4,#14A88C',n:'#5CC8FF,#1E6FE0',r:'#FF8FB8,#E0457B',d:'#FFB25C,#E0601E'};
+var N={s:'Stars',p:'Premium',g:'Gift',n:'NFT',r:'Raqam',d:'Donat'};
+var K='s',S=100,M=3,PR={1:45e3,3:19e4,6:25e4,12:4e5},F=function(n){return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' ')};
+function ic(k,z){return '<div class="i" style="background:linear-gradient(145deg,'+C[k]+');'+(z?'width:'+z+'px;height:'+z+'px':'')+'"><svg viewBox="0 0 24 24"'+(k=='g'||k=='n'||k=='r'?' style="fill:none;stroke:#fff;stroke-width:2;stroke-linejoin:round"':'')+'><path d="'+I[k]+'"/></svg></div>'}
+function sum(a,b){return '<div class="sm"><span class="s">'+a+'</span><span class="big">'+b+'</span></div>'}
+function g(){document.getElementById('g').innerHTML=Object.keys(N).map(function(k,i){return '<div class="t'+(k==K?' a':'')+'" data-k="'+k+'" style="animation-delay:'+i*.05+'s">'+ic(k)+N[k]+'</div>'}).join('')}
+function p(){var h,e=document.getElementById('p');
+if(K=='s')h='<div class="big">'+F(S)+' ⭐</div><div class="s">Telegram Stars</div><input type="range" min="50" max="5000" step="50" value="'+S+'" id="x"><div class="r">'+[50,100,500,1000].map(function(v){return '<b data-s="'+v+'"'+(v==S?' class="a"':'')+'>'+v+'</b>'}).join('')+'</div>'+sum('Narxi',F(S*220)+" so'm");
+else if(K=='p')h='<div class="big">Premium 💜</div><div class="s">Muddatni tanlang</div><div class="r">'+[1,3,6,12].map(function(v){return '<b data-m="'+v+'"'+(v==M?' class="a"':'')+'>'+v+' oy</b>'}).join('')+'</div>'+sum(M==1?'Admin orqali':'Narxi',F(PR[M])+" so'm");
+else if(K=='r')h='<div class="big">Telegram raqam 📱</div><div class="s">Yangi akkaunt · AQSh, Bangladesh, Nigeriya...</div>'+sum('Narxi',"10 000 so'm");
+else if(K=='d')h='<div class="big">O\'yinlarga donat 🎮</div><div class="s">PUBG Mobile · Free Fire · MLBB</div>'+sum('MLBB','9 967 so\'mdan');
+else h='<div class="big">'+(K=='g'?'Gift 🎁':'NFT 💎')+'</div><div class="s">'+(K=='g'?"Do'stingizga Telegram sovg'asi":"Noyob Telegram sovg'alari")+'</div>'+sum('Holati','faol ✓');
+e.innerHTML=h;e.style.animation='none';e.offsetHeight;e.style.animation='';
+var x=document.getElementById('x');if(x)x.oninput=function(){S=+x.value;e.querySelector('.big').textContent=F(S)+' ⭐';e.querySelector('.sm .big').textContent=F(S*220)+" so'm"}}
+document.onclick=function(v){var t=v.target.closest('[data-k],[data-s],[data-m]');if(!t)return;var d=t.dataset;
+if(d.k){K=d.k;g()}if(d.s)S=+d.s;if(d.m)M=+d.m;p()};g();p();
+</script></body></html>
