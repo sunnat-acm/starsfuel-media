@@ -55,6 +55,11 @@ def send(p):
             if not p.get("fallback"): raise
             print("rich xato, oddiy usulga o'tildi:", str(e).replace(TOKEN, "***"))
             p = dict(p, **p["fallback"]); media = p.get("media", []); markup = kb(p.get("buttons"))
+    if p["type"] == "widget":
+        html = open(p["html_file"], encoding="utf-8").read()
+        r = call("sendWidget", {"chat_id": p.get("chat_id", CHAT), "html": html})
+        print("widget yuborildi, message_id:", r.get("message_id"), "widget:", json.dumps(r.get("widget", {}))[:200])
+        return
     if p["type"] == "album":
         items, files = [], {}
         for i, m in enumerate(media):
