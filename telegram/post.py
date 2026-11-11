@@ -41,7 +41,7 @@ def send_rich(p):
         items.append({"id": f"s{i+1}", "media": {"type": kind, "media": f"attach://{key}"}})
     rich = {"html": p["html"]}
     if items: rich["media"] = items
-    f = {"chat_id": CHAT, "rich_message": rich}
+    f = {"chat_id": p.get("chat_id", CHAT), "rich_message": rich}
     if p.get("buttons"): f["reply_markup"] = kb(p["buttons"])
     return call("sendRichMessage", f, files or None)
 
@@ -74,20 +74,20 @@ def send(p):
         for i, m in enumerate(media):
             key = f"f{i}"; files[key] = m
             items.append({"type": "photo", "media": f"attach://{key}"})
-        msgs = call("sendMediaGroup", {"chat_id": CHAT, "media": items}, files)
+        msgs = call("sendMediaGroup", {"chat_id": p.get("chat_id", CHAT), "media": items}, files)
         if not p.get("text") and not markup:
             return
-        f = {"chat_id": CHAT, "text": p["text"], "parse_mode": "HTML",
+        f = {"chat_id": p.get("chat_id", CHAT), "text": p["text"], "parse_mode": "HTML",
              "reply_parameters": {"message_id": msgs[0]["message_id"]}, "link_preview_options": {"is_disabled": True}}
         if markup: f["reply_markup"] = markup
         call("sendMessage", f)
     elif p["type"] in ("video", "photo"):
-        f = {"chat_id": CHAT, "caption": p["text"], "parse_mode": "HTML"}
+        f = {"chat_id": p.get("chat_id", CHAT), "caption": p["text"], "parse_mode": "HTML"}
         if markup: f["reply_markup"] = markup
         if p["type"] == "video": f["supports_streaming"] = "true"
         call("sendVideo" if p["type"] == "video" else "sendPhoto", f, {p["type"]: media[0]})
     else:
-        f = {"chat_id": CHAT, "text": p["text"], "parse_mode": "HTML", "link_preview_options": {"is_disabled": True}}
+        f = {"chat_id": p.get("chat_id", CHAT), "text": p["text"], "parse_mode": "HTML", "link_preview_options": {"is_disabled": True}}
         if markup: f["reply_markup"] = markup
         call("sendMessage", f)
 
