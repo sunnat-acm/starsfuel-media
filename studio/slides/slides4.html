@@ -1,0 +1,107 @@
+<!doctype html><html><head><meta charset="utf-8">
+<script src="../tg_icons/lottie.min.js"></script>
+<style>
+@font-face{font-family:'I';font-weight:500;src:url('inter-latin-500-normal.woff2')}
+@font-face{font-family:'I';font-weight:600;src:url('inter-latin-600-normal.woff2')}
+@font-face{font-family:'I';font-weight:700;src:url('inter-latin-700-normal.woff2')}
+@font-face{font-family:'I';font-weight:800;src:url('inter-latin-800-normal.woff2')}
+@font-face{font-family:'I';font-weight:900;src:url('inter-latin-900-normal.woff2')}
+html,body{margin:0;background:#000}*{box-sizing:border-box}
+.s{position:relative;width:1080px;height:1350px;overflow:hidden;font-family:'I';color:#fff;background:#0b111a}
+.glow{position:absolute;border-radius:50%;filter:blur(130px)}
+.grain{position:absolute;inset:0;opacity:.06;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
+.grid{position:absolute;inset:0;opacity:.05;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:90px 90px;mask-image:radial-gradient(70% 60% at 50% 40%,#000,transparent)}
+.brand{position:absolute;left:72px;top:64px;display:flex;align-items:center;gap:16px;font-weight:800;font-size:30px;letter-spacing:1.5px}
+.brand img{width:56px;height:56px}
+.tag{position:absolute;right:72px;top:72px;font-size:24px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.55)}
+.h{position:absolute;left:72px;white-space:nowrap;font-weight:900;letter-spacing:-.045em;line-height:.96}
+.k{position:absolute;left:72px;font-size:30px;font-weight:800;letter-spacing:4px}
+.p{position:absolute;left:72px;font-weight:500;font-size:34px;line-height:1.35;color:rgba(255,255,255,.72)}
+.p b{color:#fff;font-weight:700}
+.glass{background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.04));border:1.5px solid rgba(255,255,255,.18);backdrop-filter:blur(24px) saturate(160%);box-shadow:0 24px 60px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.25)}
+.ic{position:absolute;filter:drop-shadow(0 26px 40px rgba(0,0,0,.45))}
+.ic.in{position:relative;filter:drop-shadow(0 14px 22px rgba(0,0,0,.4));flex:none}
+.swipe{position:absolute;right:64px;bottom:64px;height:92px;border-radius:46px;display:flex;align-items:center;gap:18px;padding:0 18px 0 30px;font-size:30px;font-weight:700}
+.swipe .n{font-weight:900;font-size:34px}.swipe .n span{opacity:.5;font-weight:700}
+.swipe .ar{width:60px;height:60px;border-radius:50%;background:#fff;color:#0b111a;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900}
+.dots{position:absolute;left:72px;bottom:102px;display:flex;gap:12px}
+.dots i{display:block;width:14px;height:14px;border-radius:7px;background:rgba(255,255,255,.28)}.dots i.on{width:44px;background:#fff}
+.row{position:absolute;left:72px;width:936px;border-radius:36px;display:flex;align-items:center;gap:30px;padding:26px 40px 26px 28px}
+.row .t{flex:1}.row .t div{font-size:44px;font-weight:900;letter-spacing:-.02em}.row .t > span{display:block;font-size:26px;font-weight:600;color:rgba(255,255,255,.6);margin-top:4px}
+.row.c{padding:18px 36px 18px 22px;border-radius:32px}.row.c .t div{font-size:40px}.row.c .t > span{font-size:24px}.row.c .v{font-size:42px}
+.row .v{font-size:46px;font-weight:900;letter-spacing:-.02em;white-space:nowrap}.row .v small{font-size:26px;font-weight:700;opacity:.65;margin-left:6px}
+.row .t .best{display:inline-block;margin-top:0;color:#fff;font-size:20px;font-weight:800;letter-spacing:2px;padding:6px 14px;border-radius:12px;background:#A86BFF;color:#fff;vertical-align:middle;margin-left:14px}
+.gold{background:linear-gradient(90deg,#FFE08A,#F7B500 50%,#FF9F1C);-webkit-background-clip:text;background-clip:text;color:transparent}
+.purp{background:linear-gradient(90deg,#D3B4FF,#A86BFF 50%,#FF7EB6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.blue{background:linear-gradient(90deg,#9FE0FF,#2AABEE 60%,#5B8CFF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.teal{background:linear-gradient(90deg,#9CF5E4,#22C7A9 55%,#2AABEE);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pill{position:absolute;left:72px;height:104px;border-radius:52px;display:flex;align-items:center;gap:20px;padding:0 44px 0 16px;font-size:40px;font-weight:900;letter-spacing:-.01em}
+.line{position:absolute;left:131px;width:4px;border-radius:2px;background:linear-gradient(#2AABEE,#22C7A9)}
+</style></head><body>
+<div id="root"></div>
+<script>
+const Q=new URLSearchParams(location.search), N=+(Q.get('s')||1);
+const IC=(id,sz,x,y,rot=0,extra='')=>`<div class="ic" data-ic="${id}" style="width:${sz}px;height:${sz}px;left:${x}px;top:${y}px;transform:rotate(${rot}deg);${extra}"></div>`;
+const ICI=(id,sz)=>`<div class="ic in" data-ic="${id}" style="width:${sz}px;height:${sz}px"></div>`;
+const brand=`<div class="brand"><img src="../../brand/logo.svg"><span>STARSFUEL</span></div>`;
+const swipe=(n,last)=>`<div class="swipe glass"><div class="n">${n}<span>/5</span></div><div>${last?"Botga kiring":"Suring"}</div><div class="ar">${last?'↗':'→'}</div></div>`;
+const dots=n=>`<div class="dots">${[1,2,3,4,5].map(i=>`<i class="${i===n?'on':''}"></i>`).join('')}</div>`;
+const bg=(a,b,c)=>`<div class="glow" style="width:980px;height:980px;left:-340px;top:-360px;background:${a};opacity:.55"></div><div class="glow" style="width:860px;height:860px;right:-340px;bottom:-300px;background:${b};opacity:.42"></div><div class="glow" style="width:520px;height:520px;right:60px;top:300px;background:${c};opacity:.2"></div><div class="grid"></div><div class="grain"></div>`;
+const row=(top,id,title,sub,val,unit,extra='',c=0)=>`<div class="row glass${c?' c':''}" style="top:${top}px;${extra}">${ICI(id,c?90:112)}<div class="t"><div>${title}</div><span>${sub}</span></div><div class="v">${val}<small>${unit}</small></div></div>`;
+const S={
+1:`${bg('#1F6FD6','#7B3FE4','#22C7A9')}${brand}<div class="tag">@StarsFuelApp</div>
+ ${IC('044',250,660,170,10)}${IC('077',200,430,320,-12)}${IC('070',180,860,420,14)}${IC('094',150,700,480,-8)}${IC('100',110,250,230,-12)}
+ <div class="h" style="top:700px;font-size:150px">Faqat Stars<br><span class="blue">emas.</span></div>
+ <div class="p" style="top:1040px;width:700px;font-size:36px">Raqam · Premium · Gift · NFT —<br><b>hammasi faol.</b></div>
+ ${swipe(1)}`,
+2:`${bg('#0E8F7A','#2AABEE','#22C7A9')}${brand}<div class="tag">RAQAM</div>
+ ${IC('044',300,730,130,8)}${IC('086',110,650,410,-12)}
+ <div class="k" style="top:300px;color:#9CF5E4">TELEGRAM</div>
+ <div class="h" style="top:350px;font-size:170px"><span class="teal">Raqam</span></div>
+ <div class="p" style="top:560px;width:470px">Yangi akkaunt uchun <b>tayyor raqam</b>.</div>
+ <div class="glass" style="position:absolute;left:72px;top:730px;width:936px;border-radius:48px;padding:40px 52px">
+  <div style="display:flex;align-items:baseline;justify-content:space-between">
+   <div style="font-size:64px;font-weight:900;letter-spacing:-.03em">1 ta raqam</div>
+   <div style="font-size:84px;font-weight:900;letter-spacing:-.04em">10 000<span style="font-size:34px;opacity:.65;margin-left:10px">so'm</span></div></div>
+  <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:12px">${['AQSh','Bangladesh','Kolumbiya','Nigeriya','Efiopiya','Indoneziya','va boshqalar'].map(c=>`<span style="font-size:26px;font-weight:700;padding:10px 20px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18)">${c}</span>`).join('')}</div>
+  <div style="margin-top:24px;font-size:24px;font-weight:600;color:rgba(255,255,255,.6)">SMS kod 1 marta beriladi · raqam qaytarib olinmaydi</div></div>
+ ${dots(2)}${swipe(2)}`,
+3:`${bg('#6A2FD6','#FF5E9C','#A86BFF')}${brand}<div class="tag">PREMIUM</div>
+ ${IC('077',270,740,140,10)}${IC('100',120,910,380,-12)}
+ <div class="k" style="top:250px;color:#D3B4FF">TELEGRAM</div>
+ <div class="h" style="top:295px;font-size:146px"><span class="purp">Premium</span></div>
+ <div class="p" style="top:480px;width:620px"><b>1 oydan 12 oygacha</b> — o'zingizga mosini tanlang.</div>
+ ${row(612,'087','1 oy','Admin orqali faollashtiriladi','45 000',"so'm",'',1)}
+ ${row(754,'061','3 oy','Chorak yil','190 000',"so'm",'',1)}
+ ${row(896,'058','6 oy','Yarim yil','250 000',"so'm",'',1)}
+ ${row(1038,'100','12 oy<em class="best" style="font-style:normal">FOYDALI</em>','Oyiga ~33 000 so\'m','400 000',"so'm",'border-color:rgba(168,107,255,.7);box-shadow:0 0 0 2px rgba(168,107,255,.35),0 24px 60px rgba(0,0,0,.35)',1)}
+ `,
+4:`${bg('#C2187A','#2A6BEE','#FF7EB6')}${brand}<div class="tag">GIFT · NFT</div>
+ <div class="k" style="top:200px;color:#FFB3D9">TELEGRAM</div>
+ <div class="h" style="top:250px;font-size:150px">Gift va <span class="purp">NFT</span></div>
+ <div class="p" style="top:440px;width:800px">O'zingizga yoki do'stingizga — <b>username orqali</b>.</div>
+ ${[['070','Gift',"Telegram sovg'alari",'071'],['094','NFT',"Noyob, kolleksiya sovg'alari",'064']].map((x,i)=>`<div class="glass" style="position:absolute;left:${72+i*478}px;top:600px;width:458px;height:500px;border-radius:48px;padding:40px">
+   <div class="ic in" data-ic="${x[0]}" style="width:220px;height:220px"></div>
+   <div class="ic in" data-ic="${x[3]}" style="width:90px;height:90px;position:absolute;right:36px;top:40px;transform:rotate(12deg)"></div>
+   <div style="margin-top:34px;font-size:72px;font-weight:900;letter-spacing:-.03em">${x[1]}</div>
+   <div style="margin-top:6px;font-size:28px;font-weight:600;color:rgba(255,255,255,.65)">${x[2]}</div>
+   <div style="margin-top:22px;display:inline-block;font-size:22px;font-weight:800;letter-spacing:2px;color:#062b14;background:#34c759;border-radius:12px;padding:6px 14px">FAOL</div></div>`).join('')}
+ ${dots(4)}${swipe(4)}`,
+5:`${bg('#1F6FD6','#22C7A9','#2AABEE')}${brand}<div class="tag">QANDAY?</div>
+ <div class="k" style="top:200px;color:#9FE0FF">3 QADAM</div>
+ <div class="h" style="top:250px;font-size:130px">Olish <span class="blue">oson.</span></div>
+ ${row(480,'086','Botga kiring','@StarsFuelApp','','')}
+ ${row(650,'092',"Tanlang va to'lang",'Karta orqali, aniq summani','','')}
+ ${row(820,'042','Tayyor','Bot to\'lovni avtomatik aniqlaydi','','')}
+ <div class="pill glass" style="top:1010px;background:#2AABEE;border-color:rgba(255,255,255,.35)">${ICI('086',76)}@StarsFuelApp</div>
+ ${dots(5)}${swipe(5,true)}`
+};
+document.getElementById('root').innerHTML=`<div class="s">${S[N]}</div>`;
+// Premium slide: page dots + swipe live at the bottom-left/right under the 12-month row
+if(N===3){document.querySelector('.s').insertAdjacentHTML('beforeend',dots(3)+swipe(3))}
+const F=+(Q.get('f')||59);
+const els=[...document.querySelectorAll('[data-ic]')];let left=els.length;
+window.ready=left===0;
+els.forEach(el=>{const a=lottie.loadAnimation({container:el,renderer:'svg',loop:false,autoplay:false,path:'../tg_icons/ios/json/'+el.dataset.ic+'.json'});
+ a.addEventListener('DOMLoaded',()=>{a.goToAndStop(F,true);if(--left===0)window.ready=true;});});
+</script></body></html>

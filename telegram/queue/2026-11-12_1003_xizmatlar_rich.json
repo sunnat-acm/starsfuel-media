@@ -1,0 +1,49 @@
+{
+ "send_at": "2026-11-12T10:03:00+05:00",
+ "type": "rich",
+ "media": [
+  "carousel_xizmatlar/1.jpg",
+  "carousel_xizmatlar/2.jpg",
+  "carousel_xizmatlar/3.jpg",
+  "carousel_xizmatlar/4.jpg",
+  "carousel_xizmatlar/5.jpg"
+ ],
+ "html": "<h2>Faqat Stars emas — hammasi faol ✅</h2><tg-slideshow><img src=\"tg://photo?id=s1\"/><img src=\"tg://photo?id=s2\"/><img src=\"tg://photo?id=s3\"/><img src=\"tg://photo?id=s4\"/><img src=\"tg://photo?id=s5\"/><figcaption>Suring → 5 ta slayd</figcaption></tg-slideshow><blockquote>📱 Telegram raqam — <b>10 000 so'm</b><br>💎 Premium: 1 oy <b>45 000</b> · 3 oy <b>190 000</b> · 6 oy <b>250 000</b> · 12 oy <b>400 000 so'm</b><br>🎁 Gift va 🖼 NFT — faol</blockquote><tg-button-row align=\"center\"><tg-button type=\"url\" style=\"success\" url=\"https://t.me/StarsFuelApp?start=true\">📱 Raqam olish</tg-button></tg-button-row><tg-button-row align=\"center\"><tg-button type=\"url\" style=\"success\" url=\"https://t.me/StarsFuelApp?start=true\">💎 Premium</tg-button></tg-button-row><tg-button-row align=\"center\"><tg-button type=\"url\" style=\"success\" url=\"https://t.me/StarsFuelApp?start=true\">🎁 Gift yuborish</tg-button></tg-button-row><tg-button-row align=\"center\"><tg-button type=\"url\" style=\"success\" url=\"https://t.me/StarsFuelApp?start=true\">🖼 NFT</tg-button></tg-button-row>",
+ "fallback": {
+  "type": "album",
+  "media": [
+   "carousel_xizmatlar/1.jpg",
+   "carousel_xizmatlar/2.jpg",
+   "carousel_xizmatlar/3.jpg",
+   "carousel_xizmatlar/4.jpg",
+   "carousel_xizmatlar/5.jpg"
+  ],
+  "text": "<b>Faqat Stars emas — hammasi faol ✅</b>\n<blockquote>📱 Telegram raqam — 10 000 so'm\n💎 Premium: 1 oy 45 000 · 3 oy 190 000 · 6 oy 250 000 · 12 oy 400 000 so'm\n🎁 Gift va 🖼 NFT — faol</blockquote>",
+  "buttons": [
+   [
+    {
+     "text": "📱 Raqam olish",
+     "url": "https://t.me/StarsFuelApp?start=true"
+    }
+   ],
+   [
+    {
+     "text": "💎 Premium",
+     "url": "https://t.me/StarsFuelApp?start=true"
+    }
+   ],
+   [
+    {
+     "text": "🎁 Gift yuborish",
+     "url": "https://t.me/StarsFuelApp?start=true"
+    }
+   ],
+   [
+    {
+     "text": "🖼 NFT",
+     "url": "https://t.me/StarsFuelApp?start=true"
+    }
+   ]
+  ]
+ }
+}
