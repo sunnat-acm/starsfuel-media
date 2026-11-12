@@ -1,0 +1,22 @@
+{
+ "send_at": "2026-11-12T14:21:00+05:00",
+ "type": "photo",
+ "media": [
+  "banners/banner_balans.jpg"
+ ],
+ "text": "<b>✅ Balans to'ldirildi!</b>\n<blockquote>⭐ Botga Stars to'ldirildi\n🎁 Gift balansi ham to'ldirildi</blockquote>\nBemalol xarid qilishingiz mumkin 👇",
+ "buttons": [
+  [
+   {
+    "text": "⭐ Stars xarid qilish",
+    "url": "https://t.me/StarsFuelApp?start=true"
+   }
+  ],
+  [
+   {
+    "text": "🎁 Gift yuborish",
+    "url": "https://t.me/StarsFuelApp?start=true"
+   }
+  ]
+ ]
+}
