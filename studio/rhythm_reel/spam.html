@@ -1,0 +1,146 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:I;font-weight:500;src:url(../slides/inter-latin-500-normal.woff2)}
+@font-face{font-family:I;font-weight:600;src:url(../slides/inter-latin-600-normal.woff2)}
+@font-face{font-family:I;font-weight:700;src:url(../slides/inter-latin-700-normal.woff2)}
+@font-face{font-family:I;font-weight:800;src:url(../slides/inter-latin-800-normal.woff2)}
+@font-face{font-family:I;font-weight:900;src:url(../slides/inter-latin-900-normal.woff2)}
+@font-face{font-family:M;font-weight:400;src:url(../poster/space-mono-latin-400-normal.woff2)}
+html,body{margin:0;background:#000}*{box-sizing:border-box}
+#v{position:relative;width:1080px;height:1920px;background:#000;overflow:hidden;font-family:I;color:#111}
+.wm{position:absolute;top:150px;font:600 22px I;color:#8a8a8a;letter-spacing:.2px}
+#hdr{position:absolute;left:0;right:0;top:500px;text-align:center;font-weight:800;font-size:52px;line-height:1.16;letter-spacing:-.5px}
+#hdr .r{color:#FF3B30}#hdr .w{color:#fff}
+#card{position:absolute;left:30px;top:672px;width:1020px;height:574px;border-radius:28px;background:#fff;overflow:hidden}
+.ab{position:absolute}
+.cap{position:absolute;left:0;right:0;top:34px;text-align:center;font-weight:600;font-size:30px;letter-spacing:-.4px}
+.term{background:#1c1c1e;border-radius:18px;color:#e9e9ea;font-family:M;box-shadow:0 18px 40px rgba(0,0,0,.18)}
+.term .bar{height:34px;display:flex;align-items:center;gap:8px;padding-left:16px}
+.term .bar i{width:11px;height:11px;border-radius:50%;display:block}
+.pill{border-radius:999px;display:inline-flex;align-items:center;gap:10px}
+img.i{position:absolute;display:block}
+.num{font-weight:800;letter-spacing:-2px}
+.chk{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+</style></head><body>
+<div id="v">
+ <div class="wm" style="left:40px">starsfuelapp</div><div class="wm" id="tm" style="right:40px">0:24</div>
+ <div id="hdr"><div class="r">Spam bo'lib qoldingizmi?</div><div class="w">Tayyor akkaunt bor. Donat ham faol.</div></div>
+ <div id="card"></div>
+ <div id="intro" style="position:absolute;inset:0;overflow:hidden"></div>
+</div>
+<script>
+
+const D=18.7;
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const eo=x=>x>=1?1:1-Math.pow(2,-10*x);          // expo out
+const e3=x=>1-Math.pow(1-x,3);
+const io=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const L=(a,b,x)=>a+(b-a)*x;
+const fmt=n=>Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+const IMG=n=>`icons/${n}.png`;
+const ic=(n,x,y,s,extra='')=>`<img class="i" src="${IMG(n)}" style="left:${x}px;top:${y}px;width:${s}px;height:${s}px;${extra}">`;
+// caption with grey->ink word reveal
+function cap(text,t,t0,dur=.5,top=34,size=30){const w=text.split(' ');const n=w.length;
+ return `<div class="cap" style="top:${top}px;font-size:${size}px">`+w.map((x,i)=>{const k=eo(P(t,t0+i*dur/n,t0+i*dur/n+.18));const c=Math.round(L(205,17,k));return `<span style="color:rgb(${c},${c},${c});opacity:${L(.0,1,cl(k*3))}">${x}</span>`}).join(' ')+'</div>'}
+function rng(s){return()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const ALL=['ios_093','ios_077','ios_070','ios_094','ios_044','ios_086','ios_092','ios_042','ios_005','ios_100','ios_071','ios_064','ios_006','ios_090','ios_058','ios_061','ios_078','ios_079','ios_003','status_031','android_002','android_009','android_441','android_514','android_444','android_434','android_435','android_243','android_320'];
+const COLOR=ALL.filter(x=>x.startsWith('ios')||x.startsWith('status'));
+const LOGO='../../brand/logo_terracotta.svg';
+
+
+const BT=.6,DN=24,SH='../slides/shots/';
+const FL=c=>`<img src="flags/${c}.png" style="width:54px;height:54px;display:block">`;
+const sum=(k,x)=>`opacity:${k};transform:translateY(${L(18,0,k)}px);${x||''}`;
+function intro(t){
+ const s1=eo(P(t,.1,.38)),s2=eo(P(t,1.2,1.46));const k=P(t,1.2,1.8);const a=(1-k)*24;const [x1,y1]=k>0&&k<1?[a*Math.sin(t*95),a*Math.cos(t*73)]:[0,0];
+ const flash=t>=1.2&&t<1.32?1-(t-1.2)/.12:0;const q=eo(P(t,1.8,2.05));const out=io(P(t,2.15,2.4));
+ const glow=.3+.4*eo(P(t,1.2,1.6))-.25*P(t,1.6,2.3);
+ const word=(w,top,size,k,c)=>`<div style="position:absolute;left:0;right:0;top:${top}px;text-align:center;font:900 ${size}px I;letter-spacing:-${size*.05}px;line-height:1;opacity:${k>0?1:0};transform:scale(${L(1.9,1,k)});filter:blur(${L(18,0,k)}px)">
+   <span style="position:absolute;left:0;right:0;color:#FF3B30;transform:translate(${L(24,5,k)}px,0);opacity:.85;mix-blend-mode:screen">${w}</span>
+   <span style="position:absolute;left:0;right:0;color:#2AABEE;transform:translate(${L(-24,-5,k)}px,0);opacity:.7;mix-blend-mode:screen">${w}</span>
+   <span style="position:relative;color:${c}">${w}</span></div>`;
+ return `<div style="position:absolute;inset:0;background:radial-gradient(70% 45% at 50% 48%,rgba(255,59,48,${glow}),#000 70%)"></div>
+  <div style="position:absolute;inset:0;transform:translate(${x1}px,${y1}px) scale(${L(1,1.6,out)});opacity:${1-out};filter:blur(${out*20}px)">
+   ${word('SPAM',540,340,s1,'#fff')}${word("BO'LDINGIZMI?",905,124,s2,'#fff')}
+   <div style="position:absolute;left:0;right:0;top:1130px;text-align:center;opacity:${q};transform:translateY(${L(30,0,q)}px)"><span style="display:inline-flex;align-items:center;gap:14px;background:#34c759;color:#fff;font:900 58px I;padding:14px 44px;border-radius:999px">Yechim bor!</span></div>
+  </div><div style="position:absolute;inset:0;background:#fff;opacity:${flash}"></div>`}
+const S=[
+// A blocked
+[3,(t,s)=>{const M=['Salom! Narxi qancha?','Buyurtma bermoqchi edim','Javob bering iltimos'];const b=eo(P(t,s+.95,s+1.25));
+ return cap("Xabar yuborib bo'lmayaptimi?",t,s,.45)+`<div class="ab" style="left:120px;top:100px;width:780px;height:440px;border-radius:22px;background:#EEF3F8;overflow:hidden">`+
+ M.map((m,i)=>{const k=eo(P(t,s+.2+i*.18,s+.45+i*.18));return `<div style="position:absolute;right:70px;top:${40+i*92}px;background:#E1FEC6;border-radius:18px 18px 4px 18px;padding:14px 20px;font:600 24px I;${sum(k)}">${m}</div>
+  <div style="position:absolute;right:20px;top:${50+i*92}px;width:36px;height:36px;border-radius:50%;background:#FF3B30;color:#fff;font:900 22px I;display:flex;align-items:center;justify-content:center;opacity:${k};transform:scale(${L(.3,1,k)})">!</div>`}).join('')+
+ `<div style="position:absolute;left:40px;right:40px;bottom:30px;height:100px;border-radius:20px;background:#fff;box-shadow:0 14px 30px rgba(0,0,0,.14);display:flex;align-items:center;gap:18px;padding:0 22px;opacity:${b};transform:scale(${L(.85,1,b)})">
+  <img src="${IMG('ios_052')}" style="width:64px"><div><div style="font:800 26px I;color:#FF3B30">Akkaunt cheklangan</div><div style="font:500 19px I;color:#888">Spam sababli xabar yuborilmaydi</div></div></div></div>`}],
+// B solution
+[3,(t,s)=>{const a=eo(P(t,s+.1,s+.45));const W=["Tayyor","Telegram","akkaunt"];
+ const w=W.map((x,i)=>{const k=eo(P(t,s+.3+i*.16,s+.55+i*.16));return `<span style="opacity:${k};display:inline-block;transform:translateY(${L(10,0,k)}px);margin-right:14px">${x}</span>`}).join('');const p=eo(P(t,s+.95,s+1.2));
+ return cap("Yechim oddiy.",t,s,.3)+`<div class="ab" style="left:90px;top:125px;width:300px;height:360px;border-radius:24px;background:linear-gradient(150deg,#4BE3C4,#14A88C);opacity:${a};transform:scale(${L(.9,1,a)})">${ic('ios_044',60,90,180)}</div>
+ <div class="ab" style="left:450px;top:170px;width:520px;font:800 56px I;letter-spacing:-1px;line-height:1.12">${w}</div>
+ <div class="ab num" style="left:450px;top:340px;font-size:90px;opacity:${p}">10 000<span style="font-size:32px;font-weight:700;letter-spacing:0;margin-left:10px;color:#888">so'm</span></div>`}],
+// C countries
+[3,(t,s)=>{const C=[['1f1fa-1f1f8','AQSh'],['1f1e7-1f1e9','Bangladesh'],['1f1e8-1f1f4','Kolumbiya'],['1f1f3-1f1ec','Nigeriya'],['1f1ea-1f1f9','Efiopiya'],['1f1ee-1f1e9','Indoneziya']];
+ return cap("Turli davlat raqamlari.",t,s,.35)+C.map(([f,n],i)=>{const k=eo(P(t,s+.15+i*.09,s+.45+i*.09));
+  return `<div class="ab" style="left:${70+(i%2)*450}px;top:${115+Math.floor(i/2)*140}px;width:430px;height:118px;border-radius:20px;background:#f6f6f8;display:flex;align-items:center;gap:18px;padding:0 24px;${sum(k)}">${FL(f)}<div style="flex:1;font:800 30px I">${n}</div><div style="font:700 18px I;color:#1f9a52;background:#e3f6ea;border-radius:10px;padding:6px 12px">mavjud</div></div>`}).join('')}],
+// D steps
+[3,(t,s)=>{const R=[['ios_092','Sotib oling','Bot ichida'],['ios_003','SMS kodni oling',"Shu sahifada"],['ios_042','Kiring','Akkaunt tayyor']];const ln=eo(P(t,s+.3,s+1.2));const n=eo(P(t,s+1.1,s+1.35));
+ return cap("3 qadamda tayyor.",t,s,.35)+`<div class="ab" style="left:190px;top:215px;width:${640*ln}px;height:5px;border-radius:3px;background:#22b35a"></div>`+
+ R.map(([i2,a,b],i)=>{const k=eo(P(t,s+.2+i*.28,s+.5+i*.28));return `<div class="ab" style="left:${60+i*320}px;top:140px;width:260px;text-align:center;${sum(k)}">
+  <div style="width:150px;height:150px;margin:0 auto;border-radius:38px;background:#fff;box-shadow:0 14px 30px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center"><img src="${IMG(i2)}" style="width:104px"></div>
+  <div style="margin-top:22px;font:800 30px I">${i+1}. ${a}</div><div style="margin-top:4px;font:500 20px I;color:#888">${b}</div></div>`}).join('')+
+ `<div class="ab pill" style="left:50%;top:470px;transform:translateX(-50%);background:#FFF4DC;color:#9a6200;font:700 20px I;padding:10px 22px;white-space:nowrap;opacity:${n}">SMS kod 1 marta beriladi — sahifadan chiqib ketmang</div>`}],
+// E real app: accounts
+[4,(t,s)=>{const y=L(-170,-890,io(P(t,s+.4,s+2.2)));const k=eo(P(t,s+.3,s+.6));
+ return `<div class="ab" style="inset:0;background:#141416"></div><img class="ab" src="${SH}account.png" style="left:130px;top:${y}px;width:760px">
+ <div class="ab pill" style="left:36px;top:36px;background:#34c759;color:#fff;font:800 22px I;padding:10px 20px;opacity:${k}">Real ilova</div>`}],
+// F UC?
+[2,(t,s)=>{const k=eo(P(t,s,s+.3)),k2=eo(P(t,s+.35,s+.6));
+ return `<div class="ab" style="inset:0;background:radial-gradient(80% 90% at 50% 60%,#2b2d42,#0d0e16)"></div>
+ <div class="ab" style="left:0;right:0;top:140px;text-align:center;white-space:nowrap;font:900 160px I;letter-spacing:-7px;color:#FFC93C;transform:scale(${L(1.5,1,k)});opacity:${k}">UC kerakmi?</div>
+ <div class="ab" style="left:0;right:0;top:390px;text-align:center;font:800 54px I;color:#fff;opacity:${k2}">Almaz? &nbsp;Diamond?</div>`}],
+// G games
+[3,(t,s)=>{const C=[['PUBG Mobile','UC','linear-gradient(145deg,#3a3f5c,#12131c)','<div style="font:900 120px I;color:#FFC93C;letter-spacing:-6px">UC</div>'],['Free Fire','Almaz','linear-gradient(145deg,#ff8a3d,#c2410c)',`<img src="${IMG('android_441')}" style="width:130px">`],['MLBB','Diamond','linear-gradient(145deg,#5CC8FF,#1E4FE0)',`<img src="${IMG('ios_094')}" style="width:130px">`]];
+ return cap("O'yinlarga donat — faol.",t,s,.35)+C.map(([g,u,bg,vis],i)=>{const k=eo(P(t,s+.15+i*.14,s+.5+i*.14));
+  return `<div class="ab" style="left:${45+i*318}px;top:${L(170,115,k)}px;width:296px;height:410px;border-radius:26px;background:${bg};opacity:${k};overflow:hidden;padding:26px;color:#fff">
+   <div style="font:700 24px I;opacity:.8">${g}</div><div style="margin-top:36px;height:150px;display:flex;align-items:center;justify-content:center">${vis}</div>
+   <div style="margin-top:44px;display:flex;justify-content:space-between;align-items:center"><span style="font:800 30px I">${u}</span><span class="pill" style="background:#34c759;font:700 18px I;padding:6px 14px">faol</span></div></div>`}).join('')}],
+// H MLBB prices
+[4,(t,s)=>{const R=[['55 Diamond 2x',9967],['78+8 Diamond',15716],['165 Diamond 2x',29872],['275 Diamond 2x',47927]];
+ return cap("MLBB — UZ / Global narxlari.",t,s,.4)+R.map(([n,v],i)=>{const k=eo(P(t,s+.2+i*.14,s+.5+i*.14));
+  return `<div class="ab" style="left:150px;top:${105+i*110}px;width:720px;height:94px;border-radius:18px;background:#f6f6f8;display:flex;align-items:center;gap:18px;padding:0 26px 0 18px;${sum(k)}">
+   <img src="${IMG('ios_094')}" style="width:60px"><div style="flex:1;font:800 28px I">${n}</div><div class="num" style="font-size:38px;letter-spacing:-1px">${fmt(v*eo(P(t,s+.2+i*.14,s+1.2+i*.1)))}<span style="font:700 20px I;color:#888;letter-spacing:0;margin-left:6px">so'm</span></div></div>`}).join('')}],
+// I real app: games
+[4,(t,s)=>{const y=L(-420,-770,io(P(t,s+.4,s+2.2)));const k=eo(P(t,s+.3,s+.6));
+ return `<div class="ab" style="inset:0;background:#141416"></div><img class="ab" src="${SH}games.png" style="left:60px;top:${y}px;width:900px">
+ <div class="ab pill" style="left:36px;top:36px;background:#34c759;color:#fff;font:800 22px I;padding:10px 20px;opacity:${k}">Real ilova</div>`}],
+// J flash
+[2,(t,s)=>{const k=eo(P(t,s,s+.4));
+ return `<div class="ab" style="inset:0;background:radial-gradient(80% 90% at 50% 60%,#5BE584,#22b35a 55%,#0c6b30)"></div>
+ <div class="ab" style="left:0;right:0;top:${L(150,130,k)}px;text-align:center;font:900 210px I;letter-spacing:-9px;color:#fff;transform:scale(${L(1.3,1,k)})">TAYYOR!</div>
+ <div class="ab" style="left:0;right:0;top:400px;text-align:center;font:800 38px I;color:#fff;opacity:.92">Akkaunt · UC · Almaz · Diamond</div>`}],
+// K end
+[5,(t,s)=>{const k=eo(P(t,s,s+.6));const b=eo(P(t,s+.5,s+1));const I2=['ios_044','ios_094','ios_093','ios_077','ios_070'];
+ return `<div class="ab" style="left:0;right:0;top:100px;text-align:center;opacity:${k}"><img src="${LOGO}" style="width:56px"></div>
+ <div class="ab" style="left:0;right:0;top:170px;text-align:center;font:900 170px I;letter-spacing:-9px;line-height:1;transform:scale(${L(1.08,1,k)});
+  background:linear-gradient(120deg,#FFB800,#FF6A00 35%,#B44BFF 70%,#2AABEE);-webkit-background-clip:text;background-clip:text;color:transparent">StarsFuel</div>
+ <div class="ab" style="left:0;right:0;top:370px;text-align:center;font:600 26px I;color:#333;opacity:${b}">hammasi faol: ${I2.map(n=>`<img src="${IMG(n)}" style="width:36px;vertical-align:-10px;margin:0 3px">`).join('')}</div>
+ <div class="ab pill" style="left:50%;top:440px;transform:translateX(-50%) translateY(${L(12,0,b)}px);opacity:${b};background:#111;color:#fff;font:800 26px I;padding:14px 30px">@StarsFuelApp →</div>`}],
+];
+const NB=[];{let b=4;S.forEach(x=>{NB.push([b*BT,(b+x[0])*BT]);b+=x[0]})}
+window.seek=t=>{
+ const card=document.getElementById('card'),hdr=document.getElementById('hdr'),it=document.getElementById('intro');
+ const inK=eo(P(t,2.3,2.75));it.innerHTML=t<2.42?intro(t):'';
+ const k=NB.findIndex(x=>t>=x[0]&&t<x[1]);let h='';
+ if(k>=0){const [A,Bn]=NB[k];const en=eo(P(t,A,A+.34)),ex=k<S.length-1?e3(P(t,Bn-.16,Bn)):0;const fl=k==5||k==9;
+  const tr=fl?`scale(${L(1.14,1,en)})`:`translateX(${L(54,0,en)-ex*40}px)`;
+  h=`<div style="position:absolute;inset:0;opacity:${Math.min(1,en*1.6)*(1-ex)};transform:${tr};filter:blur(${(1-en)*7+ex*5}px)">${S[k][1](t,A)}</div>`}
+ card.innerHTML=h;const blur=P(t,DN-.3,DN);
+ card.style.opacity=t<2.32?0:1;card.style.transform=`scale(${L(.92,1,inK)})`;card.style.filter=blur>0?`blur(${blur*14}px)`:'none';
+ hdr.style.opacity=t<2.3?0:inK*(1-blur);hdr.style.transform=`translateY(${L(-30,0,inK)}px)`;
+ document.querySelectorAll('.wm').forEach(e=>e.style.opacity=t<2.3?0:1);
+ document.getElementById('tm').textContent='0:'+String(Math.max(1,Math.ceil(DN-t))).padStart(2,'0');
+};
+const imgs=[...ALL,'ios_052','ios_003','ios_042','ios_092','android_441'].map(IMG).concat([SH+'account.png',SH+'games.png',LOGO],['1f1fa-1f1f8','1f1e7-1f1e9','1f1e8-1f1f4','1f1f3-1f1ec','1f1ea-1f1f9','1f1ee-1f1e9'].map(c=>'flags/'+c+'.png'));
+Promise.all([document.fonts.ready,...imgs.map(n=>new Promise(r=>{const im=new Image();im.onload=im.onerror=r;im.src=n}))]).then(()=>{seek(0);window.ready=true});
+</script></body></html>
