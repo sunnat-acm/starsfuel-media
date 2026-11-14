@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:I;font-weight:500;src:url(inter-latin-500-normal.woff2)}
+@font-face{font-family:I;font-weight:600;src:url(inter-latin-600-normal.woff2)}
+@font-face{font-family:I;font-weight:700;src:url(inter-latin-700-normal.woff2)}
+@font-face{font-family:I;font-weight:800;src:url(inter-latin-800-normal.woff2)}
+@font-face{font-family:I;font-weight:900;src:url(inter-latin-900-normal.woff2)}
+html,body{margin:0}*{box-sizing:border-box}
+.s{position:relative;width:1080px;height:1350px;overflow:hidden;background:#07090c;font-family:I;color:#fff}
+.strip{position:absolute;left:-40px;top:-10px;width:1200px;height:150px;background:#B06750;display:flex;align-items:center;font:900 150px I;letter-spacing:-7px;white-space:nowrap;padding-left:60px;color:#FBF4EE}
+.ghost{position:absolute;font:900 190px I;letter-spacing:-9px;color:#14181d;white-space:nowrap}
+.card{position:absolute;left:56px;top:96px;width:968px;height:1200px;border-radius:64px;background:#0d1014;box-shadow:0 40px 100px rgba(0,0,0,.7);padding:58px}
+.icon{position:absolute;left:58px;top:58px;width:196px;height:196px;border-radius:46px;background:linear-gradient(160deg,#C97A60,#8E4A37);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 3px 0 rgba(255,255,255,.25)}
+.ttl{position:absolute;left:290px;top:62px;font:800 58px I;letter-spacing:-2px;line-height:1.1}
+.dev{position:absolute;left:290px;top:204px;font:600 38px I;color:#8a9099}
+.stats{position:absolute;left:58px;right:58px;top:300px;display:flex;align-items:center}
+.stats>div{flex:1;text-align:center}.stats b{display:block;font:800 46px I;letter-spacing:-1px;white-space:nowrap}.stats span{font:500 34px I;color:#8a9099}
+.stats i{flex:none;width:2px;height:96px;background:#2a3038}
+.p{position:absolute;top:450px;width:414px;height:692px;border-radius:46px;overflow:hidden}
+.p img{position:absolute;left:27px;width:360px;filter:drop-shadow(0 20px 30px rgba(0,0,0,.35))}
+.btn{position:absolute;left:10px;right:10px;bottom:10px;height:96px;border-radius:48px;background:#B06750;display:flex;align-items:center;justify-content:center;font:800 40px I;box-shadow:0 -30px 50px 20px rgba(13,16,20,.55)}
+.hd{position:absolute;left:0;right:0;top:34px;text-align:center;font:900 54px I;letter-spacing:-2px;line-height:1.05;color:#3A1F16}
+.sb{position:absolute;left:0;right:0;top:158px;text-align:center;font:700 23px I;color:#3A1F16;opacity:.8}
+</style></head><body><div class="s">
+ <div class="strip">2 000 000+ Stars sotildi</div>
+ <div class="ghost" style="left:-60px;top:330px">Stars</div><div class="ghost" style="right:-90px;top:760px">Gift</div><div class="ghost" style="left:-40px;top:1130px">Premium</div>
+ <div class="card">
+  <div class="icon"><img src="../../brand/logo.svg" style="width:140px"></div>
+  <div class="ttl">StarsFuel — Stars,<br>Premium, Gift, Raqam</div>
+  <div class="dev">@StarsFuelApp</div>
+  <div class="stats"><div><b>2 000 000+ ★</b><span>Stars sotildi</span></div><i></i><div><b>Telegram</b><span>Mini ilova</span></div></div>
+  <div class="p" style="left:58px;background:linear-gradient(135deg,#F2B544 0 50%,#E39A1E 50%)">
+   <img src="shots/account.png" style="top:36px">
+   <div class="btn">Raqam olish</div></div>
+  <div class="p" style="left:496px;background:#E8A98F">
+   <div class="hd">O'yinlarga<br>donat</div><div class="sb">UC · Almaz · MLBB Diamond</div>
+   <img src="shots/games.png" style="top:214px"></div>
+ </div>
+</div>
+<script>Promise.all([document.fonts.ready,...[...document.images].map(im=>im.complete?1:new Promise(r=>{im.onload=im.onerror=r}))]).then(()=>window.ready=true)</script>
+</body></html>
