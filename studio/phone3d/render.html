@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script></head><body>
+<script type="module">
+import * as THREE from 'three';import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';import {DRACOLoader} from 'three/addons/loaders/DRACOLoader.js';import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+const P=new URLSearchParams(location.search),W=+(P.get('w')||800),H=+(P.get('h')||1400);
+const r=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});r.setClearColor(0,0);
+r.setPixelRatio(1);r.setSize(W,H);r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;r.toneMappingExposure=1.05;document.body.appendChild(r.domElement);
+const scene=new THREE.Scene();scene.environment=new THREE.PMREMGenerator(r).fromScene(new RoomEnvironment(),0.04).texture;
+const cam=new THREE.PerspectiveCamera(26,W/H,0.1,100);
+const key=new THREE.DirectionalLight(0xffe2c8,2.2);key.position.set(-3,4,5);scene.add(key);const rim=new THREE.DirectionalLight(0xffb070,3);rim.position.set(4,1,-3);scene.add(rim);
+const gl=new GLTFLoader().setDRACOLoader(new DRACOLoader().setDecoderPath('node_modules/three/examples/jsm/libs/draco/gltf/'));
+gl.load('phone.glb',g=>{const m=g.scene;new THREE.TextureLoader().load(P.get('img'),t=>{t.flipY=true;t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=8;
+ m.traverse(o=>{if(o.isMesh&&o.material.name==='pIJKfZsazmcpEiU')o.material=new THREE.MeshBasicMaterial({map:t,toneMapped:false})});
+ const box=new THREE.Box3().setFromObject(m),sz=box.getSize(new THREE.Vector3()),c=box.getCenter(new THREE.Vector3());m.position.sub(c);
+ const piv=new THREE.Group();piv.add(m);piv.scale.setScalar(2/sz.y);piv.rotation.set(+(P.get('rx')||0),+(P.get('ry')||3.14),+(P.get('rz')||0));scene.add(piv);
+ cam.position.set(0,0,+(P.get('d')||5.6));cam.lookAt(0,0,0);r.render(scene,cam);window.ready=true})});
+</script></body></html>
