@@ -1,0 +1,29 @@
+{
+ "send_at": "2026-11-15T20:38:00+05:00",
+ "type": "rich",
+ "media": [
+  "banners/stars_uz.jpg",
+  "banners/stars_ru.jpg"
+ ],
+ "html": "<tg-slideshow><img src=\"tg://photo?id=s1\"/><img src=\"tg://photo?id=s2\"/></tg-slideshow><h2>⭐ Stars kerakmi?</h2><p><b>@StarsFuelApp</b> dan oling.</p><blockquote>50 Stars — <b>11 ming so'm</b><br>Qulay • tez • ishonchli</blockquote><tg-button-row align=\"center\"><tg-button type=\"url\" style=\"success\" url=\"https://t.me/StarsFuelApp?start=true\">⭐ Stars xarid qilish</tg-button><tg-button type=\"url\" style=\"primary\" url=\"https://t.me/StarsFuelApp?start=true\">💎 Premium xarid qilish</tg-button></tg-button-row><footer>3D model: polyman / Sketchfab (CC BY)</footer>",
+ "fallback": {
+  "type": "album",
+  "media": [
+   "banners/stars_uz.jpg",
+   "banners/stars_ru.jpg"
+  ],
+  "text": "<b>⭐ Stars kerakmi?</b>\n@StarsFuelApp dan oling.\n<blockquote>50 Stars — 11 ming so'm\nQulay • tez • ishonchli</blockquote>",
+  "buttons": [
+   [
+    {
+     "text": "⭐ Stars xarid qilish",
+     "url": "https://t.me/StarsFuelApp?start=true"
+    },
+    {
+     "text": "💎 Premium xarid qilish",
+     "url": "https://t.me/StarsFuelApp?start=true"
+    }
+   ]
+  ]
+ }
+}
