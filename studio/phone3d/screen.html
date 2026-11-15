@@ -20,12 +20,12 @@ const Q=new URLSearchParams(location.search),k=Q.get('kind'),ru=Q.get('lang')=='
 const app=`<div class="app"><i><img src="${L}" style="width:46px"></i><div><b>StarsFuel</b><small>@StarsFuelApp</small></div></div>`;
 const s=document.getElementById('s');
 if(k=='buy'){s.className='s lt';s.innerHTML=app+`<div class="h"><img src="${IC}ios_093.png">Telegram Stars</div>
- <div class="bx"><small>${ru?'Количество':'Miqdor'}</small><b>100 <img src="${IC}ios_093.png" style="width:60px"></b></div>
- <div class="ch"><span>50</span><span class="on">100</span><span>500</span><span>1000</span></div>
+ <div class="bx"><small>${ru?'Количество':'Miqdor'}</small><b>50 <img src="${IC}ios_093.png" style="width:60px"></b></div>
+ <div class="ch"><span class="on">50</span><span>100</span><span>500</span><span>1000</span></div>
  <div class="bx"><small>${ru?'Кому':'Kimga'}</small><b style="font:800 40px I;letter-spacing:0;color:#8b8478">@username</b></div>
- <div class="bx"><small>${ru?'К оплате':"To'lov"}</small><b>22 000 <span style="font:700 34px I;letter-spacing:0;color:#8b8478">${ru?'сум':"so'm"}</span></b></div>
+ <div class="bx"><small>${ru?'К оплате':"To'lov"}</small><b>11 000 <span style="font:700 34px I;letter-spacing:0;color:#8b8478">${ru?'сум':"so'm"}</span></b></div>
  <div class="btn">${ru?'Купить Stars':'Stars sotib olish'}</div>`}
-else{s.className='s dk';s.innerHTML=app+`<div class="ok"><img src="${IC}ios_093.png"><b>+100</b><em>Telegram Stars</em><small>${ru?'Заказ принят':'Buyurtma qabul qilindi'}</small></div>
- <div class="dt"><div>${ru?'Кому':'Kimga'}<b>@username</b></div><div>${ru?'Оплачено':"To'landi"}<b>22 000 ${ru?'сум':"so'm"}</b></div><div>${ru?'Оплата':"To'lov"}<b>${ru?'картой':'karta orqali'}</b></div></div>`}
+else{s.className='s dk';s.innerHTML=app+`<div class="ok"><img src="${IC}ios_093.png"><b>+50</b><em>Telegram Stars</em><small>${ru?'Заказ принят':'Buyurtma qabul qilindi'}</small></div>
+ <div class="dt"><div>${ru?'Кому':'Kimga'}<b>@username</b></div><div>${ru?'Оплачено':"To'landi"}<b>11 000 ${ru?'сум':"so'm"}</b></div><div>${ru?'Оплата':"To'lov"}<b>${ru?'картой':'karta orqali'}</b></div></div>`}
 Promise.all([document.fonts.ready,...W.map(w=>document.fonts.load(`${w} 20px I`,'aЯ')),...[...document.images].map(im=>im.complete?1:new Promise(r=>{im.onload=im.onerror=r}))]).then(()=>window.ready=true);
 </script></body></html>

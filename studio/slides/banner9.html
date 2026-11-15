@@ -7,11 +7,11 @@ html,body{margin:0}*{box-sizing:border-box}
 .g{position:absolute;border-radius:50%;filter:blur(110px)}
 .a{position:absolute}
 .brand{left:72px;top:104px;display:flex;align-items:center;gap:12px;font:800 23px I;letter-spacing:2.5px}
-.h{left:72px;top:158px;font:900 68px I;letter-spacing:-3px;line-height:1.02;white-space:nowrap}
+.h{left:72px;top:158px;font:900 66px I;letter-spacing:-3px;line-height:1.02;white-space:nowrap}
 .h em{font-style:normal;color:#F2B544}
-.p{left:72px;top:380px;width:500px;font:500 20.5px I;line-height:1.45;color:rgba(255,255,255,.62)}.p b{color:#fff;font-weight:700}
+  .p{left:72px;top:378px;width:520px;font:600 36px I;letter-spacing:-1px;line-height:1.45;color:rgba(255,255,255,.62)}.p b{color:#fff;font-weight:900}
 .chips{left:72px;top:480px;display:flex;gap:8px}
-.chip{display:flex;align-items:center;gap:8px;height:44px;padding:0 15px 0 8px;border-radius:22px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);font:700 15.5px I;white-space:nowrap}
+.chip{display:flex;align-items:center;gap:9px;height:48px;padding:0 18px 0 9px;border-radius:24px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);font:800 18px I;white-space:nowrap}
 .chip img{width:25px}
 .cta{left:72px;top:552px;display:flex;align-items:center;gap:16px}
 .cta b{display:inline-flex;align-items:center;height:42px;padding:0 20px;border-radius:12px;background:#F2B544;color:#1d1300;font:800 17px I}
@@ -48,10 +48,10 @@ html,body{margin:0}*{box-sizing:border-box}
 <script>
 const W=[500,600,700,800,900];document.getElementById('ff').textContent=W.map(w=>`@font-face{font-family:I;font-weight:${w};src:url(inter-latin-${w}-normal.woff2)}@font-face{font-family:I;font-weight:${w};src:url(inter-cyrillic-${w}-normal.woff2);unicode-range:U+0400-04FF,U+2116}`).join('');
 const IC='../rhythm_reel/icons/',lang=new URLSearchParams(location.search).get('lang')||'uz';
-const T={uz:{h:"Stars tugadimi?<br><em>Karta bilan</em><br>to'ldiring",p:"Sovg'a yuboring, reaksiya bosing, botlarda to'lang. <b>100 Stars — 22 000 so'm.</b>",
-  chips:[['ios_070',"Sovg'alar"],['ios_005','Reaksiyalar'],['ios_086','Botlar'],['ios_003',"Do'stga"]],cb:"Stars olish: @StarsFuelApp",cs:"karta orqali to'lov",n1:"+100 Stars",n2:"@username",n3:"buyurtma qabul qilindi"},
- ru:{h:"Stars на нуле?<br><em>Пополните</em><br>картой",p:"Дарите подарки, ставьте реакции, платите в ботах. <b>100 Stars — 22 000 сум.</b>",
-  chips:[['ios_070','Подарки'],['ios_005','Реакции'],['ios_086','Боты'],['ios_003','Другу']],cb:"Купить Stars: @StarsFuelApp",cs:"оплата картой",n1:"+100 Stars",n2:"@username",n3:"заказ принят"}}[lang];
+const T={uz:{h:"Stars kerakmi?<br><em>@StarsFuelApp</em><br>dan oling",p:"<b>50 Stars</b> — <b>11 ming so'm</b>",
+  chips:[['ios_042','Qulay'],['ios_079','Tez'],['ios_006','Ishonchli']],cb:"Stars olish: @StarsFuelApp",cs:"karta orqali to'lov",n1:"+50 Stars",n2:"@username",n3:"buyurtma qabul qilindi"},
+ ru:{h:"Нужны Stars?<br>Берите в<br><em>@StarsFuelApp</em>",p:"<b>50 Stars</b> — <b>11 тысяч сум</b>",
+  chips:[['ios_042','Удобно'],['ios_079','Быстро'],['ios_006','Надёжно']],cb:"Купить Stars: @StarsFuelApp",cs:"оплата картой",n1:"+50 Stars",n2:"@username",n3:"заказ принят"}}[lang];
 const $=i=>document.getElementById(i);
 ['h','p','cb','cs','n1','n2','n3'].forEach(k=>$(k).innerHTML=T[k]);
 $('chips').innerHTML=T.chips.map(([i,n])=>`<div class="chip"><img src="${IC}${i}.png">${n}</div>`).join('');
