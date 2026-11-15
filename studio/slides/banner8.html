@@ -1,0 +1,72 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style id="ff"></style>
+<style>
+html,body{margin:0}*{box-sizing:border-box}
+.s{position:relative;width:1280px;height:640px;overflow:hidden;background:#060605;font-family:I;color:#fff}
+.grid{position:absolute;inset:0;opacity:.05;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(60% 70% at 70% 50%,#000,transparent)}
+.g{position:absolute;border-radius:50%;filter:blur(110px)}
+.a{position:absolute}
+.brand{left:72px;top:104px;display:flex;align-items:center;gap:12px;font:800 23px I;letter-spacing:2.5px}
+.h{left:72px;top:158px;font:900 66px I;letter-spacing:-3px;line-height:1.02;white-space:nowrap}
+.h em{font-style:normal;color:#F2B544}
+.p{left:72px;top:372px;width:520px;font:500 20.5px I;line-height:1.45;color:rgba(255,255,255,.62)}.p b{color:#fff;font-weight:700}
+.chips{left:72px;top:480px;display:flex;gap:8px}
+.chip{display:flex;align-items:center;gap:7px;height:42px;padding:0 13px 0 8px;border-radius:21px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);font:700 14.5px I;white-space:nowrap}
+.chip img{width:25px}
+.cta{left:72px;top:552px;display:flex;align-items:center;gap:16px}
+.cta b{display:inline-flex;align-items:center;height:42px;padding:0 20px;border-radius:12px;background:#F2B544;color:#1d1300;font:800 17px I}
+.cta span{font:500 17px I;color:rgba(255,255,255,.55)}
+.st{position:absolute;left:640px;top:0;width:640px;height:640px;perspective:1800px}
+.ph{position:absolute;width:340px;height:720px;border-radius:58px;padding:9px;background:linear-gradient(145deg,#8a8c91,#2a2b2e 40%,#9a9ca1);box-shadow:0 40px 70px rgba(0,0,0,.6);transform-origin:50% 50%}
+.sc{position:relative;width:100%;height:100%;border-radius:50px;background:#0c0c0e;overflow:hidden;padding:56px 18px 0;font:500 13px I;color:#fff}
+.sc.lt{background:#F3F1EC;color:#17130f}
+.is{position:absolute;left:50%;top:12px;width:96px;height:28px;margin-left:-48px;border-radius:14px;background:#000}
+.app{display:flex;align-items:center;gap:10px}.app i{width:40px;height:40px;border-radius:12px;background:linear-gradient(160deg,#C97A60,#8E4A37);display:flex;align-items:center;justify-content:center}
+.app b{display:block;font:800 16px I}.app small{font:500 11.5px I;opacity:.6}
+.rw{display:flex;align-items:center;gap:10px;margin-top:9px;border-radius:15px;background:#fff;border:1px solid #e6e2da;padding:10px 12px;font:700 14.5px I}
+.rw img{width:32px}.rw span{margin-left:auto;font:800 13.5px I;white-space:nowrap}.rw span.f{font:800 10.5px I;color:#0c6b30;background:#d8f5e1;border-radius:8px;padding:4px 8px}
+.okb{margin-top:74px;text-align:center}.okb b{display:block;font:800 21px I}.okb small{display:block;margin-top:6px;font:500 13px I;color:#9a9ca3}
+.dt{margin-top:26px;border-radius:18px;background:#17171a;border:1px solid #26272c;padding:14px 16px}
+.dt div{display:flex;justify-content:space-between;align-items:center;padding:7px 0;font:500 12.5px I;color:#9a9ca3}.dt div b{color:#fff;font:700 13px I}
+.dt .hd{color:#fff;font:700 14px I;border-bottom:1px solid #26272c;padding-bottom:10px;margin-bottom:4px}.dt .hd span{font:700 11px I;color:#5BE584;border:1px solid rgba(52,199,89,.5);border-radius:9px;padding:3px 8px}
+.nt{position:absolute;left:54px;top:418px;width:340px;height:96px;border-radius:24px;background:rgba(34,34,37,.96);border:1px solid rgba(255,255,255,.1);box-shadow:0 24px 50px rgba(0,0,0,.6);display:flex;align-items:center;gap:16px;padding:0 20px}
+.nt img{width:50px}.nt b{display:block;font:800 17.5px I}.nt em{display:block;font:700 15px ui-monospace,Menlo,monospace;font-style:normal;color:#F2B544;margin:3px 0}.nt small{font:500 13px I;color:#9a9ca3}
+</style></head><body><div class="s">
+ <div class="g" style="width:620px;height:620px;right:-160px;top:-200px;background:#B06750;opacity:.32"></div>
+ <div class="g" style="width:520px;height:520px;right:200px;bottom:-320px;background:#F2B544;opacity:.14"></div>
+ <div class="grid"></div>
+ <div class="a brand"><img src="../../brand/logo.svg" style="width:34px">STARSFUEL</div>
+ <div class="a h" id="h"></div><div class="a p" id="p"></div>
+ <div class="a chips" id="chips"></div>
+ <div class="a cta"><b id="cb"></b><span id="cs"></span></div>
+ <div class="st">
+  <div class="ph" style="left:6px;top:150px;transform:rotateY(18deg) rotateX(6deg) rotateZ(4deg) scale(.74)"><div class="sc lt"><div class="is"></div>
+   <div class="app"><i><img src="../../brand/logo.svg" style="width:26px"></i><div><b>StarsFuel</b><small id="l1"></small></div></div>
+   <div style="font:800 19px I;margin:16px 0 4px" id="l2"></div><div id="rows"></div></div></div>
+  <div class="ph" style="left:262px;top:-32px;transform:rotateY(-16deg) rotateX(7deg) rotateZ(-7deg) scale(.86)"><div class="sc"><div class="is"></div>
+   <div class="app"><i><img src="../../brand/logo.svg" style="width:26px"></i><div><b>StarsFuel</b><small id="d1"></small></div></div>
+   <div class="okb"><b id="d2"></b><small id="d3"></small></div>
+   <div class="dt" id="dt"></div></div></div>
+  <div class="nt"><img src="../rhythm_reel/icons/ios_042.png"><div><b id="n1"></b><em id="n2"></em><small id="n3"></small></div></div>
+ </div>
+</div>
+<script>
+const W=[500,600,700,800,900];document.getElementById('ff').textContent=W.map(w=>`@font-face{font-family:I;font-weight:${w};src:url(inter-latin-${w}-normal.woff2)}@font-face{font-family:I;font-weight:${w};src:url(inter-cyrillic-${w}-normal.woff2);unicode-range:U+0400-04FF,U+2116}`).join('');
+const IC='../rhythm_reel/icons/',lang=new URLSearchParams(location.search).get('lang')||'uz';
+const T={uz:{h:"Stars, Premium,<br><em>Gift va raqam</em><br>bitta botda",p:"<b>2 000 000+ Stars sotildi.</b> Telegram uchun hammasi bitta botda: karta bilan to'lang — bot to'lovni o'zi aniqlaydi.",
+  chips:[['ios_093','Stars'],['ios_077','Premium'],['ios_070','Gift · NFT'],['ios_044','Raqam'],['ios_094','Donat']],cb:"Botga kirish: @StarsFuelApp",cs:"100 Stars — 22 000 so'm",
+  l1:"Xavfsiz to'lov",l2:"Xizmatlar",cur:"so'm",act:"FAOL",rows:[['ios_093','100 Stars','22 000'],['ios_077','Premium 1 oy','45 000'],['ios_044','Telegram raqam','10 000'],['ios_070','Gift',0],['ios_094','NFT',0]],
+  d1:"Xavfsiz to'lov",d2:"To'lov qabul qilindi",d3:"22 000 so'm muvaffaqiyatli to'landi",dh:"Buyurtma",paid:"✓ To'landi",dt:[['Xizmat','100 Stars'],['Kimga','@username'],['Summa',"22 000 so'm"]],
+  n1:"To'lov qabul qilindi",n2:"+ 22 000 so'm",n3:"bot o'zi aniqladi"},
+ ru:{h:"Stars, Premium,<br><em>Gift и номера</em><br>в одном боте",p:"<b>Продано 2 000 000+ Stars.</b> Всё для Telegram в одном боте: оплатите картой — бот сам подтвердит оплату.",
+  chips:[['ios_093','Stars'],['ios_077','Premium'],['ios_070','Gift · NFT'],['ios_044','Номер'],['ios_094','Донат']],cb:"Открыть бота: @StarsFuelApp",cs:"100 Stars — 22 000 сум",
+  l1:"Безопасная оплата",l2:"Услуги",cur:"сум",act:"АКТИВНО",rows:[['ios_093','100 Stars','22 000'],['ios_077','Premium 1 мес.','45 000'],['ios_044','Номер Telegram','10 000'],['ios_070','Gift',0],['ios_094','NFT',0]],
+  d1:"Безопасная оплата",d2:"Оплата получена",d3:"22 000 сум успешно оплачено",dh:"Заказ",paid:"✓ Оплачено",dt:[['Услуга','100 Stars'],['Кому','@username'],['Сумма',"22 000 сум"]],
+  n1:"Оплата получена",n2:"+ 22 000 сум",n3:"бот подтвердил сам"}}[lang];
+const $=i=>document.getElementById(i);
+['h','p','cb','cs','l1','l2','d1','d2','d3','n1','n2','n3'].forEach(k=>$(k).innerHTML=T[k]);
+$('chips').innerHTML=T.chips.map(([i,n])=>`<div class="chip"><img src="${IC}${i}.png">${n}</div>`).join('');
+$('rows').innerHTML=T.rows.map(([i,n,v])=>`<div class="rw"><img src="${IC}${i}.png">${n}<span class="${v?'':'f'}">${v?v+' '+T.cur:T.act}</span></div>`).join('');
+$('dt').innerHTML=`<div class="hd">${T.dh}<span>${T.paid}</span></div>`+T.dt.map(([a,b])=>`<div>${a}<b>${b}</b></div>`).join('');
+Promise.all([document.fonts.ready,...W.map(w=>document.fonts.load(`${w} 20px I`,'aЯ')),...[...document.images].map(im=>im.complete?1:new Promise(r=>{im.onload=im.onerror=r}))]).then(()=>window.ready=true);
+</script></body></html>
