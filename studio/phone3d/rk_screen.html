@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:I;font-weight:500;src:url(../slides/inter-latin-500-normal.woff2)}
+@font-face{font-family:I;font-weight:600;src:url(../slides/inter-latin-600-normal.woff2)}
+@font-face{font-family:I;font-weight:700;src:url(../slides/inter-latin-700-normal.woff2)}
+@font-face{font-family:I;font-weight:800;src:url(../slides/inter-latin-800-normal.woff2)}
+html,body{margin:0}*{box-sizing:border-box}
+.s{width:600px;height:1301px;background:#0e1621;font-family:I;color:#fff;position:relative;overflow:hidden}
+.top{height:200px;padding:110px 26px 0;background:#17212b;display:flex;align-items:center;gap:16px}
+.av{width:68px;height:68px;border-radius:50%;background:linear-gradient(145deg,#5CC8FF,#1E6FE0)}
+.top b{display:block;font:700 28px I}.top small{font:500 20px I;color:#7f91a4}
+.post{margin:30px 24px 0;border-radius:28px;background:#182533;overflow:hidden}
+.img{height:330px;background:linear-gradient(135deg,#FF6B8B,#B44660 55%,#5b1f3a);display:flex;align-items:center;justify-content:center;font:800 54px I;letter-spacing:-1px}
+.tx{padding:22px 24px 6px;font:500 24px I;line-height:1.4;color:#e6edf3}
+.tx i{display:block;height:16px;border-radius:8px;background:#2b3a4a;margin-top:12px}
+.rx{display:flex;flex-wrap:wrap;gap:10px;padding:18px 20px 24px}
+.c{display:flex;align-items:center;gap:7px;height:52px;padding:0 16px 0 10px;border-radius:26px;background:#2b5278;font:700 22px I}
+.c img{width:32px;height:32px}.c.me{background:#3e6d9c;outline:3px solid #6ab3f3}
+.meta{padding:0 24px 18px;text-align:right;font:500 18px I;color:#7f91a4}
+.bar{position:absolute;left:24px;right:24px;bottom:90px;height:84px;border-radius:24px;background:#17212b;display:flex;align-items:center;gap:14px;padding:0 18px}
+.bar img{width:52px}.bar b{display:block;font:700 22px I}.bar small{font:500 18px I;color:#6ee7a0}
+</style></head><body><div class="s">
+<div class="top"><div class="av"></div><div><b>Kanalingiz</b><small>12 400 obunachi</small></div></div>
+<div class="post"><div class="img">Yangi post</div>
+<div class="tx">Bugungi yangilik shu yerda.<i style="width:86%"></i><i style="width:58%"></i></div>
+<div class="rx" id="rx"></div><div class="meta">👁 1.2K · 09:41</div></div>
+<div class="bar"><img src="../../reaksiya/brand/avatar_main.svg"><div><b>Reaksiya bot</b><small>● 8 ta reaksiya qo'yildi</small></div></div>
+</div><script>
+const E='❤️ 🔥 👍 🎉 😍 👏 🤩 ⚡'.split(' '),K=e=>[...e].filter(c=>c.codePointAt(0)!==0xfe0f).map(c=>c.codePointAt(0).toString(16)).join('-');
+document.getElementById('rx').innerHTML=E.map((e,i)=>`<div class="c${i==0?' me':''}"><img src="../reaksiya_reel/emoji/${K(e)}.png">1</div>`).join('');
+Promise.all([document.fonts.ready,...[...document.images].map(im=>im.complete?1:new Promise(r=>{im.onload=im.onerror=r}))]).then(()=>window.ready=true);
+</script></body></html>
