@@ -1,0 +1,114 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:I;font-weight:500;src:url(inter-latin-500-normal.woff2)}
+@font-face{font-family:I;font-weight:700;src:url(inter-latin-700-normal.woff2)}
+@font-face{font-family:I;font-weight:800;src:url(inter-latin-800-normal.woff2)}
+@font-face{font-family:I;font-weight:900;src:url(inter-latin-900-normal.woff2)}
+@font-face{font-family:PF;font-weight:900;font-style:italic;src:url(../poster/playfair-display-latin-900-italic.woff2)}
+html,body{margin:0;background:#000}*{box-sizing:border-box}
+#W{position:relative;width:4320px;height:1350px;overflow:hidden;font-family:I;color:#FBF4EE;
+ background:
+  radial-gradient(900px 700px at 700px 380px,rgba(176,103,80,.55),transparent 70%),
+  radial-gradient(800px 700px at 1700px 900px,rgba(242,181,68,.30),transparent 70%),
+  radial-gradient(900px 800px at 2700px 420px,rgba(124,77,255,.38),transparent 70%),
+  radial-gradient(900px 800px at 3800px 900px,rgba(32,190,170,.26),transparent 70%),
+  linear-gradient(90deg,#1c0e09 0%,#1a0f0c 25%,#160d1c 55%,#0d1418 80%,#120d0b 100%)}
+.grain{position:absolute;inset:0;opacity:.5;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .22 0'/></filter><rect width='260' height='260' filter='url(%23n)'/></svg>")}
+.a{position:absolute}
+.giant{left:-20px;top:300px;font:900 820px I;letter-spacing:-30px;line-height:1;white-space:nowrap;color:transparent;-webkit-text-stroke:3px rgba(251,244,238,.07)}
+.rule{height:0;border-top:2px solid rgba(251,244,238,.25)}
+.hdr{font:800 22px I;letter-spacing:4px;display:flex;align-items:center;gap:14px}
+.hdr img{width:42px}
+.pn{white-space:nowrap;font:700 22px I;letter-spacing:3px;color:rgba(251,244,238,.6)}
+.h{font:900 128px I;letter-spacing:-6px;line-height:.9}
+.serif{font-family:PF;font-style:italic;font-weight:900;letter-spacing:-1px;color:#F2B544}
+.lead{font:500 34px I;line-height:1.4;color:rgba(251,244,238,.75)}.lead b{color:#fff;font-weight:800}
+.tag{display:inline-flex;align-items:center;gap:12px;height:48px;padding:0 20px 0 8px;border-radius:24px;background:rgba(251,244,238,.1);border:1.5px solid rgba(251,244,238,.22);font:800 19px I;letter-spacing:2.5px}
+.tag img{width:34px}
+.row{display:flex;align-items:center;justify-content:space-between;padding:24px 0;border-bottom:1.5px solid rgba(251,244,238,.16)}
+.row .l{display:flex;align-items:center;gap:20px;font:800 44px I;letter-spacing:-1.5px;white-space:nowrap}.row .l img{width:62px}
+.row .v{font:900 54px I;letter-spacing:-2px;white-space:nowrap}.row .v small{font:700 22px I;letter-spacing:0;color:rgba(251,244,238,.55);margin-left:8px}
+.row .note{font:800 15px I;letter-spacing:2px;color:#1c0e09;background:#F2B544;border-radius:14px;padding:6px 10px;margin-left:12px}
+.card{border-radius:32px;padding:22px 30px;background:rgba(251,244,238,.07);border:1.5px solid rgba(251,244,238,.16);backdrop-filter:blur(20px);display:flex;align-items:center;gap:26px}
+.card img{width:84px}
+.card .t{font:800 40px I;letter-spacing:-1.2px}.card .d{font:600 24px I;color:rgba(251,244,238,.6);margin-top:6px}
+.card .p{margin-left:auto;font:900 44px I;letter-spacing:-1.5px;white-space:nowrap}
+.card .on{margin-left:auto;font:800 18px I;letter-spacing:2px;color:#0d1418;background:#3BE0B6;border-radius:16px;padding:8px 14px}
+.ph{filter:drop-shadow(0 60px 60px rgba(0,0,0,.6))}
+.ic{filter:drop-shadow(0 30px 40px rgba(0,0,0,.5))}
+.cta{display:inline-flex;align-items:center;gap:18px;height:104px;padding:0 44px 0 20px;border-radius:52px;background:#F2B544;color:#1c0e09;font:900 44px I;letter-spacing:-1px}
+.cta img{width:68px}
+.sw{white-space:nowrap;display:flex;align-items:center;gap:12px;font:700 22px I;letter-spacing:2px}
+.sw i{display:flex;width:52px;height:52px;border-radius:50%;background:#F2B544;color:#1c0e09;align-items:center;justify-content:center;font:900 24px I;font-style:normal}
+</style></head><body>
+<div id="W">
+ <div class="a giant">STARSFUEL</div>
+ <!-- continuous gold ribbon -->
+ <svg class="a" style="left:0;top:0" width="4320" height="1350">
+  <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#B06750"/><stop offset=".35" stop-color="#F2B544"/><stop offset=".65" stop-color="#A57BFF"/><stop offset="1" stop-color="#3BE0B6"/></linearGradient>
+  <filter id="gl"><feGaussianBlur stdDeviation="10"/></filter></defs>
+  <path id="rb" d="M-40 1120 C 400 1240, 700 980, 1080 1010 S 1700 1210, 2160 1080 S 2800 860, 3240 1000 S 3900 1230, 4360 1080" fill="none" stroke="url(#g)" stroke-width="10" filter="url(#gl)" opacity=".8"/>
+  <path d="M-40 1120 C 400 1240, 700 980, 1080 1010 S 1700 1210, 2160 1080 S 2800 860, 3240 1000 S 3900 1230, 4360 1080" fill="none" stroke="url(#g)" stroke-width="4"/>
+  <g id="dots"></g>
+ </svg>
+ <!-- continuous top/bottom rules -->
+ <div class="a rule" style="left:64px;right:64px;top:128px"></div>
+ <div class="a rule" style="left:64px;right:64px;bottom:120px"></div>
+ <div id="P"></div>
+</div>
+<script>
+const IC=n=>`../rhythm_reel/icons/${n}.png`,P=document.getElementById('P');
+let h='';
+// headers & footers per panel
+for(let i=0;i<4;i++){const x=i*1080;
+ h+=`<div class="a hdr" style="left:${x+64}px;top:62px"><img src="../../brand/logo_white.png">STARSFUEL</div>`;
+ h+=`<div class="a pn" style="left:${x+1080-64}px;top:70px;transform:translateX(-100%)">0${i+1} / 04</div>`;
+ h+=`<div class="a sw" style="left:${x+1080-64}px;bottom:46px;transform:translateX(-100%)">${i<3?'Suring<i>→</i>':'Botga kiring<i>↗</i>'}</div>`;
+ h+=`<div class="a pn" style="left:${x+64}px;bottom:60px">@STARSFUELAPP</div>`;}
+// PANEL 1
+h+=`<div class="a" style="left:64px;top:190px"><span class="tag"><img src="${IC('ios_086')}">TELEGRAM UCHUN</span></div>
+<div class="a h" style="left:64px;top:290px">Hammasi<br><span class="serif" style="font-size:150px">bir joyda.</span></div>
+<div class="a lead" style="left:64px;top:600px;width:680px">Stars, Premium, Gift, NFT, raqam va o'yin donati — <b>karta bilan, bitta botda.</b></div>
+<img class="a ic" src="${IC('ios_093')}" style="left:90px;top:800px;width:150px;transform:rotate(-10deg)">
+<img class="a ic" src="${IC('ios_070')}" style="left:290px;top:860px;width:120px;transform:rotate(8deg)">
+<img class="a ic" src="${IC('ios_094')}" style="left:470px;top:800px;width:110px;transform:rotate(-6deg)">`;
+// seam 1: phone
+h+=`<img class="a ph" src="ph3d/phone_buy_uz.png" style="left:${1080-300}px;top:200px;height:1000px;transform:rotate(-6deg)">`;
+// PANEL 2 Stars
+h+=`<div class="a" style="left:1340px;top:190px"><span class="tag"><img src="${IC('ios_093')}">TELEGRAM STARS</span></div>
+<div class="a" style="left:1330px;top:270px;font:900 330px I;letter-spacing:-20px;line-height:.85;color:#F2B544">50</div>
+<div class="a h" style="left:1340px;top:560px;font-size:92px">Stars —<br><span class="serif" style="font-size:100px">11 ming so'm.</span></div>
+<div class="a" style="left:1340px;top:800px;width:600px">
+ <div class="row"><div class="l"><img src="${IC('ios_093')}">50 Stars</div><div class="v">11 000<small>so'm</small></div></div>
+ <div class="row"><div class="l"><img src="${IC('ios_005')}">100 Stars</div><div class="v">22 000<small>so'm</small></div></div></div>`;
+// seam 2: big premium + star icons
+h+=`<img class="a ic" src="${IC('ios_077')}" style="left:${2160-190}px;top:260px;width:380px;transform:rotate(9deg)">
+<img class="a ic" src="${IC('ios_093')}" style="left:${2160-40}px;top:640px;width:180px;transform:rotate(-12deg)">
+<img class="a ic" src="${IC('ios_100')}" style="left:${2160-200}px;top:780px;width:140px;transform:rotate(-4deg)">`;
+// PANEL 3 Premium
+h+=`<div class="a" style="left:2420px;top:190px"><span class="tag"><img src="${IC('ios_077')}">TELEGRAM PREMIUM</span></div>
+<div class="a h" style="left:2420px;top:290px;font-size:100px">Premium —<br><span class="serif" style="font-size:108px;color:#C9A8FF">sizga mos.</span></div>
+<div class="a" style="left:2420px;top:560px;width:560px">
+ <div class="row"><div class="l" style="font-size:40px">1 oy<span class="note">ADMIN ORQALI</span></div><div class="v">45 000</div></div>
+ <div class="row"><div class="l" style="font-size:40px">3 oy</div><div class="v">190 000</div></div>
+ <div class="row"><div class="l" style="font-size:40px">6 oy</div><div class="v">250 000</div></div>
+ <div class="row"><div class="l" style="font-size:40px">12 oy</div><div class="v">400 000</div></div>
+ <div class="lead" style="font-size:24px;margin-top:16px">narxlar so'mda</div></div>`;
+// seam 3: phone
+h+=`<img class="a ph" src="ph3d/phone_ok_uz.png" style="left:${3240-300}px;top:170px;height:1000px;transform:rotate(7deg)">`;
+// PANEL 4
+h+=`<div class="a" style="left:3540px;top:190px"><span class="tag"><img src="${IC('ios_042')}">YANA</span></div>
+<div class="a h" style="left:3540px;top:290px;font-size:100px">Raqam, donat<br><span class="serif" style="font-size:108px;color:#3BE0B6">va sovg'a.</span></div>
+<div class="a" style="left:3540px;top:530px;width:716px;display:flex;flex-direction:column;gap:18px">
+ <div class="card"><img src="${IC('ios_044')}"><div><div class="t">Telegram raqam</div><div class="d">akkaunt uchun</div></div><div class="p">10 000</div></div>
+ <div class="card"><img src="${IC('ios_020')}"><div><div class="t">O'yin donati</div><div class="d">PUBG UC · Free Fire · MLBB</div></div><div class="on">FAOL</div></div>
+ <div class="card"><img src="${IC('ios_070')}"><div><div class="t">Gift va NFT</div><div class="d">sovg'a qiling</div></div><div class="on">FAOL</div></div></div>
+<div class="a" style="left:3540px;top:1070px"><span class="cta"><img src="../../brand/logo_on_terracotta.png" style="border-radius:50%">@StarsFuelApp</span></div>`;
+P.innerHTML=h;
+// sparkle dots along the ribbon
+const pth=document.getElementById('rb'),L=pth.getTotalLength();let d='';
+for(let k=0;k<70;k++){const p=pth.getPointAtLength(L*k/70+((k*37)%13)),o=((k*53)%60)-30,r=2+(k*7)%5;
+ d+=`<circle cx="${p.x}" cy="${p.y+o}" r="${r}" fill="#fff" opacity="${.25+((k*11)%7)/10}"/>`;}
+document.getElementById('dots').innerHTML=d;
+Promise.all([...document.images].map(i=>i.complete?1:new Promise(r=>i.onload=i.onerror=r))).then(()=>document.fonts.ready).then(()=>window.ready=true);
+</script></body></html>
