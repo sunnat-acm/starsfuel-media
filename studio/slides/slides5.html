@@ -1,0 +1,81 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:I;font-weight:500;src:url(inter-latin-500-normal.woff2)}
+@font-face{font-family:I;font-weight:600;src:url(inter-latin-600-normal.woff2)}
+@font-face{font-family:I;font-weight:700;src:url(inter-latin-700-normal.woff2)}
+@font-face{font-family:I;font-weight:800;src:url(inter-latin-800-normal.woff2)}
+@font-face{font-family:I;font-weight:900;src:url(inter-latin-900-normal.woff2)}
+@font-face{font-family:PF;font-weight:700;font-style:italic;src:url(../poster/playfair-display-latin-700-italic.woff2)}
+@font-face{font-family:PF;font-weight:900;font-style:italic;src:url(../poster/playfair-display-latin-900-italic.woff2)}
+html,body{margin:0}*{box-sizing:border-box}
+.s{position:relative;width:1080px;height:1350px;overflow:hidden;background:#F4ECE1;font-family:I;color:#2A160F}
+.paper{position:absolute;inset:0;opacity:.35;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .38 0 0 0 0 .28 0 0 0 .18 0'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>")}
+.a{position:absolute}
+.top{left:64px;right:64px;top:56px;display:flex;justify-content:space-between;align-items:center;font:800 22px I;letter-spacing:3px}
+.top .b{display:flex;align-items:center;gap:12px}.top img{width:40px}
+.rule{left:64px;right:64px;height:0;border-top:2.5px solid #2A160F}
+.num{font:900 340px I;letter-spacing:-22px;line-height:.8;color:#B06750}
+.serif{font-family:PF;font-style:italic;font-weight:900;letter-spacing:-1px}
+.h{font:900 112px I;letter-spacing:-6px;line-height:.92}
+.lead{font:500 34px I;line-height:1.35;color:#5a4438}.lead b{color:#2A160F;font-weight:800}
+.foot{left:64px;right:64px;bottom:52px;display:flex;justify-content:space-between;align-items:center;font:700 22px I;letter-spacing:2px}
+.foot .sw{display:flex;align-items:center;gap:12px}.foot .sw i{display:flex;width:52px;height:52px;border-radius:50%;background:#2A160F;color:#F4ECE1;align-items:center;justify-content:center;font:900 24px I;font-style:normal}
+.row{display:flex;align-items:baseline;justify-content:space-between;padding:26px 0;border-bottom:2px solid rgba(42,22,15,.18)}
+.row .l{display:flex;align-items:center;gap:22px;white-space:nowrap;font:800 46px I;letter-spacing:-1.5px}.row .l img{width:72px}
+.row .v{font:900 58px I;letter-spacing:-2.5px;white-space:nowrap}.row .v small{font:700 24px I;letter-spacing:0;color:#8a6e60;margin-left:8px}
+.tag{display:inline-flex;align-items:center;height:44px;padding:0 18px;border-radius:22px;background:#B06750;color:#fff;font:800 18px I;letter-spacing:2px}
+.ph{filter:drop-shadow(0 50px 50px rgba(80,40,20,.35))}
+.ic{filter:drop-shadow(0 18px 24px rgba(80,40,20,.3))}
+</style></head><body>
+<div class="s" id="s"><div class="paper"></div></div>
+<script>
+const N=+(new URLSearchParams(location.search).get('s')||1),IC=n=>`../rhythm_reel/icons/${n}.png`;
+const TOP=`<div class="a top"><div class="b"><img src="../../brand/logo_terracotta.svg">STARSFUEL</div><div>@STARSFUELAPP</div></div><div class="a rule" style="top:124px"></div>`;
+const foot=(n,last)=>`<div class="a rule" style="bottom:128px"></div><div class="a foot"><div>${String(n).padStart(2,'0')} / 05</div><div class="sw">${last?'Botga kiring':'Suring'}<i>${last?'↗':'→'}</i></div></div>`;
+const S={
+1:`${TOP}
+ <div class="a" style="left:64px;top:156px;z-index:2"><span class="tag">TELEGRAM UCHUN</span></div>
+ <div class="a h" style="left:58px;top:200px;font-size:132px;z-index:2">Hammasi<br><span class="serif" style="font-size:150px;color:#B06750;letter-spacing:-2px">bir joyda.</span></div>
+ <div class="a lead" style="left:64px;top:560px;width:440px">Stars, Premium, Gift, NFT, raqam va o'yin donati — <b>karta bilan</b>.</div>
+ <img class="a ph" src="ph3d/phone_buy_uz.png" style="left:520px;top:440px;height:830px">
+ <img class="a ic" src="${IC('ios_093')}" style="left:80px;top:900px;width:150px;transform:rotate(-10deg)">
+ <img class="a ic" src="${IC('ios_077')}" style="left:250px;top:1000px;width:110px;transform:rotate(12deg)">
+ ${foot(1)}`,
+2:`${TOP}
+ <div class="a num" style="left:40px;top:160px">50</div>
+ <div class="a h" style="left:64px;top:440px;font-size:96px">Stars —<br><span class="serif" style="font-size:96px;color:#B06750">11 ming<br>so'm.</span></div>
+ <div class="a lead" style="left:64px;top:770px;width:500px;font-size:30px">Sovg'a yuboring, reaksiya bosing, botlarda to'lang. <b>O'zingizga yoki do'stingizga.</b></div>
+ <div class="a" style="left:64px;top:920px;width:520px">
+  <div class="row"><div class="l" style="font-size:38px"><img src="${IC('ios_093')}" style="width:56px">50 Stars</div><div class="v">11 000<small>so'm</small></div></div>
+  <div class="row"><div class="l" style="font-size:38px"><img src="${IC('ios_005')}" style="width:56px">100 Stars</div><div class="v">22 000<small>so'm</small></div></div></div>
+ <img class="a ph" src="ph3d/phone_ok_uz.png" style="left:600px;top:250px;height:880px">
+ ${foot(2)}`,
+3:`${TOP}
+ <div class="a" style="left:64px;top:180px"><span class="tag">TELEGRAM PREMIUM</span></div>
+ <div class="a h" style="left:58px;top:250px">Premium —<br><span class="serif" style="font-size:128px;color:#B06750">o'zingizga mos.</span></div>
+ <img class="a ic" src="${IC('ios_077')}" style="right:70px;top:190px;width:200px;transform:rotate(10deg)">
+ <div class="a" style="left:64px;right:64px;top:560px">
+  <div class="row"><div class="l"><img src="${IC('ios_061')}">1 oy <span class="tag" style="height:36px;font-size:15px;background:#2A160F">ADMIN ORQALI</span></div><div class="v">45 000<small>so'm</small></div></div>
+  <div class="row"><div class="l"><img src="${IC('ios_058')}">3 oy</div><div class="v">190 000<small>so'm</small></div></div>
+  <div class="row"><div class="l"><img src="${IC('ios_076')}">6 oy</div><div class="v">250 000<small>so'm</small></div></div>
+  <div class="row" style="border-bottom:none"><div class="l"><img src="${IC('ios_100')}">12 oy</div><div class="v" style="color:#B06750">400 000<small>so'm</small></div></div></div>
+ ${foot(3)}`,
+4:`${TOP}
+ <div class="a h" style="left:58px;top:180px;font-size:104px">Raqam,<br>donat <span class="serif" style="font-size:116px;color:#B06750">va sovg'a.</span></div>
+ ${[['ios_044','Telegram raqam','Yangi akkaunt uchun','10 000',"so'm"],['ios_094',"O'yin donati",'PUBG UC · Free Fire · MLBB','FAOL',''],['ios_070','Gift va NFT',"Telegram sovg'alari",'FAOL','']].map((r,i)=>`
+ <div class="a" style="left:64px;right:64px;top:${470+i*230}px;height:200px;border-radius:40px;background:${i==0?'#2A160F':'#fff'};color:${i==0?'#F4ECE1':'#2A160F'};display:flex;align-items:center;gap:30px;padding:0 44px 0 34px;box-shadow:0 20px 40px rgba(80,40,20,.12)">
+  <img class="ic" src="${IC(r[0])}" style="width:130px"><div style="flex:1"><div style="font:900 50px I;letter-spacing:-2px">${r[1]}</div><div style="font:600 25px I;opacity:.65;margin-top:4px">${r[2]}</div></div>
+  ${r[4]?`<div style="font:900 60px I;letter-spacing:-2.5px;white-space:nowrap">${r[3]}<span style="font:700 24px I;letter-spacing:0;opacity:.6;margin-left:8px">${r[4]}</span></div>`:`<span class="tag" style="background:#3f8a4f;font-size:22px;height:52px;padding:0 24px">${r[3]}</span>`}</div>`).join('')}
+ ${foot(4)}`,
+5:`${TOP}
+ <div class="a" style="left:64px;top:180px"><span class="tag">QANDAY OLINADI?</span></div>
+ ${[['Botga kiring','@StarsFuelApp'],['Xizmatni tanlang','Stars, Premium, raqam...'],["Karta bilan to'lang","Bot ko'rsatgan aniq summani"],['Tayyor','Bot to\'lovni o\'zi aniqlaydi']].map((r,i)=>`
+ <div class="a" style="left:64px;right:64px;top:${270+i*175}px;display:flex;align-items:center;gap:34px;padding-bottom:22px;border-bottom:2px solid rgba(42,22,15,.18)">
+  <div class="serif" style="font-size:120px;line-height:1;color:#B06750;width:110px">${i+1}</div><div><div style="font:900 50px I;letter-spacing:-2px">${r[0]}</div><div style="font:600 26px I;color:#8a6e60;margin-top:2px">${r[1]}</div></div></div>`).join('')}
+ <div class="a" style="left:64px;right:64px;top:1000px;height:120px;border-radius:60px;background:#2A160F;color:#F4ECE1;display:flex;align-items:center;padding:0 46px 0 16px;gap:22px">
+  <div style="width:90px;height:90px;border-radius:50%;background:#B06750;display:flex;align-items:center;justify-content:center"><img src="../../brand/logo.svg" style="width:58px"></div>
+  <div style="font:900 54px I;letter-spacing:-2px">@StarsFuelApp</div><div class="serif" style="margin-left:auto;font-size:40px;color:#E8A98F">Telegram'da</div></div>
+ ${foot(5,true)}`};
+document.getElementById('s').insertAdjacentHTML('beforeend',S[N]);
+Promise.all([document.fonts.ready,...[...document.images].map(im=>im.complete?1:new Promise(r=>{im.onload=im.onerror=r}))]).then(()=>window.ready=true);
+</script></body></html>
