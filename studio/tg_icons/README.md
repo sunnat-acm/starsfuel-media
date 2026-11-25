@@ -1,3 +1,32 @@
+# Telegram ikonlar: SVG va PNG
+
+Har bir to'plamda 3 xil format bor:
+
+| Papka | JSON (animatsiya) | SVG (vektor) | PNG (512×512, shaffof fon) |
+|---|---|---|---|
+| `ios/` | `ios/json/093.json` | `ios/svg/ios_093.svg` | `ios/png/ios_093.png` |
+| `android/` | `android/json/002.json` | `android/svg/android_002.svg` | `android/png/android_002.png` |
+| `status/` | `status/json/031.json` | `status/svg/status_031.svg` | `status/png/status_031.png` |
+| `duck/` | `duck/json/016.json` | `duck/svg/duck_016.svg` | `duck/png/duck_016.png` |
+
+Soni: ios 101, android 515, status 96, duck 181 (duck 042 juda og'ir, faqat JSON'da bor).
+
+- SVG va PNG — animatsiyaning tayyor (oxirgi) kadri; duck uchun o'rtadagi kadr.
+- `android/` va `status/` ikonlari oq rangda: oq fonda ko'rinmaydi, rangli yoki to'q fonga qo'ying.
+- Raqamni tanlash uchun: `ios/sheet.png`, `android/sheet_1.jpg`, `android/sheet_2.jpg`, `status/sheet.jpg`, `duck/sheet.jpg`.
+
+## To'g'ridan-to'g'ri havola
+```
+https://raw.githubusercontent.com/sunnat-acm/starsfuel-media/main/studio/tg_icons/ios/svg/ios_093.svg
+https://raw.githubusercontent.com/sunnat-acm/starsfuel-media/main/studio/tg_icons/ios/png/ios_093.png
+https://raw.githubusercontent.com/sunnat-acm/starsfuel-media/main/studio/tg_icons/android/svg/android_434.svg
+```
+Saytda: `<img src="…/ios/svg/ios_093.svg" width="96">`. Rasm yoki banner uchun PNG, sifat kerak bo'lsa SVG ishlating.
+
+Qayta yaratish skripti: `export_icons.py` (Playwright + lottie-web).
+
+---
+
 # Telegram Lottie icon & emoji packs
 
 Foydalanuvchi yuborgan 4 ta Lottie (JSON) to'plam. Hammasi 512x512, 60 fps. Har papkada `json/NNN.json` va ko'rinish varag'i (`sheet*.jpg/png`, raqamlari bilan).
